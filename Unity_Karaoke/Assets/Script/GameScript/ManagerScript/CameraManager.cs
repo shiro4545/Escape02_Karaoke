@@ -115,6 +115,18 @@ public class CameraManager : MonoBehaviour
                 }
             }
         },
+        {
+            "Denmoku",//デンモク
+            new CameraPositionInfo
+            {
+                Position=new Vector3(2,6,-1.47f),
+                Rotate =new Vector3(40,90,0),
+                MoveNames=new MoveNames
+                {
+                    Back="RoomLeft",
+                }
+            }
+        },
     };
 
     // Start is called before the first frame update
