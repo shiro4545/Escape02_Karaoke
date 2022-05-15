@@ -11,7 +11,10 @@ public class SampleScript3 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //Func()関数を呼び出す
+        //他のクラスの変数を取得
+        Debug.Log(SS2.test1);
+
+        //他のクラスのFunc()関数を呼び出す
         SS2.Func();
 
         //他のクラスの変数に代入
