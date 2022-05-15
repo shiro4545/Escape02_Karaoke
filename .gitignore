@@ -72,3 +72,5 @@ sysinfo.txt
 */[Aa]ssets/[Ss]treamingAssets/aa/*
 
 .DS_Store
+
+Unity_Karaoke/Assets/gameSaveData.json

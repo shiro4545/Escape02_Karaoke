@@ -51,21 +51,21 @@ public class CameraManager : MonoBehaviour
     private Dictionary<string, CameraPositionInfo> CameraPositionInfoes = new Dictionary<string, CameraPositionInfo>
     {
         {
-            "RoomFlont",//正面
+            "RoomStart",//スタート位置
             new CameraPositionInfo
             {
                 Position=new Vector3(23,7.36f,8.2f),
                 Rotate =new Vector3(2.3f,-113,0),
                 MoveNames=new MoveNames
                 {
-                    Left="RoomLeft",
-                    Right="RoomRight",
+                    Left="RoomSofa",
+                    Right="RoomTV",
                 },
                 //hideObjectsName = new string[]{"nazo3","tearai"}
             }
         },
         {
-            "RoomLeft",//左壁方向
+            "RoomSofa",//ソファ方向
             new CameraPositionInfo
             {
                 Position=new Vector3(16,5.4f,-10.4f),
@@ -73,33 +73,33 @@ public class CameraManager : MonoBehaviour
                 MoveNames=new MoveNames
                 {
                     Left="RoomDoor",
-                    Right="RoomFlont",
+                    Right="RoomStart",
                 }
             }
         },
         {
-            "RoomRight",//右壁方向
+            "RoomTV",//TV方向
             new CameraPositionInfo
             {
                 Position=new Vector3(-7.5f,5.3f,10),
                 Rotate =new Vector3(0,-208,0),
                 MoveNames=new MoveNames
                 {
-                    Left="RoomFlont",
+                    Left="RoomStart",
                     Right="RoomDoor",
                 },
             }
         },
         {
-            "RoomDoor",//後壁方向
+            "RoomDoor",//ドア方向
             new CameraPositionInfo
             {
                 Position=new Vector3(-8.25f,5.4f,-7),
                 Rotate =new Vector3(0,76.5f,0),
                 MoveNames=new MoveNames
                 {
-                    Left="RoomRight",
-                    Right="RoomLeft",
+                    Left="RoomTV",
+                    Right="RoomSofa",
                 }
             }
         },
@@ -111,7 +111,7 @@ public class CameraManager : MonoBehaviour
                 Rotate =new Vector3(3,90,0),
                 MoveNames=new MoveNames
                 {
-                    Back="RoomFlont",
+                    Back="RoomDoor",
                 }
             }
         },
@@ -123,7 +123,31 @@ public class CameraManager : MonoBehaviour
                 Rotate =new Vector3(65,180,0),
                 MoveNames=new MoveNames
                 {
-                    Back="RoomRight",
+                    Back="RoomTV",
+                }
+            }
+        },
+        {
+            "BlueBox",//青箱
+            new CameraPositionInfo
+            {
+                Position=new Vector3(10.4f,5.4f,5.7f),
+                Rotate =new Vector3(30,180,0),
+                MoveNames=new MoveNames
+                {
+                    Back="RoomStart",
+                }
+            }
+        },
+        {
+            "BlueBoxBtn",//青箱ボタン
+            new CameraPositionInfo
+            {
+                Position=new Vector3(10.33f,3.4f,4f),
+                Rotate =new Vector3(12,180,0),
+                MoveNames=new MoveNames
+                {
+                    Back="BlueBox",
                 }
             }
         },
@@ -133,7 +157,7 @@ public class CameraManager : MonoBehaviour
     void Start()
     {
         Instance = this;
-        ChangeCameraPosition("RoomFlont");
+        ChangeCameraPosition("RoomStart");
 
         ButtonLeft.GetComponent<Button>().onClick.AddListener(() =>
         {

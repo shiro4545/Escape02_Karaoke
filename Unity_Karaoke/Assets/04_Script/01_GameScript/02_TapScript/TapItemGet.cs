@@ -5,12 +5,12 @@ using UnityEngine.EventSystems;
 
 public class TapItemGet : TapCollider
 {
-    public string itemName;
+    public string item_Name;
     protected override void OnTap()
     {
       base.OnTap();
 
       this.gameObject.SetActive(false);
-      ItemManager.Instance.getItem(itemName);
+      ItemManager.Instance.getItem(item_Name);
     }
 }
