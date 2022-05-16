@@ -10,7 +10,7 @@ public class Hirakawa_sample : MonoBehaviour
 
         Debug.Log("moji");
 
-        public int 
+        //public int 
         
             
         
