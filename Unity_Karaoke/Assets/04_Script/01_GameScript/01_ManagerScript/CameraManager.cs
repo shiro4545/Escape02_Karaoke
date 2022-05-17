@@ -61,7 +61,7 @@ public class CameraManager : MonoBehaviour
                     Left="RoomSofa",
                     Right="RoomTV",
                 },
-                //hideObjectsName = new string[]{"nazo3","tearai"}
+                hideObjectsName = new string[]{"Hanger" }
             }
         },
         {
@@ -107,8 +107,20 @@ public class CameraManager : MonoBehaviour
             "Door",//ドア
             new CameraPositionInfo
             {
-                Position=new Vector3(7,6,-3.5f),
+                Position=new Vector3(8.2f,6,-5f),
                 Rotate =new Vector3(3,90,0),
+                MoveNames=new MoveNames
+                {
+                    Back="RoomDoor",
+                }
+            }
+        },
+        {
+            "Hanger",//ハンガー
+            new CameraPositionInfo
+            {
+                Position=new Vector3(8.8f,7f,-7.6f),
+                Rotate =new Vector3(3,45,0),
                 MoveNames=new MoveNames
                 {
                     Back="RoomDoor",
