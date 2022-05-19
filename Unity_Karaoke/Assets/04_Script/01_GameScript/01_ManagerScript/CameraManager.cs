@@ -100,7 +100,8 @@ public class CameraManager : MonoBehaviour
                 {
                     Left="RoomTV",
                     Right="RoomSofa",
-                }
+                },
+                hideObjectsName = new string[]{"Shelf","KaraokeMachine" }
             }
         },
         {
@@ -160,6 +161,18 @@ public class CameraManager : MonoBehaviour
                 MoveNames=new MoveNames
                 {
                     Back="BlueBox",
+                }
+            }
+        },
+        {
+            "Shelf",//カラオケ機が入った棚
+            new CameraPositionInfo
+            {
+                Position=new Vector3(0.5f,7.4f,-6.5f),
+                Rotate =new Vector3(28,-90,0),
+                MoveNames=new MoveNames
+                {
+                    Back="RoomStart",
                 }
             }
         },
