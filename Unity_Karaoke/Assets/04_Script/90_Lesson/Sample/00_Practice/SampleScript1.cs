@@ -5,9 +5,9 @@ using UnityEngine;
 public class SampleScript1 : MonoBehaviour
 {
     //変数宣言 (基本型)
-    public int Number1 = 12;
-    public float Number2 = 3.14f;
-    public string Moji = "脱出";
+    public int Number1 = 12;//int:整数
+    public float Number2 = 3.14f;//float:小数点含む
+    public string Moji = "脱出";//string:文字列型
     public bool isClear = true; //false or true
 
 
@@ -31,7 +31,7 @@ public class SampleScript1 : MonoBehaviour
         }
 
         //②if文
-        if (Number1 != 10 && Number2 > 3)
+        if (Number1 != 10 && Number2 > 3)//「！=:等しくない場合」「&&：且つ」
         {
             Debug.Log("②trueです");
         }
