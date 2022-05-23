@@ -16,22 +16,6 @@ public class SampleScript2 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //Func()関数を呼び出す
-        Func();
-
-        //足し算関数1を呼び出す
-        Tashizan1();
-
-
-        //足し算関数2を呼び出す (引数)
-        Tashizan2(100);
-
-        //足し算関数3を呼び出す (返り値)
-        Debug.Log(answerNo);
-        answerNo = Tashizan3(9);
-        Debug.Log(answerNo);
-        
-            
         
     }
 

@@ -7,7 +7,7 @@ public class UmpeiPractice : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("•¶Žš");
+        Debug.Log(Umpei("umpei" , "koga"));
     }
 
     // Update is called once per frame
@@ -15,4 +15,11 @@ public class UmpeiPractice : MonoBehaviour
     {
         
     }
+
+    public string Umpei(string moji , string moji2)
+    {
+        string testmoji = moji2 + " " + moji;
+        return testmoji;
+    }
+    
 }
