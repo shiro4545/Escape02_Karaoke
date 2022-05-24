@@ -16,7 +16,15 @@ public class SampleScript2 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        Func();
+
+        Tashizan1();
+
+        Tashizan2(100);
+
+        answerNo = Tashizan3(9);
+        Debug.Log(answerNo);
+
     }
 
     // Update is called once per frame
