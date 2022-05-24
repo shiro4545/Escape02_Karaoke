@@ -22,21 +22,22 @@ public class Judge_BlueBox : MonoBehaviour
     public void JudgeAnswer(string buttonName,int Index)
     {
       //入力値を更新
-        if(buttonName == "Left")
+        if(buttonName == "Left") //左ボタンの時
         {
             //1桁目をチェンジ
             InputNo = Index + InputNo.Substring(1);
         }
-        else if(buttonName == "Center")
+        else if(buttonName == "Center") //中央ボタンの時
         {
             //2桁目をチェンジ
             InputNo = InputNo.Substring(0, 1) + Index + InputNo.Substring(2);
         }
-        else
+        else //右ボタンの時
         {
             //3桁目をチェンジ
             InputNo = InputNo.Substring(0, 2) + Index;
         }
+
 
         //答え判定
         if (InputNo == AnswerNo)

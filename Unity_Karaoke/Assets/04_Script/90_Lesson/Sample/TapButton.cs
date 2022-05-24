@@ -6,9 +6,9 @@ public class TapButton : TapCollider
 {
     //ボタン名
     public string ButtonName;
-    //通し番号0~4
+    //インデックス
     public int Index;
-    //画像オブジェクトの配列
+    //オブジェクト配列
     public GameObject[] Objects;
 
     //答え合せクラス
@@ -33,7 +33,7 @@ public class TapButton : TapCollider
         //インデックスを+1
         Index++;
 
-        //インデックスが4の場合、0に戻る
+        //インデックスがオブジェクト配列の要素数と同じ以上の場合、0に戻る
         if (Index >= Objects.Length)
         {
             Index = 0;
@@ -42,10 +42,10 @@ public class TapButton : TapCollider
         //次の画像を表示
         Objects[Index].SetActive(true);
 
-        //ボタンをへこます(サイズを小さくする)
+        //ボタンをへこます(スケールを小さくする)
         this.gameObject.transform.localScale = new Vector3(9, 1, 9);
 
-        //0.1秒後にボタンサイズを元に戻す
+        //0.1秒後にボタンスケールを元に戻す
         Invoke(nameof(delayButton), 0.1f);
 
         //答え合せ
