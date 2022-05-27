@@ -11,11 +11,9 @@ public class TapCollider : MonoBehaviour
     void Start()
     {
         var CurrentTrigger = gameObject.AddComponent<EventTrigger>();
-
         var EntryClick = new EventTrigger.Entry();
         EntryClick.eventID = EventTriggerType.PointerClick;
         EntryClick.callback.AddListener((x) => OnTap());
-
         CurrentTrigger.triggers.Add(EntryClick);
     }
 
@@ -26,6 +24,7 @@ public class TapCollider : MonoBehaviour
         GetComponent<BoxCollider>().enabled = true;
       else GetComponent<BoxCollider>().enabled = false;
     }
+
 
     protected virtual void OnTap()
     {

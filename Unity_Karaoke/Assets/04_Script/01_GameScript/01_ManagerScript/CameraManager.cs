@@ -61,7 +61,7 @@ public class CameraManager : MonoBehaviour
                     Left="RoomSofa",
                     Right="RoomTV",
                 },
-                hideObjectsName = new string[]{"Hanger","Aircon"}
+                hideObjectsName = new string[]{"Hanger"}
             }
         },
         {
@@ -101,7 +101,7 @@ public class CameraManager : MonoBehaviour
                     Left="RoomTV",
                     Right="RoomSofa",
                 },
-                hideObjectsName = new string[]{"Shelf","KaraokeMachine" }
+                hideObjectsName = new string[]{"Shelf" }
             }
         },
         {
