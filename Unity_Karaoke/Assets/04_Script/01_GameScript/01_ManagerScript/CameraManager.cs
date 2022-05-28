@@ -54,8 +54,8 @@ public class CameraManager : MonoBehaviour
             "RoomStart",//スタート位置
             new CameraPositionInfo
             {
-                Position=new Vector3(23,7.36f,8.2f),
-                Rotate =new Vector3(2.3f,-113,0),
+                Position=new Vector3(23.2f,7.36f,8.1f),
+                Rotate =new Vector3(2.3f,-117,0),
                 MoveNames=new MoveNames
                 {
                     Left="RoomSofa",
@@ -117,14 +117,38 @@ public class CameraManager : MonoBehaviour
             }
         },
         {
-            "Hanger",//ハンガー
+            "Phone",//電話
             new CameraPositionInfo
             {
-                Position=new Vector3(8.8f,7f,-7.6f),
-                Rotate =new Vector3(3,45,0),
+                Position=new Vector3(14f,6,-4f),
+                Rotate =new Vector3(3,64,0),
                 MoveNames=new MoveNames
                 {
                     Back="RoomDoor",
+                }
+            }
+        },
+        {
+            "Hanger",//ハンガー
+            new CameraPositionInfo
+            {
+                Position=new Vector3(10f,6.5f,-9.2f),
+                Rotate =new Vector3(3,30,0),
+                MoveNames=new MoveNames
+                {
+                    Back="RoomDoor",
+                }
+            }
+        },
+        {
+            "Desk",//デスク
+            new CameraPositionInfo
+            {
+                Position=new Vector3(15.1f,6.9f,0f),
+                Rotate =new Vector3(25,0,0),
+                MoveNames=new MoveNames
+                {
+                    Back="Hanger",
                 }
             }
         },
@@ -173,6 +197,30 @@ public class CameraManager : MonoBehaviour
                 MoveNames=new MoveNames
                 {
                     Back="RoomStart",
+                }
+            }
+        },
+        {
+            "Picture",//絵
+            new CameraPositionInfo
+            {
+                Position=new Vector3(-1f,7.3f,-1.4f),
+                Rotate =new Vector3(0,0,0),
+                MoveNames=new MoveNames
+                {
+                    Back="RoomSofa",
+                }
+            }
+        },
+        {
+            "Poster",//ポスター
+            new CameraPositionInfo
+            {
+                Position=new Vector3(-1.3f,7.3f,2.1f),
+                Rotate =new Vector3(0,-61,0),
+                MoveNames=new MoveNames
+                {
+                    Back="RoomSofa",
                 }
             }
         },
