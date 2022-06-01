@@ -192,8 +192,8 @@ public class CameraManager : MonoBehaviour
             "Shelf",//カラオケ機が入った棚
             new CameraPositionInfo
             {
-                Position=new Vector3(0.5f,7.4f,-6.5f),
-                Rotate =new Vector3(28,-90,0),
+                Position=new Vector3(-0.2f,7.4f,-4f),
+                Rotate =new Vector3(28,252,0),
                 MoveNames=new MoveNames
                 {
                     Back="RoomStart",

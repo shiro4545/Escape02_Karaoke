@@ -7,7 +7,7 @@ public class TapButton : TapCollider
     //ボタン名
     public string ButtonName;
     //インデックス
-    public int Index;
+    public int Index = 0;
     //オブジェクト配列
     public GameObject[] Objects;
 
@@ -35,9 +35,7 @@ public class TapButton : TapCollider
 
         //インデックスがオブジェクト配列の要素数と同じ以上の場合、0に戻る
         if (Index >= Objects.Length)
-        {
             Index = 0;
-        }
 
         //次の画像を表示
         Objects[Index].SetActive(true);
