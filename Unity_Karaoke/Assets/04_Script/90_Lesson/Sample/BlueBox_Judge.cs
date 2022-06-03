@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Judge_BlueBox : MonoBehaviour
+public class BlueBox_Judge : MonoBehaviour
 {
     //正解したかどうか
     public bool isClear = false;
@@ -53,6 +53,8 @@ public class Judge_BlueBox : MonoBehaviour
             //1秒後にカメラ移動
             Invoke(nameof(AfterClear1), 1);
 
+            //最後にセーブ
+            SaveLoadSystem.Instance.Save();
         }
 
     }
@@ -74,7 +76,7 @@ public class Judge_BlueBox : MonoBehaviour
         //効果音
         AudioManager.Instance.SoundSE("Slide");
         //スライド開く
-        UnderSlide.gameObject.transform.Translate(new Vector3(-0.7f, 0, 0));
+        UnderSlide.transform.Translate(new Vector3(-0.7f, 0, 0));
         //画面ブロックを解除
         BlockPanel.Instance.HideBlock();
     }

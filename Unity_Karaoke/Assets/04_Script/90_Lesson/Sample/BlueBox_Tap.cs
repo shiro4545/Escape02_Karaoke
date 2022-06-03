@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TapButton : TapCollider
+public class BlueBox_Tap : TapCollider
 {
     //ボタン名
     public string ButtonName;
@@ -12,7 +12,7 @@ public class TapButton : TapCollider
     public GameObject[] Objects;
 
     //答え合せクラス
-    public Judge_BlueBox JudgeClass;
+    public BlueBox_Judge JudgeClass;
 
 
     //ボタンタップ時
@@ -40,10 +40,10 @@ public class TapButton : TapCollider
         //次の画像を表示
         Objects[Index].SetActive(true);
 
-        //ボタンをへこます(スケールを小さくする)
-        this.gameObject.transform.localScale = new Vector3(9, 1, 9);
+        //ボタンを後ろに移動
+        this.gameObject.transform.Translate(new Vector3(0, 0.02f,0));
 
-        //0.1秒後にボタンスケールを元に戻す
+        //0.1秒後にボタン位置を元に戻す
         Invoke(nameof(delayButton), 0.1f);
 
         //答え合せ
@@ -55,6 +55,6 @@ public class TapButton : TapCollider
     //押されたボタンを戻す
     private void delayButton()
     {
-        this.gameObject.transform.localScale = new Vector3(10, 2, 10);
+        this.gameObject.transform.Translate(new Vector3(0, -0.02f,0));
     }
 }

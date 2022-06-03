@@ -61,7 +61,7 @@ public class CameraManager : MonoBehaviour
                     Left="RoomSofa",
                     Right="RoomTV",
                 },
-                hideObjectsName = new string[]{"Hanger"}
+                hideObjectsName = new string[]{"Hanger","HallWall"}
             }
         },
         {
@@ -180,8 +180,8 @@ public class CameraManager : MonoBehaviour
             "BlueBoxBtn",//青箱ボタン
             new CameraPositionInfo
             {
-                Position=new Vector3(10.33f,3.4f,4f),
-                Rotate =new Vector3(12,180,0),
+                Position=new Vector3(10.33f,3.7f,3.9f),
+                Rotate =new Vector3(20,180,0),
                 MoveNames=new MoveNames
                 {
                     Back="BlueBox",
@@ -222,6 +222,19 @@ public class CameraManager : MonoBehaviour
                 {
                     Back="RoomSofa",
                 }
+            }
+        },
+        {
+            "Hall",//廊下
+            new CameraPositionInfo
+            {
+                Position=new Vector3(21.6f,6f,11.2f),
+                Rotate =new Vector3(6,180,0),
+                MoveNames=new MoveNames
+                {
+                    Back="Door",
+                },
+                hideObjectsName = new string[]{"Hole"}
             }
         },
     };
