@@ -237,6 +237,18 @@ public class CameraManager : MonoBehaviour
                 hideObjectsName = new string[]{"Hole"}
             }
         },
+         {
+            "PhoneBtn",//電話ボタン寄り
+            new CameraPositionInfo
+            {
+                Position=new Vector3(17f,5.5f,-2.26f),
+                Rotate =new Vector3(3,90,0),
+                MoveNames=new MoveNames
+                {
+                    Back="Phone",
+                }
+            }
+        },
     };
 
     // Start is called before the first frame update
