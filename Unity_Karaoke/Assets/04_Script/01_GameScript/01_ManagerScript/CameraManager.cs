@@ -241,8 +241,8 @@ public class CameraManager : MonoBehaviour
             "PhoneBtn",//電話ボタン寄り
             new CameraPositionInfo
             {
-                Position=new Vector3(17f,5.5f,-2.26f),
-                Rotate =new Vector3(3,90,0),
+                Position=new Vector3(16.7f,5.85f,-2.25f),
+                Rotate =new Vector3(7.55f,90,0),
                 MoveNames=new MoveNames
                 {
                     Back="Phone",
@@ -255,7 +255,8 @@ public class CameraManager : MonoBehaviour
     void Start()
     {
         Instance = this;
-        ChangeCameraPosition("RoomStart");
+        ChangeCameraPosition("Denmoku");
+        //ChangeCameraPosition("RoomStart");
 
         ButtonLeft.GetComponent<Button>().onClick.AddListener(() =>
         {
