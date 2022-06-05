@@ -1,68 +1,68 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Phone_Judge : MonoBehaviour
 {
-    //³‰ğ‚µ‚½‚©‚Ç‚¤‚©
+    //æ­£è§£ã—ãŸã‹ã©ã†ã‹
     public bool isClear = false;
 
-    //ƒ{ƒ^ƒ“‚Ì3Œ…
+    //ãƒœã‚¿ãƒ³ã®3æ¡
     public string InputNo = "000";
 
-    //“š‚¦‚Ì3Œ…
+    //ç­”ãˆã®3æ¡
     public string AnswerNo = "453";
 
-    //” ‚ÌƒXƒ‰ƒCƒhƒIƒuƒWƒFƒNƒg
+    //ç®±ã®ã‚¹ãƒ©ã‚¤ãƒ‰ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
     public GameObject UpSlide;
-    //“š‚¦‡‚í‚¹
+    //ç­”ãˆåˆã‚ã›
     public void JudgeAnswer(string buttonName, int Index)
     {
-        //“ü—Í’l‚ğXV
-        if (buttonName == "Top") //ãƒ{ƒ^ƒ“‚Ì
+        //å…¥åŠ›å€¤ã‚’æ›´æ–°
+        if (buttonName == "Top") //ä¸Šãƒœã‚¿ãƒ³ã®æ™‚
         {
-            //1Œ…–Ú‚ğƒ`ƒFƒ“ƒW
+            //1æ¡ç›®ã‚’ãƒã‚§ãƒ³ã‚¸
             InputNo = Index + InputNo.Substring(1);
         }
-        else if (buttonName == "Center") //’†‰›ƒ{ƒ^ƒ“‚Ì
+        else if (buttonName == "Center") //ä¸­å¤®ãƒœã‚¿ãƒ³ã®æ™‚
         {
-            //2Œ…–Ú‚ğƒ`ƒFƒ“ƒW
+            //2æ¡ç›®ã‚’ãƒã‚§ãƒ³ã‚¸
             InputNo = InputNo.Substring(0, 1) + Index + InputNo.Substring(2);
         }
-        else //‰Eƒ{ƒ^ƒ“‚Ì
+        else //å³ãƒœã‚¿ãƒ³ã®æ™‚
         {
-            //3Œ…–Ú‚ğƒ`ƒFƒ“ƒW
+            //3æ¡ç›®ã‚’ãƒã‚§ãƒ³ã‚¸
             InputNo = InputNo.Substring(0, 2) + Index;
         }
 
 
-        //“š‚¦”»’è
+        //ç­”ãˆåˆ¤å®š
         if (InputNo == AnswerNo)
         {
-            //ƒNƒŠƒA‚ÌŒø‰Ê‰¹
+            //ã‚¯ãƒªã‚¢ã®åŠ¹æœéŸ³
             AudioManager.Instance.SoundSE("Clear");
-            //ƒNƒŠƒA”»’è‚ğtrue‚É
+            //ã‚¯ãƒªã‚¢åˆ¤å®šã‚’trueã«
             isClear = true;
 
-            //‰æ–ÊƒuƒƒbƒN
+            //ç”»é¢ãƒ–ãƒ­ãƒƒã‚¯
             BlockPanel.Instance.ShowBlock();
 
-            //1•bŒã‚ÉƒJƒƒ‰ˆÚ“®
+            //1ç§’å¾Œã«ã‚«ãƒ¡ãƒ©ç§»å‹•
             Invoke(nameof(AfterClear1), 1);
 
-            //ÅŒã‚ÉƒZ[ƒu
+            //æœ€å¾Œã«ã‚»ãƒ¼ãƒ–
             SaveLoadSystem.Instance.Save();
         }
 
     }
-    //³‰ğŒã‚ÌƒXƒ‰ƒCƒhŠJ‚­
+    //æ­£è§£å¾Œã®ã‚¹ãƒ©ã‚¤ãƒ‰é–‹ã
     private void AfterClear1()
     {
-        //Œø‰Ê‰¹
+        //åŠ¹æœéŸ³
         AudioManager.Instance.SoundSE("Slide");
-        //ƒXƒ‰ƒCƒhŠJ‚­
+        //ã‚¹ãƒ©ã‚¤ãƒ‰é–‹ã
         UpSlide.transform.Translate(new Vector3(0f, 0f, 0.4f));
-        //‰æ–ÊƒuƒƒbƒN‚ğ‰ğœ
+        //ç”»é¢ãƒ–ãƒ­ãƒƒã‚¯ã‚’è§£é™¤
         BlockPanel.Instance.HideBlock();
 
     }

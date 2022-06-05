@@ -1,57 +1,57 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Phone_Tap : TapCollider
 {
-    //ƒ{ƒ^ƒ“–¼
+    //ãƒœã‚¿ãƒ³å
     public string ButtonName;
-    //ƒCƒ“ƒfƒbƒNƒX
+    //ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹
     public int Index = 0;
-    //ƒIƒuƒWƒFƒNƒg”z—ñ
+    //ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆé…åˆ—
     public GameObject[] Objects;
 
-    //“š‚¦‡‚¹ƒNƒ‰ƒX
+    //ç­”ãˆåˆã›ã‚¯ãƒ©ã‚¹
     public Phone_Judge JudgeClass;
 
-    //ƒ{ƒ^ƒ“ƒ^ƒbƒv
+    //ãƒœã‚¿ãƒ³ã‚¿ãƒƒãƒ—æ™‚
     protected override void OnTap()
     {
         base.OnTap();
 
-        //“š‚¦‚ª³‰ğÏ‚İ‚Ìê‡‚Íˆ—‚µ‚È‚¢
+        //ç­”ãˆãŒæ­£è§£æ¸ˆã¿ã®å ´åˆã¯å‡¦ç†ã—ãªã„
         if (JudgeClass.isClear)
             return;
 
-        //Œø‰Ê‰¹
+        //åŠ¹æœéŸ³
         AudioManager.Instance.SoundSE("TapButton");
 
-        //•\¦’†‚Ì‰æ‘œ‚ğ”ñ•\¦‚É
+        //è¡¨ç¤ºä¸­ã®ç”»åƒã‚’éè¡¨ç¤ºã«
         Objects[Index].SetActive(false);
 
-        //ƒCƒ“ƒfƒbƒNƒX‚ğ+1
+        //ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã‚’+1
         Index++;
 
-        //ƒCƒ“ƒfƒbƒNƒX‚ªƒIƒuƒWƒFƒNƒg”z—ñ‚Ì—v‘f”‚Æ“¯‚¶ˆÈã‚Ìê‡A0‚É–ß‚é
+        //ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãŒã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆé…åˆ—ã®è¦ç´ æ•°ã¨åŒã˜ä»¥ä¸Šã®å ´åˆã€0ã«æˆ»ã‚‹
         if (Index >= Objects.Length)
             Index = 0;
 
-        //Ÿ‚Ì‰æ‘œ‚ğ•\¦
+        //æ¬¡ã®ç”»åƒã‚’è¡¨ç¤º
         Objects[Index].SetActive(true);
 
-        //ƒ{ƒ^ƒ“‚ğŒã‚ë‚ÉˆÚ“®
+        //ãƒœã‚¿ãƒ³ã‚’å¾Œã‚ã«ç§»å‹•
         this.gameObject.transform.Translate(new Vector3(0, 0.02f, 0));
 
-        //0.1•bŒã‚Éƒ{ƒ^ƒ“ˆÊ’u‚ğŒ³‚É–ß‚·
+        //0.1ç§’å¾Œã«ãƒœã‚¿ãƒ³ä½ç½®ã‚’å…ƒã«æˆ»ã™
         Invoke(nameof(delayButton), 0.1f);
 
-        //“š‚¦‡‚¹
+        //ç­”ãˆåˆã›
         JudgeClass.JudgeAnswer(ButtonName, Index);
     }
 
 
 
-    //‰Ÿ‚³‚ê‚½ƒ{ƒ^ƒ“‚ğ–ß‚·
+    //æŠ¼ã•ã‚ŒãŸãƒœã‚¿ãƒ³ã‚’æˆ»ã™
     private void delayButton()
     {
         this.gameObject.transform.Translate(new Vector3(0, -0.02f, 0));

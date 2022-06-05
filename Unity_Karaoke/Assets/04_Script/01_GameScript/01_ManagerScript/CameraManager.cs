@@ -249,6 +249,18 @@ public class CameraManager : MonoBehaviour
                 }
             }
         },
+         {
+            "Trash",//ごみ箱寄り
+            new CameraPositionInfo
+            {
+                Position=new Vector3(6.4f,1.7f,-3.8f),
+                Rotate =new Vector3(0f,-48,0),
+                MoveNames=new MoveNames
+                {
+                    Back="RoomSofa",
+                }
+            }
+        },
     };
 
     // Start is called before the first frame update
