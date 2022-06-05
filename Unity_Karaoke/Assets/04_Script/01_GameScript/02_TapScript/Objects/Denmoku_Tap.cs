@@ -89,10 +89,16 @@ public class Denmoku_Tap : MonoBehaviour
                     Denmoku_Judge.Instance.Input501(SubStr);
                 break;
 
+            //きゃなるしてぃ〜ズの曲一覧画面(502) 曲タップ
+            case 502:
+                Denmoku_Judge.Instance.ChangeScreen(SubInt);
+                break;
+
             //選曲画面の予約ボタン
             case 990:
                 Denmoku_Judge.Instance.TapSendSong();
                 break;
+
             //戻るボタン
             case 999:
                 Denmoku_Judge.Instance.TapBack();

@@ -7,8 +7,8 @@ public class TV_Manager : MonoBehaviour
     public static TV_Manager Instance { get; set; }
 
     public GameObject TVScreen;
-    //public Rimokon_Judge Rimokon;
-    //public Machine_Judge Machine;
+    //public Rimocon_Judge Rimocon;
+    public Machine_Judge Machine;
 
     //テレビ画面名の頭文字(デンモクからの曲予約時)
     private string Initial;
@@ -103,13 +103,37 @@ public class TV_Manager : MonoBehaviour
     public void act6()
     {
         //デフォルト画面
-        //if(Machine.isClear)
-        //    ChangeTVScreen("a03");
+        if(Machine.isClear)
+                ChangeTVScreen("a03");
         //else if(Rimokon.isClear)
         //    ChangeTVScreen("a02");
-        //else
+        else
             ChangeTVScreen("a01");
         isPlaySong = false;
+
+        //カラオケ機のランプ点灯
+        switch(SongTitle)
+        {
+            case "StarPower":
+                Machine.LampTop.GetComponent<Renderer>().material.color = Color.red;
+                Denmoku_Judge.Instance.isSendStarPower = true;
+                SaveLoadSystem.Instance.gameData.isSendStarPower = true;
+                break;
+            case "StepStep":
+                Machine.LampCenter.GetComponent<Renderer>().material.color = Color.red;
+                Denmoku_Judge.Instance.isSendStepStep = true;
+                SaveLoadSystem.Instance.gameData.isSendStepStep = true;
+                break;
+            case "Lovers":
+                Machine.LampBottom.GetComponent<Renderer>().material.color = Color.red;
+                Denmoku_Judge.Instance.isSendLovers = true;
+                SaveLoadSystem.Instance.gameData.isSendLovers = true;
+                break;
+            default:
+                break;
+        }
+
+        SaveLoadSystem.Instance.Save();
     }
 
 

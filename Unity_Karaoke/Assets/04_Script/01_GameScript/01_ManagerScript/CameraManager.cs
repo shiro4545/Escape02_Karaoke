@@ -20,6 +20,10 @@ public class CameraManager : MonoBehaviour
     //非表示オブジェクトの配列
     public GameObject[] hideObjects;
 
+
+    //カラオケ機クラス
+    public Machine_Judge Machine;
+
     //<summary>
     //カメラの位置情報クラス
     //</summary>
@@ -201,6 +205,42 @@ public class CameraManager : MonoBehaviour
             }
         },
         {
+            "ShelfKey",//カラオケ機が入った棚の鍵
+            new CameraPositionInfo
+            {
+                Position=new Vector3(-4.7f,2f,-5f),
+                Rotate =new Vector3(22,270,0),
+                MoveNames=new MoveNames
+                {
+                    Back="Shelf",
+                }
+            }
+        },
+        {
+            "Manual",//カラオケ機が入った棚内のデンモク説明書
+            new CameraPositionInfo
+            {
+                Position=new Vector3(-6.1f,3.5f,-5.78f),
+                Rotate =new Vector3(56,270,0),
+                MoveNames=new MoveNames
+                {
+                    Back="Shelf",
+                }
+            }
+        },
+        {
+            "Machine",//カラオケ機
+            new CameraPositionInfo
+            {
+                Position=new Vector3(-3.9f,4.55f,-6.4f),
+                Rotate =new Vector3(4,272,0),
+                MoveNames=new MoveNames
+                {
+                    Back="Shelf",
+                }
+            }
+        },
+        {
             "Picture",//絵
             new CameraPositionInfo
             {
@@ -261,14 +301,26 @@ public class CameraManager : MonoBehaviour
                 }
             }
         },
+         {
+            "Book",//曲検索本
+            new CameraPositionInfo
+            {
+                Position=new Vector3(6.97f,6.6f,2.5f),
+                Rotate =new Vector3(48,180,0),
+                MoveNames=new MoveNames
+                {
+                    Back="RoomStart",
+                }
+            }
+        },
     };
 
     // Start is called before the first frame update
     void Start()
     {
         Instance = this;
-        ChangeCameraPosition("Denmoku");
-        //ChangeCameraPosition("RoomStart");
+        //ChangeCameraPosition("Denmoku");
+        ChangeCameraPosition("RoomStart");
 
         ButtonLeft.GetComponent<Button>().onClick.AddListener(() =>
         {
@@ -283,6 +335,11 @@ public class CameraManager : MonoBehaviour
         ButtonBack.GetComponent<Button>().onClick.AddListener(() =>
         {
             AudioManager.Instance.SoundSE("TapUIBtn");
+
+            //カラオケ機のボタン初期化用
+            if (CurrentPositionName == "Machine")
+                Machine.TapBack();
+
             ChangeCameraPosition(CameraPositionInfoes[CurrentPositionName].MoveNames.Back);
         });
     }

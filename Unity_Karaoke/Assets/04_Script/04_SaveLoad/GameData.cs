@@ -12,14 +12,15 @@ public class GameData
     public bool isGetPaper1 = false;
 
     //謎クリア有無
-    public bool isClear_Rock1 = false; //デンモクロック画面
+    public bool isClearRock1 = false; //デンモクロック画面
     public bool isSendStarPower = false;
     public bool isSendStepStep = false;
     public bool isSendLovers = false;
+    public bool isClearMachine = false;
 
 
     //オブジェクト状態
-    public bool isOpenBenza = false;
+    public bool isOpenShelf = false;
 
     //ヒント
     public bool[] hintArray = new bool[12];

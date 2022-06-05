@@ -73,7 +73,7 @@ public class Denmoku_Judge : MonoBehaviour
     //<param>画面No</param>
     public void TapBack()
     {
-        //曲番号の場合
+        //曲番号の入力クリア
         if (CurrentScreenNo == 201)
         {
             //5桁消去
@@ -81,7 +81,7 @@ public class Denmoku_Judge : MonoBehaviour
             foreach (var img in ImageArray201)
                 img.GetComponent<SpriteRenderer>().sprite = null;
         }
-        //歌手名検索の場合
+        //歌手名検索の入力クリア
         if (CurrentScreenNo == 501)
         {
             //4文字消去
@@ -90,14 +90,24 @@ public class Denmoku_Judge : MonoBehaviour
                 img.GetComponent<SpriteRenderer>().sprite = null;
         }
 
-        //きゃなるしてぃ〜ずの曲一覧画面の場合
-        if (CurrentScreenNo == 502)
-            ChangeScreen(501);
-
-        if (CurrentScreenNo == 201 || CurrentScreenNo == 301 || CurrentScreenNo == 501)
-            ChangeScreen(102);
-        else
-            ChangeScreen(PrevScreenNo);
+        //画面戻る
+        switch (CurrentScreenNo)
+        {
+            case 502:  //きゃなるしてぃ〜ずの曲一覧画面の場合
+                //歌手名検索画面へ
+                ChangeScreen(501);
+                break;
+            case 201: //番号画面
+            case 301: //りれき画面
+            case 501: //歌手名検索画面
+                //メニュー画面へ
+                ChangeScreen(102);
+                break;
+            default:
+                //1つ前の画面へ
+                ChangeScreen(PrevScreenNo);
+                break;
+        }
     }
 
 
@@ -137,7 +147,7 @@ public class Denmoku_Judge : MonoBehaviour
             ChangeScreen(102);
             isClear_Rock1 = true;
 
-            SaveLoadSystem.Instance.gameData.isClear_Rock1 = true;
+            SaveLoadSystem.Instance.gameData.isClearRock1 = true;
             SaveLoadSystem.Instance.Save();
         }
         else
@@ -272,7 +282,7 @@ public class Denmoku_Judge : MonoBehaviour
 
         //答え合わせ
         if (UserNo501 == "kiyanaru")
-            ChangeScreen(515);
+            ChangeScreen(502);
         else
         {
             //ヒットなし
@@ -318,29 +328,8 @@ public class Denmoku_Judge : MonoBehaviour
             //もう1度予約して
             Invoke(nameof(act7), 2f);
         else
-        {
             //受け付けました
             Invoke(nameof(act1), 2f);
-            //セーブ
-            switch(CurrentScreenNo)
-            {
-                case 211:
-                    isSendStarPower = true;
-                    SaveLoadSystem.Instance.gameData.isSendStarPower = true;
-                    break;
-                case 314:
-                    isSendStepStep = true;
-                    SaveLoadSystem.Instance.gameData.isSendStepStep = true;
-                    break;
-                case 515:
-                    isSendLovers = true;
-                    SaveLoadSystem.Instance.gameData.isSendLovers = true;
-                    break;
-                default:
-                    break;
-            }
-            SaveLoadSystem.Instance.Save();
-        }
 
     }
     //予約成功時

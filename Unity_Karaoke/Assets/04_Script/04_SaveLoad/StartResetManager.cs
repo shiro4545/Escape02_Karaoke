@@ -5,13 +5,25 @@ using UnityEngine.UI;
 
 public class StartResetManager : MonoBehaviour
 {
-    //アイテムオブジェクト
+    private GameData gameData;
+
+
+    //アイテムオブジェクト**********************
     //public GameObject itemPaper1;
 
-    //ゲーム内オブジェクト
-    //public GameObject paperHolder;
 
-    private GameData gameData;
+    //ゲーム内オブジェクト**********************
+    public Machine_Judge Machine;
+
+    //カラオケ機が入った棚周り
+    public GameObject CloseDoor;
+    public GameObject CloseDoorParts1;
+    public GameObject CloseDoorParts2;
+    public GameObject CloseDoorParts3;
+    public GameObject OpenDoor;
+    public GameObject KeyColiider; //初期true
+    public GameObject MachineColiider; //初期false
+    public GameObject ManualColiider; //初期false
 
     //<summary>
     //タイトル画面の「はじめから」の時
@@ -29,12 +41,67 @@ public class StartResetManager : MonoBehaviour
         SaveLoadSystem.Instance.Load();
         gameData = SaveLoadSystem.Instance.gameData;
 
-     
+
+        //カラオケ機棚の開閉状態
+        if(gameData.isOpenShelf)
+        {
+            CloseDoor.SetActive(false);
+            CloseDoorParts1.SetActive(false);
+            CloseDoorParts2.SetActive(false);
+            CloseDoorParts3.SetActive(false);
+            //開扉を表示
+            OpenDoor.SetActive(true);
+            //鍵コライダー非表示
+            KeyColiider.SetActive(false);
+            //棚の中のコライダー表示
+            MachineColiider.SetActive(true);
+            ManualColiider.SetActive(true);
+        }
+
         //デンモク画面ロック状態
-        if(gameData.isClear_Rock1)
+        if(gameData.isClearRock1)
         {
             Denmoku_Judge.Instance.isClear_Rock1 = true;
             Denmoku_Judge.Instance.ChangeScreen(102);
+        }
+
+        //星の力の予約有無
+        if (gameData.isSendStarPower)
+        {
+            Denmoku_Judge.Instance.isSendStarPower = true;
+            Machine.LampTop.GetComponent<Renderer>().material.color = Color.red;
+        }
+
+        //1歩1歩の予約有無
+        if (gameData.isSendStepStep)
+        {
+            Denmoku_Judge.Instance.isSendStepStep = true;
+            Machine.LampCenter.GetComponent<Renderer>().material.color = Color.red;
+        }
+
+
+        //九州Loversの予約有無
+        if (gameData.isSendLovers)
+        {
+            Denmoku_Judge.Instance.isSendLovers = true;
+            Machine.LampTop.GetComponent<Renderer>().material.color = Color.red;
+        }
+
+
+        //カラオケ機
+        if (gameData.isClearMachine)
+        {
+            Machine.isClear = true;
+            TV_Manager.Instance.ChangeTVScreen("a03");
+
+            //ボタンを正解に
+            Machine.ButtonTop.Objects[0].SetActive(false);
+            Machine.ButtonCenter.Objects[0].SetActive(false);
+            Machine.ButtonBottom.Objects[0].SetActive(false);
+
+            Machine.ButtonTop.Objects[4].SetActive(true);
+            Machine.ButtonCenter.Objects[1].SetActive(true);
+            Machine.ButtonBottom.Objects[4].SetActive(true);
         }
 
 
