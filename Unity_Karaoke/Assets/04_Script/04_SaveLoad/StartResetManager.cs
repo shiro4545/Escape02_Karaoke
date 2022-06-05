@@ -29,11 +29,13 @@ public class StartResetManager : MonoBehaviour
         SaveLoadSystem.Instance.Load();
         gameData = SaveLoadSystem.Instance.gameData;
 
-        //ウォッシュパネル1回目のクリア有無
-        //if (gameData.isClearWashPanel1)
-        //    WashPanelController.Instance.firstIsClear = true;
-
-        //背面棚右の状態
+     
+        //デンモク画面ロック状態
+        if(gameData.isClear_Rock1)
+        {
+            Denmoku_Judge.Instance.isClear_Rock1 = true;
+            Denmoku_Judge.Instance.ChangeScreen(102);
+        }
 
 
 

@@ -34,4 +34,21 @@ public class AudioManager : MonoBehaviour
     {
       audioBGM.Play();
     }
+
+
+    //<summary>
+    //予約曲を流す
+    //</summary>
+    //<param>音源ファイル名</param>
+    public void SoundSong(string SEName)
+    {
+        audioBGM.volume = 0;
+        audioSE.PlayOneShot(Resources.Load("SE/" + SEName, typeof(AudioClip)) as AudioClip);
+        Invoke(nameof(delayBGM), 27);
+    }
+    public void delayBGM()
+    {
+        audioBGM.volume = 0.1f;
+
+    }
 }

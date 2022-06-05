@@ -20,7 +20,7 @@ public class Trash_Tap : TapCollider
         if (isTap == false)
         {
             //ごみ箱を倒す
-            this.gameObject.transform.Rotate(new Vector3(0,90 , -45));
+            this.gameObject.transform.Rotate(new Vector3(30,90 , -40));
             this.gameObject.transform.Translate(new Vector3(0, -0.5f, 0.5f));
 
             //タップを２回目以降しても働かないように

@@ -61,7 +61,7 @@ public class Phone_Judge : MonoBehaviour
         //効果音
         AudioManager.Instance.SoundSE("Slide");
         //スライド開く
-        UpSlide.transform.Translate(new Vector3(0f, 0f, 0.4f));
+        UpSlide.SetActive(false);
         //画面ブロックを解除
         BlockPanel.Instance.HideBlock();
 

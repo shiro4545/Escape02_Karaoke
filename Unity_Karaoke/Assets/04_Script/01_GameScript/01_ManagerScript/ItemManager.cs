@@ -62,10 +62,10 @@ public class ItemManager : MonoBehaviour
       switch(itemName)
       {
         case "Light":
-          SaveLoadSystem.Instance.gameData.isGetKaicyudento = true;
+          //SaveLoadSystem.Instance.gameData.isGetKaicyudento = true;
           break;
         case "Penchi":
-          SaveLoadSystem.Instance.gameData.isGetPenchi = true;
+          //SaveLoadSystem.Instance.gameData.isGetPenchi = true;
           break;
         default:
           break;

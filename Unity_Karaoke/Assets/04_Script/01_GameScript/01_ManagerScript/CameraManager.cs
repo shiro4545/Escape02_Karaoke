@@ -253,8 +253,8 @@ public class CameraManager : MonoBehaviour
             "Trash",//ごみ箱寄り
             new CameraPositionInfo
             {
-                Position=new Vector3(6.4f,1.7f,-3.8f),
-                Rotate =new Vector3(0f,-48,0),
+                Position=new Vector3(7.7f,1.5f,-1.43f),
+                Rotate =new Vector3(0,284,0),
                 MoveNames=new MoveNames
                 {
                     Back="RoomSofa",
