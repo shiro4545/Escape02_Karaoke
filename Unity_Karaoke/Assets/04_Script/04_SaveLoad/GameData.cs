@@ -17,6 +17,8 @@ public class GameData
     public bool isSendLovers = false;
     public bool isClearMachine = false;
     public bool isClearOrder = false;
+    public bool isClearPhone = false;
+    public bool isClearDenmokuSlide = false;
 
 
     //オブジェクト状態

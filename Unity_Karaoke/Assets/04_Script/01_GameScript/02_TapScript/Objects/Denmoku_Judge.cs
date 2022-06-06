@@ -9,6 +9,9 @@ public class Denmoku_Judge : MonoBehaviour
     //ロック画面状態(0:電源off,1:ロック状態,2:ロックなし)
     public int DenmokuStatus = 1;
 
+    //デンモクがスライドしたか
+    public bool isSlide = false;
+
     //現在の画面No
     public int CurrentScreenNo;
     //1つ前の画像No
@@ -29,7 +32,6 @@ public class Denmoku_Judge : MonoBehaviour
     //ロック画面用(101)
     public GameObject[] ImageArray101;
     private string UserNo101 = "";
-    private string AnswerNo101 = "6278";
 
     //曲番号画面用(102)
     public GameObject[] ImageArray201;
@@ -50,10 +52,19 @@ public class Denmoku_Judge : MonoBehaviour
 
     //カラオケ機
     public Machine_Judge Machine;
+    //電話クラス
+    public Phone_Judge PhoneClass;
     //電話
     public GameObject Phone;
     //電話裏ボタンのコライダー
     public GameObject PhoneBtnCollider;
+
+    //ドライバー用スライド対応
+    public GameObject DenmokuCollider;
+    public GameObject DenmokuBackCollider;
+    public GameObject DriverCollider;
+    public GameObject DriverDenmokuCollider;
+
 
 
     // Start is called before the first frame update
@@ -62,8 +73,8 @@ public class Denmoku_Judge : MonoBehaviour
         Instance = this;
 
         //初期はロック画面
-        //ChangeScreen(101);
-        ChangeScreen(102);
+        ChangeScreen(101);
+        //ChangeScreen(102);
     }
 
 
@@ -181,12 +192,31 @@ public class Denmoku_Judge : MonoBehaviour
         foreach (var img in ImageArray101)
             img.GetComponent<SpriteRenderer>().sprite = null;
 
-        //答え合わせ 6278
-        if (UserNo101 == AnswerNo101)
+        //答え合わせ
+        //if(true)
+        if(UserNo101 == "2369" && PhoneClass.isClear && !isSlide)
         {
+            //ドライバーとる時
+            AudioManager.Instance.SoundSE("Clear");
+            Invoke(nameof(ClearRock), 1.5f);
+
+            //セーブ
+            isSlide = true;
+            DenmokuStatus = 2;
+
+            SaveLoadSystem.Instance.gameData.isClearDenmokuSlide = true;
+            SaveLoadSystem.Instance.gameData.DenmokuStatus = 2;
+            SaveLoadSystem.Instance.Save();
+
+        }
+        else if (UserNo101 == "6278")
+        {
+            //ただのロック解除
             AudioManager.Instance.SoundSE("Clear");
             ChangeScreen(102);
             DenmokuStatus = 2;
+
+            BlockPanel.Instance.HideBlock();
 
             SaveLoadSystem.Instance.gameData.DenmokuStatus = 2;
             SaveLoadSystem.Instance.Save();
@@ -196,16 +226,41 @@ public class Denmoku_Judge : MonoBehaviour
             AudioManager.Instance.SoundSE("NotClear");
             Msg601.SetActive(true);
             Invoke(nameof(HideMsg601), 3f);
+            BlockPanel.Instance.HideBlock();
         }
 
         UserNo101 = "";
-        BlockPanel.Instance.HideBlock();
     }
 
     //メッセージ非表示
     public void HideMsg601()
     {
         Msg601.SetActive(false);
+    }
+
+    //ドライバーとるロック解除の演出
+    private void ClearRock()
+    {
+        ChangeScreen(102);
+        CameraManager.Instance.ChangeCameraPosition("Driver");
+
+        Invoke(nameof(AfterClearRock), 1);
+    }
+    private void AfterClearRock()
+    {
+        //デンモクスライド
+        this.gameObject.transform.Translate(new Vector3(1.2f, 0, 0));
+        //DenmokuColliderスライド
+        DenmokuCollider.transform.Translate(new Vector3(0, 0, -1.2f));
+        //DenmokuBackColliderスライド
+        DenmokuBackCollider.transform.Translate(new Vector3(0, 0, -1.2f));
+
+        //DriverCollider表示
+        DriverCollider.SetActive(true);
+        //DriverDenmoku表示
+        DriverDenmokuCollider.SetActive(true);
+
+        BlockPanel.Instance.HideBlock();
     }
 
     //************************************************************************************
@@ -588,10 +643,40 @@ public class Denmoku_Judge : MonoBehaviour
                         img.GetComponent<SpriteRenderer>().sprite = null;
                 }
 
+                //注文画面の入力クリアは画面切替時に行う↓
                 ChangeScreen(102);
                 break;
             default:
                 break;
         }
+    }
+
+    //************************************************************************************
+    //<summary>
+    //電源OFFの時
+    //</summary>
+    public void PowerOff()
+    {
+        //ロック画面
+        UserNo101 = "";
+        foreach (var img in ImageArray101)
+            img.GetComponent<SpriteRenderer>().sprite = null;
+              
+        //曲番号
+        UserNo201 = "";
+        //数字画像クリア
+        foreach (var img in ImageArray201)
+            img.GetComponent<SpriteRenderer>().sprite = null;
+
+        //歌手名
+        UserNo501 = "";
+        //文字画像クリア
+        foreach (var img in ImageArray501)
+            img.GetComponent<SpriteRenderer>().sprite = null;
+
+        //注文
+        UserNo401 = "0000";
+        foreach (var img in ImageArray401)
+            img.GetComponent<SpriteRenderer>().sprite = null;
     }
 }

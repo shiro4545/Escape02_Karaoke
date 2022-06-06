@@ -13,7 +13,11 @@ public class StartResetManager : MonoBehaviour
 
 
     //ゲーム内オブジェクト**********************
-    public Machine_Judge Machine;
+    public Machine_Judge MachineClass;
+    public Phone_Judge PhoneClass;
+    public Phone_Tap PhoneBtnTop;
+    public Phone_Tap PhoneBtnCenter;
+    public Phone_Tap PhoneBtnBottom;
 
     //カラオケ機が入った棚周り
     public GameObject CloseDoor;
@@ -79,14 +83,14 @@ public class StartResetManager : MonoBehaviour
         if (gameData.isSendStarPower)
         {
             Denmoku_Judge.Instance.isSendStarPower = true;
-            Machine.LampTop.GetComponent<Renderer>().material.color = Color.red;
+            MachineClass.LampTop.GetComponent<Renderer>().material.color = Color.red;
         }
 
         //1歩1歩の予約有無
         if (gameData.isSendStepStep)
         {
             Denmoku_Judge.Instance.isSendStepStep = true;
-            Machine.LampCenter.GetComponent<Renderer>().material.color = Color.red;
+            MachineClass.LampCenter.GetComponent<Renderer>().material.color = Color.red;
         }
 
 
@@ -94,31 +98,59 @@ public class StartResetManager : MonoBehaviour
         if (gameData.isSendLovers)
         {
             Denmoku_Judge.Instance.isSendLovers = true;
-            Machine.LampTop.GetComponent<Renderer>().material.color = Color.red;
+            MachineClass.LampTop.GetComponent<Renderer>().material.color = Color.red;
         }
 
 
         //カラオケ機
         if (gameData.isClearMachine)
         {
-            Machine.isClear = true;
+            MachineClass.isClear = true;
             TV_Manager.Instance.ChangeTVScreen("a03");
 
             //ボタンを正解に
-            Machine.ButtonTop.Objects[0].SetActive(false);
-            Machine.ButtonCenter.Objects[0].SetActive(false);
-            Machine.ButtonBottom.Objects[0].SetActive(false);
+            MachineClass.ButtonTop.Objects[0].SetActive(false);
+            MachineClass.ButtonCenter.Objects[0].SetActive(false);
+            MachineClass.ButtonBottom.Objects[0].SetActive(false);
 
-            Machine.ButtonTop.Objects[4].SetActive(true);
-            Machine.ButtonCenter.Objects[1].SetActive(true);
-            Machine.ButtonBottom.Objects[4].SetActive(true);
+            MachineClass.ButtonTop.Objects[4].SetActive(true);
+            MachineClass.ButtonCenter.Objects[1].SetActive(true);
+            MachineClass.ButtonBottom.Objects[4].SetActive(true);
         }
 
-        //電話 1000円注文のクリア判定
+        //1000円注文のクリア判定
         if (gameData.isClearOrder)
         {
             Denmoku_Judge.Instance.Phone.transform.Translate(new Vector3(0.4f, 0, 0));
             Denmoku_Judge.Instance.PhoneBtnCollider.SetActive(true);
+        }
+
+        //電話裏の謎クリア判定
+        if(gameData.isClearPhone)
+        {
+            PhoneClass.isClear = true;
+            PhoneBtnTop.Objects[0].SetActive(false);
+            PhoneBtnCenter.Objects[0].SetActive(false);
+            PhoneBtnBottom.Objects[0].SetActive(false);
+            PhoneBtnTop.Objects[4].SetActive(true);
+            PhoneBtnCenter.Objects[5].SetActive(true);
+            PhoneBtnBottom.Objects[3].SetActive(true);
+        }
+
+        //デンモクのスライド判定
+        if(gameData.isClearDenmokuSlide)
+        {
+            Denmoku_Judge.Instance.isSlide = true;
+            //デンモクスライド
+            Denmoku_Judge.Instance.gameObject.transform.Translate(new Vector3(1.2f, 0, 0));
+            //DenmokuColliderスライド
+            Denmoku_Judge.Instance.DenmokuCollider.transform.Translate(new Vector3(0, 0, -1.2f));
+            //DenmokuBackColliderスライド
+            Denmoku_Judge.Instance.DenmokuBackCollider.transform.Translate(new Vector3(0, 0, -1.2f));
+            //DriverCollider表示
+            Denmoku_Judge.Instance.DriverCollider.SetActive(true);
+            //DriverDenmoku表示
+            Denmoku_Judge.Instance.DriverDenmokuCollider.SetActive(true);
         }
 
 

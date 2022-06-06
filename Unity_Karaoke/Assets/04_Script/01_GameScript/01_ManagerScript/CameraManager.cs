@@ -181,6 +181,18 @@ public class CameraManager : MonoBehaviour
             }
         },
         {
+            "Driver",//ドライバー
+            new CameraPositionInfo
+            {
+                Position=new Vector3(-1.8f,5.7f,2.9f),
+                Rotate =new Vector3(65,180,0),
+                MoveNames=new MoveNames
+                {
+                    Back="RoomTV",
+                }
+            }
+        },
+        {
             "BlueBox",//青箱
             new CameraPositionInfo
             {
@@ -404,9 +416,22 @@ public class CameraManager : MonoBehaviour
 
         CurrentPositionName = positionName;
 
-        GetComponent<Camera>().transform.position = CameraPositionInfoes[CurrentPositionName].Position;
-        GetComponent<Camera>().transform.rotation = Quaternion.Euler(CameraPositionInfoes[CurrentPositionName].Rotate);
-
+        //デンモクスライド済みの場合は、カメラ位置を補正
+        if (positionName == "Denmoku" && Denmoku_Judge.Instance.isSlide)
+        {
+            GetComponent<Camera>().transform.position = new Vector3(-1.8f, 5.7f, 1.7f);
+            GetComponent<Camera>().transform.rotation = Quaternion.Euler(CameraPositionInfoes[CurrentPositionName].Rotate);
+        }
+        else if (positionName == "DenmokuBack" && Denmoku_Judge.Instance.isSlide)
+        {
+            GetComponent<Camera>().transform.position = new Vector3(-1.8f, 3.1f, -2.3f);
+            GetComponent<Camera>().transform.rotation = Quaternion.Euler(CameraPositionInfoes[CurrentPositionName].Rotate);
+        }
+        else
+        {
+            GetComponent<Camera>().transform.position = CameraPositionInfoes[CurrentPositionName].Position;
+            GetComponent<Camera>().transform.rotation = Quaternion.Euler(CameraPositionInfoes[CurrentPositionName].Rotate);
+        }
         //iPad対策
         //if(positionName == "RoomRight" && Screen.width > 1300)
         //{

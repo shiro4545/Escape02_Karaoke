@@ -22,8 +22,8 @@ public class Shelf_Tap : TapCollider
     protected override void OnTap()
     {
         base.OnTap();
-        if(true)
-        //if(ItemManager.Instance.selectItem == "Key1")
+        //if(true)
+        if(ItemManager.Instance.selectItem == "Key1")
         {
             BlockPanel.Instance.ShowBlock();
             AudioManager.Instance.SoundSE("Clear");
