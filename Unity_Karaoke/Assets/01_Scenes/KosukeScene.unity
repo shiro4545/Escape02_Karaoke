@@ -674,10 +674,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e59339e3b479347f1924e605e9e30686, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DenmokuStatus: 1
   CurrentScreenNo: 1
   PrevScreenNo: 0
   MainScreen: {fileID: 0}
   Msg601: {fileID: 0}
+  Msg701: {fileID: 0}
   Msg801: {fileID: 0}
   Msg802: {fileID: 0}
   Msg803: {fileID: 0}
@@ -685,12 +687,15 @@ MonoBehaviour:
   Msg902: {fileID: 0}
   Msg903: {fileID: 0}
   ImageArray101: []
-  isClear_Rock1: 0
   ImageArray201: []
   isSendStarPower: 0
   isSendStepStep: 0
-  ImageArray501: []
   isSendLovers: 0
+  ImageArray501: []
+  ImageArray401: []
+  Machine: {fileID: 0}
+  Phone: {fileID: 0}
+  PhoneBtnCollider: {fileID: 0}
 --- !u!1001 &23907726
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1079,7 +1084,7 @@ Transform:
   m_GameObject: {fileID: 53641032}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -8.85, y: 6.44, z: 6.19}
-  m_LocalScale: {x: 4.333278, y: 3.4268928, z: 0.8946652}
+  m_LocalScale: {x: 4.7128735, y: 3.9155679, z: 1.3634698}
   m_Children: []
   m_Father: {fileID: 2108832251}
   m_RootOrder: 9
@@ -8344,7 +8349,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh18234
+  m_Name: pb_Mesh18254
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -27711,7 +27716,7 @@ Transform:
   m_GameObject: {fileID: 2004868796}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -8.85, y: 6.78, z: 7.76}
-  m_LocalScale: {x: 2.0212653, y: 3, z: 2.2226167}
+  m_LocalScale: {x: 1.462911, y: 1.96614, z: 0.3282138}
   m_Children: []
   m_Father: {fileID: 2108832251}
   m_RootOrder: 11
@@ -27728,7 +27733,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcef216a3fae149dfa766b37e58deae5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnableCameraPositionName: RoomSofa
+  EnableCameraPositionName: Poster
   MovePositionName: Rimocon
 --- !u!65 &2004868799
 BoxCollider:

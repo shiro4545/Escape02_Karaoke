@@ -273,7 +273,7 @@ public class CameraManager : MonoBehaviour
                 MoveNames=new MoveNames
                 {
                     Back="RoomSofa",
-                }
+                },
             }
         },
         {
@@ -325,18 +325,19 @@ public class CameraManager : MonoBehaviour
                 }
             }
         },
-                  {
+         {
             "Rimocon",//リモコン寄り
             new CameraPositionInfo
             {
-                Position=new Vector3(-6.8f,7.0f,7.75f),
-                Rotate =new Vector3(0,-90,0),
-                MoveNames=new MoveNames
-                {
-                    Back="RoomSofa",
-                }
+                 Position=new Vector3(-6.8f,7.0f,7.75f),
+                 Rotate =new Vector3(0,-90,0),
+                 MoveNames=new MoveNames
+                 {
+                    Back="Poster",
+                 }
             }
         },
+
     };
 
     // Start is called before the first frame update
