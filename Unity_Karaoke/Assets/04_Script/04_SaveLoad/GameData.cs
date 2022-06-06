@@ -9,8 +9,13 @@ public class GameData
     public string getItems = "";
 
     //アイテム取得有無
-    public bool isGetPaper1 = false;
-
+    public bool isGetHanger = false;
+    public bool isGetTanbarine_Maru = false;
+    public bool isGetTanbarine_Sankaku = false;
+    public bool isGetTanbarine_Shikaku = false;
+    public bool isGetKey1 = false;
+    public bool isGetKeyBox = false;
+    public bool isGetDriver = false;
     //謎クリア有無
     public bool isSendStarPower = false;
     public bool isSendStepStep = false;

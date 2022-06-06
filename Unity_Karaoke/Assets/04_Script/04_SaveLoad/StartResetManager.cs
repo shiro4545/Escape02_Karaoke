@@ -9,7 +9,8 @@ public class StartResetManager : MonoBehaviour
 
 
     //アイテムオブジェクト**********************
-    //public GameObject itemPaper1;
+    public GameObject KeyBox;
+    public GameObject Driver;
 
 
     //ゲーム内オブジェクト**********************
@@ -137,8 +138,13 @@ public class StartResetManager : MonoBehaviour
             PhoneBtnBottom.Objects[3].SetActive(true);
         }
 
+
+        //アイテム取得有無　ドライバー
+        if (gameData.isGetKeyBox)
+            KeyBox.SetActive(false);
+
         //デンモクのスライド判定
-        if(gameData.isClearDenmokuSlide)
+        if (gameData.isClearDenmokuSlide)
         {
             Denmoku_Judge.Instance.isSlide = true;
             //デンモクスライド
@@ -152,6 +158,10 @@ public class StartResetManager : MonoBehaviour
             //DriverDenmoku表示
             Denmoku_Judge.Instance.DriverDenmokuCollider.SetActive(true);
         }
+
+        //アイテム取得有無　ドライバー
+        if (gameData.isGetDriver)
+            Driver.SetActive(false);
 
 
 

@@ -4069,6 +4069,38 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &300177131 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 54756fcf4ce5e4a6c807b00e71cfac24, type: 3}
+  m_PrefabInstance: {fileID: 385698475}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &300177132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 300177131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dde407def13994100952499ff371fc69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnableCameraPositionName: PhoneBtn
+  item_Name: KeyBox
+--- !u!65 &300177133
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 300177131}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.5, y: 0.3, z: 0.8}
+  m_Center: {x: 0, y: 0.1, z: 0}
 --- !u!1 &300637739
 GameObject:
   m_ObjectHideFlags: 0
@@ -5094,7 +5126,7 @@ GameObject:
   - component: {fileID: 384548900}
   - component: {fileID: 384548899}
   m_Layer: 5
-  m_Name: Button_Item1
+  m_Name: Button_KeyBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5234,7 +5266,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 54756fcf4ce5e4a6c807b00e71cfac24, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.032
+      value: 0.029
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 54756fcf4ce5e4a6c807b00e71cfac24, type: 3}
       propertyPath: m_LocalPosition.z
@@ -11082,6 +11114,38 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 50dd61a2f53154248b19f81d63d6d8e6, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb67167c780ba4d4487d2501db782ca5, type: 3}
+--- !u!1 &725894473 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 702bfa43ffba54840941bd2ac04539f0, type: 3}
+  m_PrefabInstance: {fileID: 833534017}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &725894475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 725894473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dde407def13994100952499ff371fc69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnableCameraPositionName: Driver
+  item_Name: Driver
+--- !u!65 &725894476
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 725894473}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 2, z: 8}
+  m_Center: {x: 0, y: 0, z: 2.5}
 --- !u!1 &727364620
 GameObject:
   m_ObjectHideFlags: 0
@@ -11435,6 +11499,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 2464cbcef6ae44f8aaffd72e1f2703d4, type: 3}
       propertyPath: m_Name
       value: Phone
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 2464cbcef6ae44f8aaffd72e1f2703d4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2464cbcef6ae44f8aaffd72e1f2703d4, type: 3}
@@ -29694,6 +29762,7 @@ MonoBehaviour:
   - {fileID: 985346018}
   - {fileID: 871344884}
   ItemPanel: {fileID: 248756325}
+  BtnKeyBox: {fileID: 384548897}
   selectItem: 
   isPaperChange: 0
 --- !u!1 &1633225767
@@ -30142,6 +30211,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90a8408af50074a65ba53011b89a0663, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  KeyBox: {fileID: 300177131}
+  Driver: {fileID: 725894473}
   MachineClass: {fileID: 492863113}
   PhoneClass: {fileID: 1863482139}
   PhoneBtnTop: {fileID: 1667971241}

@@ -248,6 +248,7 @@ public class Denmoku_Judge : MonoBehaviour
     }
     private void AfterClearRock()
     {
+        AudioManager.Instance.SoundSE("Slide");
         //デンモクスライド
         this.gameObject.transform.Translate(new Vector3(1.2f, 0, 0));
         //DenmokuColliderスライド

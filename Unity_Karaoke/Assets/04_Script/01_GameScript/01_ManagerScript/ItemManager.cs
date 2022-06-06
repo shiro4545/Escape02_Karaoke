@@ -11,7 +11,7 @@ public class ItemManager : MonoBehaviour
 
     public GameObject[] getItemsArray;
     public GameObject ItemPanel;
-    //public GameObject BtnPaper;
+    public GameObject BtnKeyBox;
     public string selectItem;
 
     public bool isPaperChange = false;
@@ -31,16 +31,12 @@ public class ItemManager : MonoBehaviour
         }
 
         //アイテム拡大画面でタップする場合
-        //BtnPaper.GetComponent<Button>().onClick.AddListener(() =>
-        //{
-        //    ChangePaper();
-        //});
+        BtnKeyBox.GetComponent<Button>().onClick.AddListener(() =>
+        {
+            //鍵入り箱をひっくり返す/ドライバーで開ける
+            RotateKeyBox();
+        });
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
     }
 
     //<summary>
@@ -49,32 +45,32 @@ public class ItemManager : MonoBehaviour
     //<param>アイテム名</param>
     public void getItem(string itemName)
     {
-      for(int i = 0; i < getItemsArray.Length; i++)
-      {
-        if(getItemsArray[i].gameObject.GetComponent<Image>().sprite == null)
+        AudioManager.Instance.SoundSE("ItemGet");
+
+        for (int i = 0; i < getItemsArray.Length; i++)
         {
-          getItemsArray[i].gameObject.GetComponent<Image>().sprite  = Resources.Load<Sprite>("Images/01_Items/" + itemName);
-          getItemsArray[i].SetActive(true);
-          break;
+            if(getItemsArray[i].gameObject.GetComponent<Image>().sprite == null)
+            {
+                getItemsArray[i].gameObject.GetComponent<Image>().sprite  = Resources.Load<Sprite>("Images/01_Items/" + itemName);
+                getItemsArray[i].SetActive(true);
+                break;
+            }
         }
-      }
 
-      switch(itemName)
-      {
-        case "Light":
-          //SaveLoadSystem.Instance.gameData.isGetKaicyudento = true;
-          break;
-        case "Penchi":
-          //SaveLoadSystem.Instance.gameData.isGetPenchi = true;
-          break;
-        default:
-          break;
-      }
+        switch(itemName)
+        {
+            case "KeyBox":
+                SaveLoadSystem.Instance.gameData.isGetKeyBox = true;
+                break;
+            case "Driver":
+                SaveLoadSystem.Instance.gameData.isGetDriver = true;
+                break;
+            default:
+                break;
+        }
 
-      AudioManager.Instance.SoundSE("ItemGet");
-
-      SaveLoadSystem.Instance.gameData.getItems += itemName + ";";
-      SaveLoadSystem.Instance.Save();
+        SaveLoadSystem.Instance.gameData.getItems += itemName + ";";
+        SaveLoadSystem.Instance.Save();
     }
 
     //<summary>
@@ -134,11 +130,11 @@ public class ItemManager : MonoBehaviour
       CameraManager.Instance.ButtonRight.SetActive(false);
       CameraManager.Instance.ButtonBack.SetActive(true);
 
-      //BtnPaper.SetActive(false);
-      ////大ペーパーの場合に透明ボタン表示
-      //if(!isPaperChange && ItemPanel.transform.Find("ItemImage").gameObject.GetComponent<Image>().sprite.name == "Paper_big")
-        //BtnPaper.SetActive(true);
-      
+      BtnKeyBox.SetActive(false);
+        //大ペーパーの場合に透明ボタン表示
+        if (ItemPanel.transform.Find("ItemImage").gameObject.GetComponent<Image>().sprite.name == "KeyBox")
+            BtnKeyBox.SetActive(true);
+
     }
 
     //<summary>
@@ -187,44 +183,53 @@ public class ItemManager : MonoBehaviour
         }
       }
       //セーブデータ
-      if(selectItem == "Paper_big")
-      {
-        var re = new Regex("_big");
-        SaveLoadSystem.Instance.gameData.getItems = re.Replace(SaveLoadSystem.Instance.gameData.getItems,"",1);
-      }
-      else
-      {
-        SaveLoadSystem.Instance.gameData.getItems = SaveLoadSystem.Instance.gameData.getItems.Replace(selectItem + ";","");
-      }
+      SaveLoadSystem.Instance.gameData.getItems = SaveLoadSystem.Instance.gameData.getItems.Replace(selectItem + ";","");
+      
       selectItem = "";
       SaveLoadSystem.Instance.Save();
     }
 
     //<summary>
-    //大ペーパーを小ペーパーに替える
+    //鍵入り箱を裏返す/ドライバーで開ける
     //</summary>
     //<param></param>
-    //private void ChangePaper()
-    //{
-    //  AudioManager.Instance.SoundSE("ItemGet");
-    //  ItemPanel.transform.Find("ItemImage").gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Items/Paper_small");
-    //  foreach(var obj in getItemsArray)
-    //  {
-    //    // if(obj.gameObject.GetComponent<Outline>().enabled)
-    //      if(obj.gameObject.GetComponent<Image>().sprite.name == "Paper_big")
-    //    {
-    //      obj.gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Items/Paper_small");
-    //      isPaperChange = true;
-    //      selectItem = "Paper_small";
-    //      BtnPaper.SetActive(false);
-    //      break;
-    //    }
-    //  }
+    private void RotateKeyBox()
+    {
+        if (selectItem == "Driver")
+        {
+            //ドライバーで開ける場合
+            AudioManager.Instance.SoundSE("Clear");
+            //拡大画面をKey2に変える
+            ItemPanel.transform.Find("ItemImage").gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/01_Items/Key2");
+            BtnKeyBox.SetActive(false);
 
-    //  var re = new Regex("_big");
-    //  SaveLoadSystem.Instance.gameData.getItems = re.Replace(SaveLoadSystem.Instance.gameData.getItems,"_small",1);
-    //  SaveLoadSystem.Instance.gameData.isPaperChange = true;
-    //  SaveLoadSystem.Instance.Save();
-    //}
+            //ドライバーを使う
+            useItem();
 
-  }
+            //ヘッダーのアイテム画像をKey2に変える
+            foreach (var obj in getItemsArray)
+            {
+                if (obj.gameObject.GetComponent<Image>().sprite.name == "KeyBox")
+                {
+                    //アイテム画像をKey2に変える
+                    obj.gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/01_Items/Key2");
+                    //Key2を選択中にする
+                    obj.gameObject.GetComponent<Outline>().enabled = true;
+                    selectItem = "Key2";
+                    break;
+                }
+            }
+
+            SaveLoadSystem.Instance.gameData.getItems = SaveLoadSystem.Instance.gameData.getItems.Replace("KeyBox;", "Key2");
+            SaveLoadSystem.Instance.Save();
+        }
+        else
+        {
+            //箱を裏返す場合
+            AudioManager.Instance.SoundSE("ItemGet");
+            ItemPanel.transform.Find("ItemImage").gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/01_Items/KeyBox_Back");
+            BtnKeyBox.SetActive(false);
+        }
+    }
+
+}
