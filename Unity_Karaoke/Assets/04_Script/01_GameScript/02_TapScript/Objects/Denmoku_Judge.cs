@@ -6,6 +6,9 @@ public class Denmoku_Judge : MonoBehaviour
 {
     public static Denmoku_Judge Instance { get; set; }
 
+    //ロック画面状態(0:電源off,1:ロック状態,2:ロックなし)
+    public int DenmokuStatus = 1;
+
     //現在の画面No
     public int CurrentScreenNo;
     //1つ前の画像No
@@ -15,6 +18,7 @@ public class Denmoku_Judge : MonoBehaviour
     public GameObject MainScreen;
     //メッセージ画像
     public GameObject Msg601; //パスワードが違う
+    public GameObject Msg701; //注文を受け付けた
     public GameObject Msg801; //検索中
     public GameObject Msg802; //検索にヒットしない
     public GameObject Msg803; //曲番号が正しくない
@@ -26,7 +30,6 @@ public class Denmoku_Judge : MonoBehaviour
     public GameObject[] ImageArray101;
     private string UserNo101 = "";
     private string AnswerNo101 = "6278";
-    public bool isClear_Rock1 = false;
 
     //曲番号画面用(102)
     public GameObject[] ImageArray201;
@@ -37,9 +40,20 @@ public class Denmoku_Judge : MonoBehaviour
     public bool isSendStepStep = false;
 
     //歌手検索画面用(501)
+    public bool isSendLovers = false;
     public GameObject[] ImageArray501;
     private string UserNo501 = "";
-    public bool isSendLovers = false;
+
+    //注文画面用(401)
+    public GameObject[] ImageArray401;
+    private string UserNo401 = "0000";
+
+    //カラオケ機
+    public Machine_Judge Machine;
+    //電話
+    public GameObject Phone;
+    //電話裏ボタンのコライダー
+    public GameObject PhoneBtnCollider;
 
 
     // Start is called before the first frame update
@@ -60,9 +74,33 @@ public class Denmoku_Judge : MonoBehaviour
     //<param>画面No</param>
     public void ChangeScreen(int ScreenNo)
     {
+        //画面切替
         MainScreen.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Images/10_Denmoku/" + ScreenNo);
         PrevScreenNo = CurrentScreenNo;
         CurrentScreenNo = ScreenNo;
+
+        //注文画面の場合
+        if(CurrentScreenNo == 401)
+        {
+            //画像表示
+            for (int i = 0; i < ImageArray401.Length; i++)
+            {
+                if(i == 1 && Machine.isClear )
+                    //割引画像
+                    ImageArray401[1].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Images/10_Denmoku/432");
+                else
+                    //通常画像
+                    ImageArray401[i].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Images/10_Denmoku/41" + (i+1));
+            }
+        }
+        else
+        {
+            //食べ物選択クリア
+            UserNo401 = "0000";
+            //食べ物画像クリア
+            foreach (var img in ImageArray401)
+                img.GetComponent<SpriteRenderer>().sprite = null;
+        }
     }
 
 
@@ -78,19 +116,22 @@ public class Denmoku_Judge : MonoBehaviour
         {
             //5桁消去
             UserNo201 = "";
+            //数字画像クリア
             foreach (var img in ImageArray201)
                 img.GetComponent<SpriteRenderer>().sprite = null;
         }
+
         //歌手名検索の入力クリア
         if (CurrentScreenNo == 501)
         {
             //4文字消去
             UserNo501 = "";
+            //文字画像クリア
             foreach (var img in ImageArray501)
                 img.GetComponent<SpriteRenderer>().sprite = null;
         }
 
-        //画面戻る
+        //画面切替え
         switch (CurrentScreenNo)
         {
             case 502:  //きゃなるしてぃ〜ずの曲一覧画面の場合
@@ -145,9 +186,9 @@ public class Denmoku_Judge : MonoBehaviour
         {
             AudioManager.Instance.SoundSE("Clear");
             ChangeScreen(102);
-            isClear_Rock1 = true;
+            DenmokuStatus = 2;
 
-            SaveLoadSystem.Instance.gameData.isClearRock1 = true;
+            SaveLoadSystem.Instance.gameData.DenmokuStatus = 2;
             SaveLoadSystem.Instance.Save();
         }
         else
@@ -197,7 +238,7 @@ public class Denmoku_Judge : MonoBehaviour
             img.GetComponent<SpriteRenderer>().sprite = null;
 
         //答え合わせして、選曲画面に
-        switch(UserNo201)
+        switch (UserNo201)
         {
             case "77283":
                 ChangeScreen(211);
@@ -216,7 +257,7 @@ public class Denmoku_Judge : MonoBehaviour
                 Msg801.SetActive(true);
                 Invoke(nameof(HideMsg801), 1.5f);
                 break;
-          
+
         }
         UserNo201 = "";
         BlockPanel.Instance.HideBlock();
@@ -251,13 +292,13 @@ public class Denmoku_Judge : MonoBehaviour
     {
         BlockPanel.Instance.ShowBlock();
         //文字画像チェンジ
-        ImageArray501[UserNo501.Length/2].GetComponent<SpriteRenderer>().sprite
+        ImageArray501[UserNo501.Length / 2].GetComponent<SpriteRenderer>().sprite
             = Resources.Load<Sprite>("Images/04_Moji/" + SubStr);
 
         UserNo501 += SubStr;
 
         //検索中
-        if (UserNo501.Length/2 >= ImageArray501.Length)
+        if (UserNo501.Length / 2 >= ImageArray501.Length)
             Invoke(nameof(ShowSearch), 0.3f);
         else
             BlockPanel.Instance.HideBlock();
@@ -308,7 +349,7 @@ public class Denmoku_Judge : MonoBehaviour
         if (UserNo501.Length == 0)
             return;
 
-        ImageArray501[UserNo501.Length/2 - 1].GetComponent<SpriteRenderer>().sprite = null;
+        ImageArray501[UserNo501.Length / 2 - 1].GetComponent<SpriteRenderer>().sprite = null;
 
         UserNo501 = UserNo501.Substring(0, UserNo501.Length - 2);
     }
@@ -336,9 +377,34 @@ public class Denmoku_Judge : MonoBehaviour
     public void act1()
     {
         Msg901.SetActive(false);
+        //予約を受け付けました
         Msg902.SetActive(true);
         //テレビ画面の曲スタート
         TV_Manager.Instance.StartSong(CurrentScreenNo);
+        //
+        //カラオケ機のランプ点灯とフラグ切替
+        switch (CurrentScreenNo)
+        {
+            case 211:
+                Machine.LampTop.GetComponent<Renderer>().material.color = Color.red;
+                isSendStarPower = true;
+                SaveLoadSystem.Instance.gameData.isSendStarPower = true;
+                break;
+            case 314:
+                Machine.LampCenter.GetComponent<Renderer>().material.color = Color.red;
+                isSendStepStep = true;
+                SaveLoadSystem.Instance.gameData.isSendStepStep = true;
+                break;
+            case 515:
+                Machine.LampBottom.GetComponent<Renderer>().material.color = Color.red;
+                isSendLovers = true;
+                SaveLoadSystem.Instance.gameData.isSendLovers = true;
+                break;
+            default:
+                break;
+        }
+
+        SaveLoadSystem.Instance.Save();
         //メニュー画面へ
         Invoke(nameof(act2), 2f);
     }
@@ -364,4 +430,168 @@ public class Denmoku_Judge : MonoBehaviour
     }
 
 
+    //************************************************************************************
+    //<summary>
+    //注文画面の食べ物選択(401)
+    //</summary>
+    public void TapFood(int SubInt)
+    {
+        BlockPanel.Instance.ShowBlock();
+
+        int AfterNo ; //UserNo用(0:非選択,1:選択)
+        int ImageNo ; //画像番号の2桁目 (1:非選択画像,2:選択画像,3:未選択割引,4:選択割引)
+
+        //現在の入力値を確認し、値セット
+        if (UserNo401.Substring(SubInt - 1, 1) == "1")
+        {
+            AfterNo = 0;
+            //ポテトか
+            if (SubInt == 2)
+                ImageNo = Machine.isClear ? 3 : 1;
+            else
+                ImageNo = 1;
+        }
+        else
+        {
+            AfterNo = 1;
+            if (SubInt == 2)
+                ImageNo = Machine.isClear ? 4 : 2;
+            else
+                ImageNo = 2;
+        }
+
+        //入力値変更
+        switch (SubInt)
+        {
+            case 1:
+                UserNo401 = AfterNo + UserNo401.Substring(1);
+                break;
+            case 2:
+                UserNo401 = UserNo401.Substring(0,1) + AfterNo + UserNo401.Substring(2);
+                break;
+            case 3:
+                UserNo401 = UserNo401.Substring(0, 2) + AfterNo + UserNo401.Substring(3);
+                break;
+            case 4:
+                UserNo401 = UserNo401.Substring(0, 3) + AfterNo;
+                break;
+            default:
+                break;
+        }
+
+        //食べ物画像チェンジ
+        ImageArray401[SubInt - 1].GetComponent<SpriteRenderer>().sprite
+            = Resources.Load<Sprite>("Images/10_Denmoku/4" + ImageNo + SubInt);
+
+
+        BlockPanel.Instance.HideBlock();
+
+    }
+
+
+    //<summary>
+    //注文画面の注文ボタン(401)
+    //</summary>
+    public void TapOrder()
+    {
+        BlockPanel.Instance.ShowBlock();
+        //送信中
+        Msg901.SetActive(true);
+        Invoke(nameof(act41), 2f);
+    }
+    private void act41()
+    {
+        Msg901.SetActive(false);
+        //注文を受け付けました
+        Msg701.SetActive(true);
+        AudioManager.Instance.SoundSE("Clear");
+        Invoke(nameof(JudgeAnswer401), 1f);
+    }
+
+     private void JudgeAnswer401()
+    {
+        if (UserNo401 == "0101" && Machine.isClear)
+        {
+            //正解演出
+            //カメラ移動
+            CameraManager.Instance.ChangeCameraPosition("Phone");
+            Msg701.SetActive(false);
+            Invoke(nameof(AfterClear41), 1.5f);
+
+            //セーブ
+            SaveLoadSystem.Instance.gameData.isClearOrder = true;
+            SaveLoadSystem.Instance.Save();
+        }
+        else
+        {
+            Invoke(nameof(act42), 1f);
+            BlockPanel.Instance.HideBlock();
+        }
+    }
+
+    private void act42()
+    {
+        Msg701.SetActive(false);
+    }
+
+    //正解後の演出
+    private void AfterClear41()
+    {
+        //電話移動
+        Phone.transform.Translate(new Vector3(0.4f, 0, 0));
+        AudioManager.Instance.SoundSE("Slide");
+        Invoke(nameof(AfterClear42), 2.5f);
+    }   
+    private void AfterClear42()
+    {
+        //カメラ移動
+        CameraManager.Instance.ChangeCameraPosition("Denmoku");
+        //電話コライダー表示
+        PhoneBtnCollider.SetActive(true);
+        BlockPanel.Instance.HideBlock();
+    }
+
+
+    //************************************************************************************
+    //<summary>
+    //デンモク画面で画面BACKボタン押下
+    //</summary>
+    public void CameraBack()
+    {
+        switch (DenmokuStatus)
+        {
+            case 1: //ロック状態
+                //4桁消去
+                UserNo101 = "";
+                foreach (var img in ImageArray101)
+                    img.GetComponent<SpriteRenderer>().sprite = null;
+                break;
+
+            case 2: //ロックなし
+                //曲番号の入力クリア
+                if (CurrentScreenNo == 201)
+                {
+                    //5桁消去
+                    UserNo201 = "";
+                    //数字画像クリア
+                    foreach (var img in ImageArray201)
+                        img.GetComponent<SpriteRenderer>().sprite = null;
+                }
+
+                //歌手名検索の入力クリア
+                if (CurrentScreenNo == 501)
+                {
+                    //4文字消去
+                    UserNo501 = "";
+                    //文字画像クリア
+                    foreach (var img in ImageArray501)
+                        img.GetComponent<SpriteRenderer>().sprite = null;
+                }
+
+                ChangeScreen(102);
+                break;
+            default:
+                break;
+        }
+    }
 }

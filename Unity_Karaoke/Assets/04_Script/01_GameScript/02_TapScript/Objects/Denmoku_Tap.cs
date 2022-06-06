@@ -94,6 +94,14 @@ public class Denmoku_Tap : MonoBehaviour
                 Denmoku_Judge.Instance.ChangeScreen(SubInt);
                 break;
 
+            //注文画面(401) 食べ物/注文 タップ
+            case 401:
+                if (SubStr == "Order")
+                    Denmoku_Judge.Instance.TapOrder();
+                else
+                    Denmoku_Judge.Instance.TapFood(SubInt);
+                break;
+
             //選曲画面の予約ボタン
             case 990:
                 Denmoku_Judge.Instance.TapSendSong();

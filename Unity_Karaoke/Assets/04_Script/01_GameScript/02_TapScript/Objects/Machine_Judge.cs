@@ -7,6 +7,9 @@ public class Machine_Judge : MonoBehaviour
     //正解したかどうか
     public bool isClear = false;
 
+    //演出中フラグ
+    public bool isAct = false;
+
     //ボタンの3桁
     public string InputNo = "000";
 
@@ -50,6 +53,10 @@ public class Machine_Judge : MonoBehaviour
             AudioManager.Instance.SoundSE("Clear");
             //クリア判定をtrueに
             isClear = true;
+            SaveLoadSystem.Instance.gameData.isClearMachine = true;
+
+            //演出中フラグをON
+            isAct = true;
 
             //画面ブロック
             BlockPanel.Instance.ShowBlock();
@@ -58,7 +65,6 @@ public class Machine_Judge : MonoBehaviour
             Invoke(nameof(AfterClear1), 1);
 
             //最後にセーブ
-            SaveLoadSystem.Instance.gameData.isClearMachine = true;
             SaveLoadSystem.Instance.Save();
         }
 
@@ -84,6 +90,8 @@ public class Machine_Judge : MonoBehaviour
     {
         //カメラ移動
         CameraManager.Instance.ChangeCameraPosition("Machine");
+        //演出中フラグOff
+        isAct = false;
         //画面ブロックを解除
         BlockPanel.Instance.HideBlock();
     }

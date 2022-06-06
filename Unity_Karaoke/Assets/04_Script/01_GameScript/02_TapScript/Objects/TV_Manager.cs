@@ -65,7 +65,8 @@ public class TV_Manager : MonoBehaviour
         }
         //予約完了画面
         ChangeTVScreen(Initial + "01");
-        Invoke(nameof(act1), 7f);
+        if(!Machine.isAct)
+            Invoke(nameof(act1), 7f);
     }
     public void act1()
     {
@@ -74,31 +75,36 @@ public class TV_Manager : MonoBehaviour
         //BGMスタート
         AudioManager.Instance.SoundSong(SongTitle);
 
-        Invoke(nameof(act2), 6f);
+        if (!Machine.isAct)
+            Invoke(nameof(act2), 6f);
     }
     public void act2()
     {
         //歌詞1
         ChangeTVScreen(Initial + "03");
-        Invoke(nameof(act3), 7f);
+        if (!Machine.isAct)
+            Invoke(nameof(act3), 7f);
     }
     public void act3()
     {
         //歌詞2
         ChangeTVScreen(Initial + "04");
-        Invoke(nameof(act4), 7f);
+        if (!Machine.isAct)
+            Invoke(nameof(act4), 7f);
     }
     public void act4()
     {
         //真っ白画面
         ChangeTVScreen("a00");
-        Invoke(nameof(act5), 2.5f);
+        if (!Machine.isAct)
+            Invoke(nameof(act5), 2.5f);
     }
     public void act5()
     {
         //採点画面
         ChangeTVScreen(Initial + "05");
-        Invoke(nameof(act6), 10f);
+        if (!Machine.isAct)
+            Invoke(nameof(act6), 10f);
     }
     public void act6()
     {
@@ -110,30 +116,6 @@ public class TV_Manager : MonoBehaviour
         else
             ChangeTVScreen("a01");
         isPlaySong = false;
-
-        //カラオケ機のランプ点灯
-        switch(SongTitle)
-        {
-            case "StarPower":
-                Machine.LampTop.GetComponent<Renderer>().material.color = Color.red;
-                Denmoku_Judge.Instance.isSendStarPower = true;
-                SaveLoadSystem.Instance.gameData.isSendStarPower = true;
-                break;
-            case "StepStep":
-                Machine.LampCenter.GetComponent<Renderer>().material.color = Color.red;
-                Denmoku_Judge.Instance.isSendStepStep = true;
-                SaveLoadSystem.Instance.gameData.isSendStepStep = true;
-                break;
-            case "Lovers":
-                Machine.LampBottom.GetComponent<Renderer>().material.color = Color.red;
-                Denmoku_Judge.Instance.isSendLovers = true;
-                SaveLoadSystem.Instance.gameData.isSendLovers = true;
-                break;
-            default:
-                break;
-        }
-
-        SaveLoadSystem.Instance.Save();
     }
 
 

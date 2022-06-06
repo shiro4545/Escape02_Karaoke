@@ -169,6 +169,18 @@ public class CameraManager : MonoBehaviour
             }
         },
         {
+            "DenmokuBack",//デンモク裏側(電源ボタン)
+            new CameraPositionInfo
+            {
+                Position=new Vector3(-1.8f,3.1f,-1.1f),
+                Rotate =new Vector3(-7,0,0),
+                MoveNames=new MoveNames
+                {
+                    Back="Denmoku",
+                }
+            }
+        },
+        {
             "BlueBox",//青箱
             new CameraPositionInfo
             {
@@ -241,7 +253,7 @@ public class CameraManager : MonoBehaviour
             }
         },
         {
-            "Picture",//絵
+            "Picture",//絵2枚
             new CameraPositionInfo
             {
                 Position=new Vector3(-1f,7.3f,-1.4f),
@@ -331,19 +343,23 @@ public class CameraManager : MonoBehaviour
     void Start()
     {
         Instance = this;
-        //ChangeCameraPosition("Denmoku");
         ChangeCameraPosition("RoomStart");
 
+        //左矢印ボタン押下時
         ButtonLeft.GetComponent<Button>().onClick.AddListener(() =>
         {
             AudioManager.Instance.SoundSE("TapUIBtn");
             ChangeCameraPosition(CameraPositionInfoes[CurrentPositionName].MoveNames.Left);
         });
+
+        //右矢印ボタン押下時
         ButtonRight.GetComponent<Button>().onClick.AddListener(() =>
         {
             AudioManager.Instance.SoundSE("TapUIBtn");
             ChangeCameraPosition(CameraPositionInfoes[CurrentPositionName].MoveNames.Right);
         });
+
+        //下矢印ボタン押下時
         ButtonBack.GetComponent<Button>().onClick.AddListener(() =>
         {
             AudioManager.Instance.SoundSE("TapUIBtn");
@@ -351,6 +367,10 @@ public class CameraManager : MonoBehaviour
             //カラオケ機のボタン初期化用
             if (CurrentPositionName == "Machine")
                 Machine.TapBack();
+
+            //デンモク画面の初期化
+            if (CurrentPositionName == "Denmoku")
+                Denmoku_Judge.Instance.CameraBack();
 
             ChangeCameraPosition(CameraPositionInfoes[CurrentPositionName].MoveNames.Back);
         });

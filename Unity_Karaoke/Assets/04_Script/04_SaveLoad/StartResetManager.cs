@@ -58,11 +58,21 @@ public class StartResetManager : MonoBehaviour
             ManualColiider.SetActive(true);
         }
 
-        //デンモク画面ロック状態
-        if(gameData.isClearRock1)
+        //デンモク状態
+        Denmoku_Judge.Instance.DenmokuStatus = gameData.DenmokuStatus;
+        switch (gameData.DenmokuStatus)
         {
-            Denmoku_Judge.Instance.isClear_Rock1 = true;
-            Denmoku_Judge.Instance.ChangeScreen(102);
+            case 0: //電源Off
+                Denmoku_Judge.Instance.ChangeScreen(100);
+                break;
+            case 1: //ロック状態
+                Denmoku_Judge.Instance.ChangeScreen(101);
+                break;
+            case 2: //ロックなし
+                Denmoku_Judge.Instance.ChangeScreen(102);
+                break;
+            default:
+                break;
         }
 
         //星の力の予約有無
@@ -102,6 +112,13 @@ public class StartResetManager : MonoBehaviour
             Machine.ButtonTop.Objects[4].SetActive(true);
             Machine.ButtonCenter.Objects[1].SetActive(true);
             Machine.ButtonBottom.Objects[4].SetActive(true);
+        }
+
+        //電話 1000円注文のクリア判定
+        if (gameData.isClearOrder)
+        {
+            Denmoku_Judge.Instance.Phone.transform.Translate(new Vector3(0.4f, 0, 0));
+            Denmoku_Judge.Instance.PhoneBtnCollider.SetActive(true);
         }
 
 
