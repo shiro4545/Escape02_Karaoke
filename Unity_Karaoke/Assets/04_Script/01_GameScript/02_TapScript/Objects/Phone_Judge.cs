@@ -43,6 +43,7 @@ public class Phone_Judge : MonoBehaviour
             AudioManager.Instance.SoundSE("Clear");
             //クリア判定をtrueに
             isClear = true;
+            SaveLoadSystem.Instance.gameData.isClearPhone = true;
 
             //画面ブロック
             BlockPanel.Instance.ShowBlock();

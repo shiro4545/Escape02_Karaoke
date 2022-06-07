@@ -296,9 +296,9 @@ public class CameraManager : MonoBehaviour
                 Rotate =new Vector3(6,180,0),
                 MoveNames=new MoveNames
                 {
-                    Back="Door",
+                    Back="HallBack",
                 },
-                hideObjectsName = new string[]{"Hole"}
+                hideObjectsName = new string[]{"Hole","HallTable"}
             }
         },
          {
@@ -349,6 +349,68 @@ public class CameraManager : MonoBehaviour
                  }
             }
         },
+        {
+            "DoorB",//部屋Bの扉
+            new CameraPositionInfo
+            {
+                Position=new Vector3(29f,6.6f,-19.7f),
+                Rotate =new Vector3(7,270,0),
+                MoveNames=new MoveNames
+                {
+                    Back="Hall",
+                },
+                hideObjectsName = new string[]{"DoorC"}
+            }
+        },
+        {
+            "DoorC",//部屋Cの扉
+            new CameraPositionInfo
+            {
+                Position=new Vector3(14.2f,6.6f,-19.7f),
+                Rotate =new Vector3(7,90,0),
+                MoveNames=new MoveNames
+                {
+                    Back="Hall",
+                },
+                hideObjectsName = new string[]{"DoorB"}
+            }
+        },
+        {
+            "DoorD",//部屋Dの扉
+            new CameraPositionInfo
+            {
+                Position=new Vector3(14.2f,6.6f,-5f),
+                Rotate =new Vector3(7,90,0),
+                MoveNames=new MoveNames
+                {
+                    Back="Hall",
+                },
+            }
+        },
+        {
+            "DoorFinal",//通路突き当たりの扉
+            new CameraPositionInfo
+            {
+                Position=new Vector3(21.45f,6.5f,-31.7f),
+                Rotate =new Vector3(7,180,0),
+                MoveNames=new MoveNames
+                {
+                    Back="Hall",
+                },
+            }
+        },
+        {
+            "HallBack",//通路背中の壁
+            new CameraPositionInfo
+            {
+                Position=new Vector3(21.6f,7.3f,-8f),
+                Rotate =new Vector3(10,0,0),
+                MoveNames=new MoveNames
+                {
+                    Back="Hall",
+                },
+            }
+        },
 
     };
 
@@ -356,7 +418,8 @@ public class CameraManager : MonoBehaviour
     void Start()
     {
         Instance = this;
-        ChangeCameraPosition("RoomStart");
+        //ChangeCameraPosition("RoomStart");
+        ChangeCameraPosition("Hall");
 
         //左矢印ボタン押下時
         ButtonLeft.GetComponent<Button>().onClick.AddListener(() =>
@@ -420,11 +483,6 @@ public class CameraManager : MonoBehaviour
         if (positionName == "Denmoku" && Denmoku_Judge.Instance.isSlide)
         {
             GetComponent<Camera>().transform.position = new Vector3(-1.8f, 5.7f, 1.7f);
-            GetComponent<Camera>().transform.rotation = Quaternion.Euler(CameraPositionInfoes[CurrentPositionName].Rotate);
-        }
-        else if (positionName == "DenmokuBack" && Denmoku_Judge.Instance.isSlide)
-        {
-            GetComponent<Camera>().transform.position = new Vector3(-1.8f, 3.1f, -2.3f);
             GetComponent<Camera>().transform.rotation = Quaternion.Euler(CameraPositionInfoes[CurrentPositionName].Rotate);
         }
         else

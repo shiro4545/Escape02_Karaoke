@@ -19,6 +19,8 @@ public class StartResetManager : MonoBehaviour
     public Phone_Tap PhoneBtnTop;
     public Phone_Tap PhoneBtnCenter;
     public Phone_Tap PhoneBtnBottom;
+    public Door_Judge DoorClass;
+    public DenmokuPower_Tap DenmokuPower;
 
     //カラオケ機が入った棚周り
     public GameObject CloseDoor;
@@ -69,6 +71,7 @@ public class StartResetManager : MonoBehaviour
         {
             case 0: //電源Off
                 Denmoku_Judge.Instance.ChangeScreen(100);
+                DenmokuPower.PowerSwitch.transform.Translate(new Vector3(-0.12f, 0, 0));
                 break;
             case 1: //ロック状態
                 Denmoku_Judge.Instance.ChangeScreen(101);
@@ -99,7 +102,7 @@ public class StartResetManager : MonoBehaviour
         if (gameData.isSendLovers)
         {
             Denmoku_Judge.Instance.isSendLovers = true;
-            MachineClass.LampTop.GetComponent<Renderer>().material.color = Color.red;
+            MachineClass.LampBottom.GetComponent<Renderer>().material.color = Color.red;
         }
 
 
@@ -130,6 +133,7 @@ public class StartResetManager : MonoBehaviour
         if(gameData.isClearPhone)
         {
             PhoneClass.isClear = true;
+            PhoneClass.UpSlide.SetActive(false);
             PhoneBtnTop.Objects[0].SetActive(false);
             PhoneBtnCenter.Objects[0].SetActive(false);
             PhoneBtnBottom.Objects[0].SetActive(false);
@@ -162,6 +166,32 @@ public class StartResetManager : MonoBehaviour
         //アイテム取得有無　ドライバー
         if (gameData.isGetDriver)
             Driver.SetActive(false);
+
+        //扉の開閉
+        DoorClass.DoorStatus = gameData.DoorStatus;
+        DoorClass.isClear = gameData.isClearDoor;
+        DoorClass.isFullOpen = gameData.isFullOpen;
+
+        if (DoorClass.isFullOpen)
+        {
+            //1度でも扉を開けてたらコライダー修正
+            DoorClass.DoorColliderClass.gameObject.SetActive(false);
+            DoorClass.DoorColliderClass.MovePositionName = "Hall";
+            DoorClass.CloseDoorClass.EnableCameraPositionName = "RoomDoor";
+        }
+
+        if (DoorClass.DoorStatus == 1)
+        {
+            //全開の場合
+            DoorClass.CloseDoor.SetActive(false);
+            DoorClass.OpenDoor.SetActive(true);
+        }
+        else if (DoorClass.DoorStatus == 2)
+        {
+            //ちょい開けの場合
+            DoorClass.CloseDoor.SetActive(false);
+            DoorClass.LittleOpenDoor.SetActive(true);
+        }
 
 
 

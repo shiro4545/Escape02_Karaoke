@@ -83,7 +83,7 @@ public class ItemManager : MonoBehaviour
       {
         if(getItemsArray[i].gameObject.GetComponent<Image>().sprite == null)
         {
-          getItemsArray[i].gameObject.GetComponent<Image>().sprite  = Resources.Load<Sprite>("Images/Items/" + itemName);
+          getItemsArray[i].gameObject.GetComponent<Image>().sprite  = Resources.Load<Sprite>("Images/01_Items/" + itemName);
           getItemsArray[i].SetActive(true);
           break;
         }

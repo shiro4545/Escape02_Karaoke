@@ -27,6 +27,8 @@ public class Shelf_Tap : TapCollider
         {
             BlockPanel.Instance.ShowBlock();
             AudioManager.Instance.SoundSE("Clear");
+            //鍵を消費
+            ItemManager.Instance.useItem();
             Invoke(nameof(act1), 1f);
         }
     }

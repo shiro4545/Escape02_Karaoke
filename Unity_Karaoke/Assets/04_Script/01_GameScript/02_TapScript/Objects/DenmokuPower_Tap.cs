@@ -21,6 +21,7 @@ public class DenmokuPower_Tap : TapCollider
             //電源OFF→ONの場合
             PowerSwitch.transform.Translate(new Vector3(0.12f, 0, 0));
             Denmoku_Judge.Instance.DenmokuStatus = 1;
+            SaveLoadSystem.Instance.gameData.DenmokuStatus = 1;
             //画面切替
             Denmoku_Judge.Instance.ChangeScreen(101);
 
@@ -30,10 +31,13 @@ public class DenmokuPower_Tap : TapCollider
             //電源ON→OFFの場合
             PowerSwitch.transform.Translate(new Vector3(-0.12f, 0, 0));
             Denmoku_Judge.Instance.DenmokuStatus = 0;
+            SaveLoadSystem.Instance.gameData.DenmokuStatus = 0;
             //入力値クリア
             Denmoku_Judge.Instance.PowerOff();
             //画面切替
             Denmoku_Judge.Instance.ChangeScreen(100);
         }
+
+        SaveLoadSystem.Instance.Save();
     }
 }

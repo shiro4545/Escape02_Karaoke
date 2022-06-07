@@ -253,8 +253,8 @@ public class Denmoku_Judge : MonoBehaviour
         this.gameObject.transform.Translate(new Vector3(1.2f, 0, 0));
         //DenmokuColliderスライド
         DenmokuCollider.transform.Translate(new Vector3(0, 0, -1.2f));
-        //DenmokuBackColliderスライド
-        DenmokuBackCollider.transform.Translate(new Vector3(0, 0, -1.2f));
+        //DenmokuBackColliderを非表示(これ以降,電源はOFFにできないように)
+        DenmokuBackCollider.SetActive(false);
 
         //DriverCollider表示
         DriverCollider.SetActive(true);
@@ -560,19 +560,12 @@ public class Denmoku_Judge : MonoBehaviour
         Msg901.SetActive(false);
         //注文を受け付けました
         Msg701.SetActive(true);
-        AudioManager.Instance.SoundSE("Clear");
-        Invoke(nameof(JudgeAnswer401), 1f);
-    }
 
-     private void JudgeAnswer401()
-    {
         if (UserNo401 == "0101" && Machine.isClear)
         {
             //正解演出
-            //カメラ移動
-            CameraManager.Instance.ChangeCameraPosition("Phone");
-            Msg701.SetActive(false);
-            Invoke(nameof(AfterClear41), 1.5f);
+            AudioManager.Instance.SoundSE("Clear");
+            Invoke(nameof(AfterClear40), 1.5f);
 
             //セーブ
             SaveLoadSystem.Instance.gameData.isClearOrder = true;
@@ -580,23 +573,32 @@ public class Denmoku_Judge : MonoBehaviour
         }
         else
         {
-            Invoke(nameof(act42), 1f);
+            Invoke(nameof(act42), 2.2f);
             BlockPanel.Instance.HideBlock();
         }
-    }
 
+    }
     private void act42()
     {
         Msg701.SetActive(false);
     }
 
     //正解後の演出
+    private void AfterClear40()
+    {
+
+        //カメラ移動
+        CameraManager.Instance.ChangeCameraPosition("Phone");
+        Invoke(nameof(AfterClear41), 1.5f);
+    }
     private void AfterClear41()
     {
+        //メッセージ非表示
+        Msg701.SetActive(false);
         //電話移動
         Phone.transform.Translate(new Vector3(0.4f, 0, 0));
         AudioManager.Instance.SoundSE("Slide");
-        Invoke(nameof(AfterClear42), 2.5f);
+        Invoke(nameof(AfterClear42), 2f);
     }   
     private void AfterClear42()
     {
