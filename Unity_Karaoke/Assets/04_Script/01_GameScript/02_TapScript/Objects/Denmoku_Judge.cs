@@ -43,6 +43,7 @@ public class Denmoku_Judge : MonoBehaviour
 
     //歌手検索画面用(501)
     public bool isSendLovers = false;
+    public bool isSendKosho = false;
     public GameObject[] ImageArray501;
     private string UserNo501 = "";
 
@@ -146,6 +147,7 @@ public class Denmoku_Judge : MonoBehaviour
         switch (CurrentScreenNo)
         {
             case 502:  //きゃなるしてぃ〜ずの曲一覧画面の場合
+            case 509:  //こしょう少々の曲一覧画面
                 //歌手名検索画面へ
                 ChangeScreen(501);
                 break;
@@ -380,6 +382,8 @@ public class Denmoku_Judge : MonoBehaviour
         //答え合わせ
         if (UserNo501 == "kiyanaru")
             ChangeScreen(502);
+        else if (UserNo501 == "kosiyouu")
+            ChangeScreen(509);
         else
         {
             //ヒットなし
@@ -412,7 +416,7 @@ public class Denmoku_Judge : MonoBehaviour
 
     //************************************************************************************
     //<summary>
-    //曲予約ボタン(211,314,515)
+    //曲予約ボタン(211,314,515,519)
     //</summary>
     public void TapSendSong()
     {
@@ -455,6 +459,10 @@ public class Denmoku_Judge : MonoBehaviour
                 Machine.LampBottom.GetComponent<Renderer>().material.color = Color.red;
                 isSendLovers = true;
                 SaveLoadSystem.Instance.gameData.isSendLovers = true;
+                break;
+            case 519:
+                isSendKosho = true;
+                SaveLoadSystem.Instance.gameData.isSendKosho = true;
                 break;
             default:
                 break;

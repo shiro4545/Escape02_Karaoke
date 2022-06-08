@@ -11,6 +11,12 @@ public class StartResetManager : MonoBehaviour
     //アイテムオブジェクト**********************
     public GameObject KeyBox;
     public GameObject Driver;
+    public GameObject Piece1;
+    public GameObject Piece2;
+    public GameObject Piece3;
+    public GameObject Piece4;
+    public GameObject Piece5;
+    public GameObject Key3;
 
 
     //ゲーム内オブジェクト**********************
@@ -105,6 +111,10 @@ public class StartResetManager : MonoBehaviour
             MachineClass.LampBottom.GetComponent<Renderer>().material.color = Color.red;
         }
 
+        //こしょう少々の予約有無
+        if(gameData.isSendKosho)
+            Denmoku_Judge.Instance.isSendKosho = true;
+
 
         //カラオケ機
         if (gameData.isClearMachine)
@@ -193,7 +203,36 @@ public class StartResetManager : MonoBehaviour
             DoorClass.LittleOpenDoor.SetActive(true);
         }
 
+        //五角形
+        if (gameData.isGetPiece1)
+            Piece1.SetActive(false);
+        if (gameData.isGetPiece2)
+            Piece2.SetActive(false);
+        if (gameData.isGetPiece3)
+            Piece3.SetActive(false);
+        if (gameData.isGetPiece4)
+            Piece4.SetActive(false);
+        if (gameData.isGetPiece5)
+            Piece5.SetActive(false);
+        if (gameData.isGetKey3)
+            Key3.SetActive(false);
 
+
+
+
+
+        //テレビ画面
+        if (DoorClass.isClear && Denmoku_Judge.Instance.isSendKosho)
+            //こしょう少々の採点画面
+            TV_Manager.Instance.ChangeTVScreen("h05");
+        else if (MachineClass.isClear)
+            //ポテト値引き画面
+            TV_Manager.Instance.ChangeTVScreen("a03");
+        //else if(Rimokon.isClear)
+            //四角4つ画面
+        //    ChangeTVScreen("a02");
+        else
+            TV_Manager.Instance.ChangeTVScreen("a01");
 
         //保有アイテム
         if (gameData.getItems == "")

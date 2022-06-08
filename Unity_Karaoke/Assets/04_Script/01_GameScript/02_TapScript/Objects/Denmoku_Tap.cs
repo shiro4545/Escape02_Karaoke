@@ -37,7 +37,8 @@ public class Denmoku_Tap : MonoBehaviour
             {
                 if (Denmoku_Judge.Instance.CurrentScreenNo == 211 ||
                     Denmoku_Judge.Instance.CurrentScreenNo == 314 ||
-                    Denmoku_Judge.Instance.CurrentScreenNo == 515)
+                    Denmoku_Judge.Instance.CurrentScreenNo == 515 ||
+                    Denmoku_Judge.Instance.CurrentScreenNo == 519)
                     isEnable = true;
             }
             //戻るボタン用
@@ -90,7 +91,9 @@ public class Denmoku_Tap : MonoBehaviour
                 break;
 
             //きゃなるしてぃ〜ズの曲一覧画面(502) 曲タップ
+            //こしょう少々の曲一覧画面(509) 曲タップ
             case 502:
+            case 509:
                 Denmoku_Judge.Instance.ChangeScreen(SubInt);
                 break;
 

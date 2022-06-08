@@ -65,6 +65,24 @@ public class ItemManager : MonoBehaviour
             case "Driver":
                 SaveLoadSystem.Instance.gameData.isGetDriver = true;
                 break;
+            case "Piece1":
+                SaveLoadSystem.Instance.gameData.isGetPiece1 = true;
+                break;
+            case "Piece2":
+                SaveLoadSystem.Instance.gameData.isGetPiece2 = true;
+                break;
+            case "Piece3":
+                SaveLoadSystem.Instance.gameData.isGetPiece3 = true;
+                break;
+            case "Piece4":
+                SaveLoadSystem.Instance.gameData.isGetPiece4 = true;
+                break;
+            case "Piece5":
+                SaveLoadSystem.Instance.gameData.isGetPiece5 = true;
+                break;
+            case "Key3":
+                SaveLoadSystem.Instance.gameData.isGetKey3 = true;
+                break;
             default:
                 break;
         }

@@ -18,6 +18,9 @@ public class TV_Manager : MonoBehaviour
     //曲再生中フラグ
     public bool isPlaySong = false;
 
+    //ドアクラス
+    public Door_Judge DoorClass;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -55,10 +58,15 @@ public class TV_Manager : MonoBehaviour
                 Initial = "f";
                 SongTitle = "StepStep";
                 break;
-            //Lovers
+            //九州Lovers
             case 515:
                 Initial = "g";
                 SongTitle = "Lovers";
+                break;
+            //こしょう少々
+            case 519:
+                Initial = "h";
+                SongTitle = "Kosho";
                 break;
             default:
                 break;
@@ -66,7 +74,7 @@ public class TV_Manager : MonoBehaviour
         //予約完了画面
         ChangeTVScreen(Initial + "01");
         if(!Machine.isAct)
-            Invoke(nameof(act1), 7f);
+            Invoke(nameof(act1), 8f);
     }
     public void act1()
     {
@@ -109,8 +117,10 @@ public class TV_Manager : MonoBehaviour
     public void act6()
     {
         //デフォルト画面
-        if(Machine.isClear)
-                ChangeTVScreen("a03");
+        if(DoorClass.isClear && SongTitle == "Kosho")
+            ChangeTVScreen("h05");
+        else if(Machine.isClear)
+            ChangeTVScreen("a03");
         //else if(Rimokon.isClear)
         //    ChangeTVScreen("a02");
         else

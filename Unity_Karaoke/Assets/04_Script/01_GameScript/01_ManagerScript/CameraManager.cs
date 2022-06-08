@@ -411,6 +411,30 @@ public class CameraManager : MonoBehaviour
                 },
             }
         },
+        {
+            "HallDesk",//通路背中の机
+            new CameraPositionInfo
+            {
+                Position=new Vector3(21.6f,7.75f,2.62f),
+                Rotate =new Vector3(37,0,0),
+                MoveNames=new MoveNames
+                {
+                    Back="HallBack",
+                },
+            }
+        },
+        {
+            "Pentagon",//五角形パズル
+            new CameraPositionInfo
+            {
+                Position=new Vector3(21.6f,6.13f,6.22f),
+                Rotate =new Vector3(70,0,0),
+                MoveNames=new MoveNames
+                {
+                    Back="HallDesk",
+                },
+            }
+        },
 
     };
 
@@ -418,8 +442,8 @@ public class CameraManager : MonoBehaviour
     void Start()
     {
         Instance = this;
-        ChangeCameraPosition("RoomStart");
-        //ChangeCameraPosition("Hall");
+        //ChangeCameraPosition("RoomStart");
+        ChangeCameraPosition("Hall");
 
         //左矢印ボタン押下時
         ButtonLeft.GetComponent<Button>().onClick.AddListener(() =>
