@@ -418,8 +418,8 @@ public class CameraManager : MonoBehaviour
     void Start()
     {
         Instance = this;
-        //ChangeCameraPosition("RoomStart");
-        ChangeCameraPosition("Hall");
+        ChangeCameraPosition("RoomStart");
+        //ChangeCameraPosition("Hall");
 
         //左矢印ボタン押下時
         ButtonLeft.GetComponent<Button>().onClick.AddListener(() =>
