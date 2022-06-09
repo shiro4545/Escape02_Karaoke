@@ -27,6 +27,8 @@ public class StartResetManager : MonoBehaviour
     public Phone_Tap PhoneBtnBottom;
     public Door_Judge DoorClass;
     public DenmokuPower_Tap DenmokuPower;
+    public Pentagon_Judge PentagonClass;
+    public Pentagon_Tap[] PentaPieceArray;
 
     //カラオケ機が入った棚周り
     public GameObject CloseDoor;
@@ -203,7 +205,7 @@ public class StartResetManager : MonoBehaviour
             DoorClass.LittleOpenDoor.SetActive(true);
         }
 
-        //五角形
+        //五角形周りのアイテム
         if (gameData.isGetPiece1)
             Piece1.SetActive(false);
         if (gameData.isGetPiece2)
@@ -216,6 +218,24 @@ public class StartResetManager : MonoBehaviour
             Piece5.SetActive(false);
         if (gameData.isGetKey3)
             Key3.SetActive(false);
+
+        //五角形の状態
+        PentagonClass.Input = gameData.PentagonStatus;
+        int _input;
+        for(int i = 0; i < PentaPieceArray.Length; i++)
+        {
+            _input = int.Parse(PentagonClass.Input.Substring(i, 1));
+            if (_input != 0)
+                PentaPieceArray[i].PieceArray[_input - 1].SetActive(true);
+        }
+
+        //五角形のクリア有無
+        PentagonClass.isClear = gameData.isClearPentagon;
+        if (PentagonClass.isClear)
+        {
+            PentagonClass.Slide.transform.Translate(new Vector3(0, -0.1f, 0));
+            PentagonClass.PentagonCollider.SetActive(false);
+        }
 
 
 

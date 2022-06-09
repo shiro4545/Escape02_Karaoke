@@ -363,6 +363,18 @@ public class CameraManager : MonoBehaviour
             }
         },
         {
+            "DoorBWindow",//部屋Bの扉の窓
+            new CameraPositionInfo
+            {
+                Position=new Vector3(20.2f,6.44f,-19.82f),
+                Rotate =new Vector3(0,270,0),
+                MoveNames=new MoveNames
+                {
+                    Back="DoorB",
+                },
+            }
+        },
+        {
             "DoorC",//部屋Cの扉
             new CameraPositionInfo
             {
@@ -376,6 +388,18 @@ public class CameraManager : MonoBehaviour
             }
         },
         {
+            "DoorCWindow",//部屋Cの扉の窓
+            new CameraPositionInfo
+            {
+                Position=new Vector3(23.08f,6.04f,-19.73f),
+                Rotate =new Vector3(0,90,0),
+                MoveNames=new MoveNames
+                {
+                    Back="DoorC",
+                },
+            }
+        },
+        {
             "DoorD",//部屋Dの扉
             new CameraPositionInfo
             {
@@ -384,6 +408,18 @@ public class CameraManager : MonoBehaviour
                 MoveNames=new MoveNames
                 {
                     Back="Hall",
+                },
+            }
+        },
+        {
+            "DoorDWindow",//部屋Dの扉の窓
+            new CameraPositionInfo
+            {
+                Position=new Vector3(22.67f,6.04f,-5.3f),
+                Rotate =new Vector3(0,83,0),
+                MoveNames=new MoveNames
+                {
+                    Back="DoorD",
                 },
             }
         },
@@ -442,8 +478,8 @@ public class CameraManager : MonoBehaviour
     void Start()
     {
         Instance = this;
-        //ChangeCameraPosition("RoomStart");
-        ChangeCameraPosition("Hall");
+        ChangeCameraPosition("RoomStart");
+        //ChangeCameraPosition("Hall");
 
         //左矢印ボタン押下時
         ButtonLeft.GetComponent<Button>().onClick.AddListener(() =>
