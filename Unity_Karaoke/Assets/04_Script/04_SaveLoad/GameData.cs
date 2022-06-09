@@ -35,6 +35,8 @@ public class GameData
     public bool isClearDoor = false; //鍵を使ったか
     public bool isFullOpen = false; //1度でも最初の扉を全開にしたか
     public bool isClearPentagon = false;
+    public bool isClearFinalBtn = false;
+    public bool isClearAll = false;
 
 
     //オブジェクト状態

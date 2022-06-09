@@ -424,18 +424,6 @@ public class CameraManager : MonoBehaviour
             }
         },
         {
-            "DoorFinal",//通路突き当たりの扉
-            new CameraPositionInfo
-            {
-                Position=new Vector3(21.45f,6.5f,-31.7f),
-                Rotate =new Vector3(7,180,0),
-                MoveNames=new MoveNames
-                {
-                    Back="Hall",
-                },
-            }
-        },
-        {
             "HallBack",//通路背中の壁
             new CameraPositionInfo
             {
@@ -468,6 +456,30 @@ public class CameraManager : MonoBehaviour
                 MoveNames=new MoveNames
                 {
                     Back="HallDesk",
+                },
+            }
+        },
+        {
+            "DoorFinal",//通路突き当たりの扉
+            new CameraPositionInfo
+            {
+                Position=new Vector3(21.5f,6.26f,-33.65f),
+                Rotate =new Vector3(7,180,0),
+                MoveNames=new MoveNames
+                {
+                    Back="Hall",
+                },
+            }
+        },
+        {
+            "DoorFinalBtn",//通路突き当たりの扉ボタン
+            new CameraPositionInfo
+            {
+                Position=new Vector3(22.85f,5.38f,-40.6f),
+                Rotate =new Vector3(15,180,0),
+                MoveNames=new MoveNames
+                {
+                    Back="DoorFinal",
                 },
             }
         },

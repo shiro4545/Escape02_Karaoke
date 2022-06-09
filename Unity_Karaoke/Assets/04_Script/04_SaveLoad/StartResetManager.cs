@@ -29,6 +29,10 @@ public class StartResetManager : MonoBehaviour
     public DenmokuPower_Tap DenmokuPower;
     public Pentagon_Judge PentagonClass;
     public Pentagon_Tap[] PentaPieceArray;
+    public FinalButton_Judge FinalButtonClass;
+    public FinalButton_Tap FInalBtn1;
+    public FinalButton_Tap FInalBtn2;
+    public FinalButton_Tap FInalBtn3;
 
     //カラオケ機が入った棚周り
     public GameObject CloseDoor;
@@ -237,6 +241,22 @@ public class StartResetManager : MonoBehaviour
             PentagonClass.PentagonCollider.SetActive(false);
         }
 
+        //最終扉のボタンクリア有無
+        FinalButtonClass.isClear = gameData.isClearFinalBtn;
+        if(FinalButtonClass.isClear)
+        {
+            //ボタンを正解状態に
+            FInalBtn1.Objects[0].SetActive(false);
+            FInalBtn2.Objects[0].SetActive(false);
+            FInalBtn3.Objects[0].SetActive(false);
+            FInalBtn1.Objects[1].SetActive(true);
+            FInalBtn2.Objects[2].SetActive(true);
+            FInalBtn3.Objects[3].SetActive(true);
+
+            //鍵穴の蓋を開ける
+            FinalButtonClass.KeyCover.transform.Translate(new Vector3(0.13f, 0, 0));
+        }
+
 
 
 
@@ -253,6 +273,10 @@ public class StartResetManager : MonoBehaviour
         //    ChangeTVScreen("a02");
         else
             TV_Manager.Instance.ChangeTVScreen("a01");
+
+        //全クリアの場合、鍵3がない状態で続きからになるため鍵3を付与
+        if (gameData.isClearAll)
+            gameData.getItems = "Key3;";
 
         //保有アイテム
         if (gameData.getItems == "")

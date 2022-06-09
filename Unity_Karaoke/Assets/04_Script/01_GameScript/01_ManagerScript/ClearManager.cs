@@ -13,7 +13,7 @@ public class ClearManager : MonoBehaviour
   public Camera MainCamera;
 
   //脱出演出
-  public void escape(){
+  public void Escape(){
     //カメラを徐々にズーム&移動
     float defaultFov = MainCamera.fieldOfView;
     DOTween.To(() => MainCamera.fieldOfView, fov => MainCamera.fieldOfView = fov, 20, 10);
