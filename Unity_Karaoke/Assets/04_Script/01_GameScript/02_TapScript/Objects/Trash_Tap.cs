@@ -18,7 +18,8 @@ public class Trash_Tap : TapCollider
 
         //タップを２回目以降しても働かないように
         if (isTap == false)
-        {
+        {//効果音
+            AudioManager.Instance.SoundSE("PutPaper");
             //ごみ箱を倒す
             this.gameObject.transform.Rotate(new Vector3(30,90 , -40));
             this.gameObject.transform.Translate(new Vector3(0, -0.5f, 0.5f));
