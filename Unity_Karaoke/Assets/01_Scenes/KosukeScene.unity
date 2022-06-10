@@ -8307,6 +8307,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 581205338}
   m_CullTransparentMesh: 1
+--- !u!1 &581681867 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: eda40ea149c99c54e9ba6d29c896ca0f, type: 3}
+  m_PrefabInstance: {fileID: 1239259047}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &581681868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 581681867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0722994e852abe469f85cdbb1dc7b83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isClear: 0
+  InputNo: 0000
+  AnswerNo: 4312
 --- !u!1 &590466533
 GameObject:
   m_ObjectHideFlags: 0
@@ -9417,6 +9437,7 @@ MonoBehaviour:
   - {fileID: 399558148}
   - {fileID: 644764126}
   - {fileID: 1066217162}
+  JudgeClass: {fileID: 581681868}
 --- !u!65 &682622073
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11443,6 +11464,7 @@ MonoBehaviour:
   - {fileID: 508349020}
   - {fileID: 2000642060}
   - {fileID: 61257380}
+  JudgeClass: {fileID: 581681868}
 --- !u!65 &807805121
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15710,6 +15732,7 @@ MonoBehaviour:
   - {fileID: 1590534936}
   - {fileID: 89922215}
   - {fileID: 334016328}
+  JudgeClass: {fileID: 581681868}
 --- !u!65 &1115116526
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -19475,6 +19498,27 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: eb67167c780ba4d4487d2501db782ca5, type: 3}
   m_PrefabInstance: {fileID: 1560973113}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1514882547 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 2c112b0f1bfe5451ca9958a148420bbf, type: 3}
+  m_PrefabInstance: {fileID: 548108247}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1514882548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1514882547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b62f7f77fa3d4060b86617fac11af9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TVScreen: {fileID: 549275698}
+  Machine: {fileID: 0}
+  isPlaySong: 0
+  DoorClass: {fileID: 0}
 --- !u!1 &1515531886
 GameObject:
   m_ObjectHideFlags: 0
@@ -27019,6 +27063,7 @@ MonoBehaviour:
   - {fileID: 1579443120}
   - {fileID: 2131452863}
   - {fileID: 1315356517}
+  JudgeClass: {fileID: 581681868}
 --- !u!65 &1649565319
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -27141,6 +27186,10 @@ MonoBehaviour:
   DenmokuPower: {fileID: 0}
   PentagonClass: {fileID: 0}
   PentaPieceArray: []
+  FinalButtonClass: {fileID: 0}
+  FInalBtn1: {fileID: 0}
+  FInalBtn2: {fileID: 0}
+  FInalBtn3: {fileID: 0}
   CloseDoor: {fileID: 0}
   CloseDoorParts1: {fileID: 0}
   CloseDoorParts2: {fileID: 0}
