@@ -24,6 +24,8 @@ public class GameData
     public bool isGetKey3 = false;
 
     //謎クリア有無
+    public bool isSetHanger = false;
+    public bool isClearTambarin = false;
     public bool isSendStarPower = false;
     public bool isSendStepStep = false;
     public bool isSendLovers = false;
@@ -40,6 +42,7 @@ public class GameData
 
 
     //オブジェクト状態
+    public string TambarinStatus = "001";
     public bool isOpenShelf = false;
     public int DenmokuStatus = 1; //0:電源off,1:ロック状態,2:ロックなし 
     public int DoorStatus = 0; //0:全閉,1:全開,2:ちょい開け

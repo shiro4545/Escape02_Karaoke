@@ -65,7 +65,7 @@ public class CameraManager : MonoBehaviour
                     Left="RoomSofa",
                     Right="RoomTV",
                 },
-                hideObjectsName = new string[]{"Hanger","HallWall"}
+                hideObjectsName = new string[]{"Hanger","HallWall","Desk"}
             }
         },
         {
@@ -136,7 +136,7 @@ public class CameraManager : MonoBehaviour
             "Hanger",//ハンガー
             new CameraPositionInfo
             {
-                Position=new Vector3(10f,6.5f,-9.2f),
+                Position=new Vector3(10f,7.5f,-9.2f),
                 Rotate =new Vector3(3,30,0),
                 MoveNames=new MoveNames
                 {
@@ -148,7 +148,7 @@ public class CameraManager : MonoBehaviour
             "Desk",//デスク
             new CameraPositionInfo
             {
-                Position=new Vector3(15.1f,6.9f,0f),
+                Position=new Vector3(15.1f,7.38f,0.8f),
                 Rotate =new Vector3(25,0,0),
                 MoveNames=new MoveNames
                 {
@@ -268,8 +268,8 @@ public class CameraManager : MonoBehaviour
             "Picture",//絵2枚
             new CameraPositionInfo
             {
-                Position=new Vector3(-1f,7.3f,-1.4f),
-                Rotate =new Vector3(0,0,0),
+                Position=new Vector3(4.2f,8f,2.4f),
+                Rotate =new Vector3(12,324,0),
                 MoveNames=new MoveNames
                 {
                     Back="RoomSofa",

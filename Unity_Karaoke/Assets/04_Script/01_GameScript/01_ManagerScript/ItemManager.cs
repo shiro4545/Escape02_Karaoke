@@ -59,6 +59,18 @@ public class ItemManager : MonoBehaviour
 
         switch(itemName)
         {
+            case "Hanger":
+                SaveLoadSystem.Instance.gameData.isGetHanger = true;
+                break;
+            case "Tambarin_Sankaku":
+                SaveLoadSystem.Instance.gameData.isGetTanbarine_Sankaku = true;
+                break;
+            case "Tambarin_Shikaku":
+                SaveLoadSystem.Instance.gameData.isGetTanbarine_Shikaku = true;
+                break;
+            case "Key1":
+                SaveLoadSystem.Instance.gameData.isGetKey1 = true;
+                break;
             case "KeyBox":
                 SaveLoadSystem.Instance.gameData.isGetKeyBox = true;
                 break;

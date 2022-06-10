@@ -9,6 +9,8 @@ public class StartResetManager : MonoBehaviour
 
 
     //アイテムオブジェクト**********************
+    public GameObject Hanger;
+    public GameObject Key1;
     public GameObject KeyBox;
     public GameObject Driver;
     public GameObject Piece1;
@@ -20,6 +22,8 @@ public class StartResetManager : MonoBehaviour
 
 
     //ゲーム内オブジェクト**********************
+    public PutHanger_Tap PutHangerClass;
+    public Tambarin_Judge TambarinClass;
     public Machine_Judge MachineClass;
     public Phone_Judge PhoneClass;
     public Phone_Tap PhoneBtnTop;
@@ -60,6 +64,33 @@ public class StartResetManager : MonoBehaviour
         SaveLoadSystem.Instance.Load();
         gameData = SaveLoadSystem.Instance.gameData;
 
+        //ハンガー取得有無
+        if (gameData.isGetHanger)
+            Hanger.SetActive(false);
+
+        //タンバリンアイテム
+
+        //タンバリンクリア有無
+        TambarinClass.isClear = gameData.isClearTambarin;
+        TambarinClass.InputStatus = gameData.TambarinStatus;
+        //
+        //
+        //
+
+
+
+        //鍵1
+        if (gameData.isGetKey1)
+            Key1.SetActive(false);
+
+
+        //ハンガー設置有無
+        if(gameData.isSetHanger)
+        {
+            PutHangerClass.gameObject.SetActive(false);
+            PutHangerClass.Hanger.SetActive(true);
+            PutHangerClass.TapCollider.SetActive(true);
+        }
 
         //カラオケ機棚の開閉状態
         if(gameData.isOpenShelf)

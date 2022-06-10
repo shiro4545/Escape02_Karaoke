@@ -19,7 +19,7 @@ public class FinalDoor_Tap : TapCollider
     protected override void OnTap()
     {
         base.OnTap();
-        if(true)
+        //if(true)
         //if(ItemManager.Instance.selectItem == "Key3" && FinalBtnClass.isClear)
         {
             BlockPanel.Instance.ShowBlock();
@@ -52,6 +52,7 @@ public class FinalDoor_Tap : TapCollider
     //エンディング
     private void act3()
     {
+        BlockPanel.Instance.HideBlock();
         Escape.Escape();
     }
 }
