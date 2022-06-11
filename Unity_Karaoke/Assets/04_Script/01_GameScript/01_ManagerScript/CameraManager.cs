@@ -525,8 +525,8 @@ public class CameraManager : MonoBehaviour
     void Start()
     {
         Instance = this;
-        ChangeCameraPosition("Title");
-        //ChangeCameraPosition("RoomStart");
+        //ChangeCameraPosition("Title");
+        ChangeCameraPosition("RoomStart");
         //ChangeCameraPosition("Hall");
 
         //左矢印ボタン押下時
