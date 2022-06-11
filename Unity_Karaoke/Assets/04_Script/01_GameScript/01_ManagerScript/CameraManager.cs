@@ -277,14 +277,26 @@ public class CameraManager : MonoBehaviour
             }
         },
         {
-            "Poster",//ポスター
+            "Poster",//ポスター周り
             new CameraPositionInfo
             {
-                Position=new Vector3(-1.3f,7.3f,2.1f),
-                Rotate =new Vector3(0,-61,0),
+                Position=new Vector3(2.35f,7.65f,-1.38f),
+                Rotate =new Vector3(8,-55,0),
                 MoveNames=new MoveNames
                 {
                     Back="RoomSofa",
+                },
+            }
+        },
+        {
+            "PosterUp",//ポスター寄り
+            new CameraPositionInfo
+            {
+                Position=new Vector3(-3f,6.5f,5.3f),
+                Rotate =new Vector3(0,270,0),
+                MoveNames=new MoveNames
+                {
+                    Back="Poster",
                 },
             }
         },
@@ -317,11 +329,11 @@ public class CameraManager : MonoBehaviour
             "Trash",//ごみ箱寄り
             new CameraPositionInfo
             {
-                Position=new Vector3(7.7f,1.5f,-1.43f),
-                Rotate =new Vector3(0,284,0),
+                Position=new Vector3(-5.87f,6.77f,6.33f),
+                Rotate =new Vector3(66,316,0),
                 MoveNames=new MoveNames
                 {
-                    Back="RoomSofa",
+                    Back="Poster",
                 }
             }
         },
@@ -329,8 +341,20 @@ public class CameraManager : MonoBehaviour
             "Book",//曲検索本
             new CameraPositionInfo
             {
-                Position=new Vector3(6.97f,6.6f,2.5f),
-                Rotate =new Vector3(48,180,0),
+                Position=new Vector3(1.93f,6.77f,4f),
+                Rotate =new Vector3(55,180,0),
+                MoveNames=new MoveNames
+                {
+                    Back="RoomStart",
+                }
+            }
+        },
+         {
+            "Cop",//コップエリア
+            new CameraPositionInfo
+            {
+                Position=new Vector3(9.73f,6.82f,6.9f),
+                Rotate =new Vector3(25,180,0),
                 MoveNames=new MoveNames
                 {
                     Back="RoomStart",
