@@ -55,6 +55,17 @@ public class CameraManager : MonoBehaviour
     private Dictionary<string, CameraPositionInfo> CameraPositionInfoes = new Dictionary<string, CameraPositionInfo>
     {
         {
+            "Title",//タイトル画面
+            new CameraPositionInfo
+            {
+                Position=new Vector3(60.7f,4.7f,6.5f),
+                Rotate =new Vector3(7,116,0),
+                MoveNames=new MoveNames
+                {
+                },
+            }
+        },
+        {
             "RoomStart",//スタート位置
             new CameraPositionInfo
             {
@@ -514,7 +525,8 @@ public class CameraManager : MonoBehaviour
     void Start()
     {
         Instance = this;
-        ChangeCameraPosition("RoomStart");
+        ChangeCameraPosition("Title");
+        //ChangeCameraPosition("RoomStart");
         //ChangeCameraPosition("Hall");
 
         //左矢印ボタン押下時

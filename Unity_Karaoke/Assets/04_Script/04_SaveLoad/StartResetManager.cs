@@ -10,7 +10,8 @@ public class StartResetManager : MonoBehaviour
 
     //アイテムオブジェクト**********************
     public GameObject Hanger;
-    public GameObject Key1;
+    public GameObject Tambarin_Sankaku;
+    public GameObject Tambarin_Shikaku;
     public GameObject KeyBox;
     public GameObject Driver;
     public GameObject Piece1;
@@ -23,6 +24,14 @@ public class StartResetManager : MonoBehaviour
 
     //ゲーム内オブジェクト**********************
     public PutHanger_Tap PutHangerClass;
+    public SlideItem_Tap StrawClass;
+    public SlideItem_Tap Key1Class;
+    public CopPutStraw_Tap PutCopClass;
+    public DeskSlide_Tap UpperSlideClass;
+    public DeskSlide_Tap UnderSlideClass;
+    public Tambarin_Tap TambarinLeft;
+    public Tambarin_Tap TambarinCenter;
+    public Tambarin_Tap TambarinRight;
     public Tambarin_Judge TambarinClass;
     public Machine_Judge MachineClass;
     public Phone_Judge PhoneClass;
@@ -68,32 +77,107 @@ public class StartResetManager : MonoBehaviour
         if (gameData.isGetHanger)
             Hanger.SetActive(false);
 
-        //タンバリンアイテム
-
-        //タンバリンクリア有無
-        TambarinClass.isClear = gameData.isClearTambarin;
-        TambarinClass.InputStatus = gameData.TambarinStatus;
-        //
-        //
-        //
-
-
-
-        //鍵1
-        if (gameData.isGetKey1)
-            Key1.SetActive(false);
-
 
         //ハンガー設置有無
-        if(gameData.isSetHanger)
+        if (gameData.isSetHanger)
         {
             PutHangerClass.gameObject.SetActive(false);
             PutHangerClass.Hanger.SetActive(true);
             PutHangerClass.TapCollider.SetActive(true);
         }
 
+        //ハンガークリア有無
+
+
+
+        //タンバリン三角
+        if (gameData.isGetTanbarine_Sankaku)
+            Tambarin_Sankaku.SetActive(false);
+
+        //タンバリン四角
+        if (gameData.isGetTanbarine_Shikaku)
+            Tambarin_Shikaku.SetActive(false);
+
+
+        //ストロー
+        StrawClass.isGetItem = gameData.isGetStraw;
+        if (gameData.isGetStraw)
+            StrawClass.gameObject.SetActive(false);
+
+        //鍵1
+        Key1Class.isGetItem = gameData.isGetKey1;
+        if (gameData.isGetKey1)
+            Key1Class.gameObject.SetActive(false);
+
+
+        //グラスにストローしたか
+        if (gameData.isSetStraw)
+        {
+            PutCopClass.Straw.SetActive(true);
+            PutCopClass.gameObject.SetActive(false);
+            //PutCopClass.CopRotateCollider.SetActive(true);
+
+        }
+
+
+        //コップ回しのクリア有無
+
+
+        //上引き出し状態
+        UpperSlideClass.Status = gameData.DeskUpperStatus;
+        if(UpperSlideClass.Status == 1)
+        {
+            //全開
+            UpperSlideClass.Slide.transform.Translate(new Vector3(0, -1.1f, 0));
+            //鍵1を未取得なら引き出しコライダー非表示
+            if (!gameData.isGetKey1)
+                UpperSlideClass.gameObject.SetActive(false);
+        }
+        else if(UpperSlideClass.Status == 2)
+        {
+            //ちょい開き
+            UpperSlideClass.Slide.transform.Translate(new Vector3(0, -0.15f, 0));
+        }
+
+        //下引き出し状態
+        UnderSlideClass.Status = gameData.DeskUnderStatus;
+        if (UnderSlideClass.Status == 1)
+        {
+            //全開
+            UnderSlideClass.Slide.transform.Translate(new Vector3(0, -1.1f, 0));
+            //ストローを未取得なら引き出しコライダー非表示
+            if (!gameData.isGetStraw)
+                UnderSlideClass.gameObject.SetActive(false);
+        }
+        else if (UnderSlideClass.Status == 2)
+        {
+            //ちょい開き
+            UnderSlideClass.Slide.transform.Translate(new Vector3(0, -0.15f, 0));
+        }
+
+
+        //タンバリンクリア有無
+        TambarinClass.isClear = gameData.isClearTambarin;
+        TambarinClass.InputStatus = gameData.TambarinStatus;
+
+        //タンバリン左
+        int status = int.Parse(TambarinClass.InputStatus.Substring(0, 1));
+        if(status != 0)
+            TambarinLeft.Objects[status -1].SetActive(true);
+        //タンバリン中央
+        status = int.Parse(TambarinClass.InputStatus.Substring(1, 1));
+        if (status != 0)
+            TambarinCenter.Objects[status - 1].SetActive(true);
+        //タンバリン右
+        status = int.Parse(TambarinClass.InputStatus.Substring(2, 1));
+        if (status != 1)
+            TambarinRight.Objects[0].SetActive(false);
+        if(status == 2 || status ==3)
+            TambarinRight.Objects[status - 1].SetActive(true);
+
+
         //カラオケ機棚の開閉状態
-        if(gameData.isOpenShelf)
+        if (gameData.isOpenShelf)
         {
             CloseDoor.SetActive(false);
             CloseDoorParts1.SetActive(false);

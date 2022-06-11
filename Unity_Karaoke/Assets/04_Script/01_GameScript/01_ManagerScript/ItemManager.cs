@@ -9,12 +9,16 @@ public class ItemManager : MonoBehaviour
 {
     public static ItemManager Instance { get; private set; }
 
-    public GameObject[] getItemsArray;
-    public GameObject ItemPanel;
-    public GameObject BtnKeyBox;
+    //選択中のアイテム名
     public string selectItem;
 
-    public bool isPaperChange = false;
+    public GameObject[] getItemsArray;
+    public GameObject ItemPanel;
+
+    //特定アイテムでの透明ボタン
+    public GameObject BtnKeyBox;
+    public GameObject BtnStrawPackage;
+
 
     // Start is called before the first frame update
     void Start()
@@ -31,11 +35,18 @@ public class ItemManager : MonoBehaviour
         }
 
         //アイテム拡大画面でタップする場合
+
+        //袋入りストローからストローを取り出す
+        BtnStrawPackage.GetComponent<Button>().onClick.AddListener(() =>
+        {
+            GetStraw();
+        });
+        //鍵入り箱をひっくり返す/ドライバーで開ける
         BtnKeyBox.GetComponent<Button>().onClick.AddListener(() =>
         {
-            //鍵入り箱をひっくり返す/ドライバーで開ける
             RotateKeyBox();
         });
+
 
     }
 
@@ -67,9 +78,6 @@ public class ItemManager : MonoBehaviour
                 break;
             case "Tambarin_Shikaku":
                 SaveLoadSystem.Instance.gameData.isGetTanbarine_Shikaku = true;
-                break;
-            case "Key1":
-                SaveLoadSystem.Instance.gameData.isGetKey1 = true;
                 break;
             case "KeyBox":
                 SaveLoadSystem.Instance.gameData.isGetKeyBox = true;
@@ -154,16 +162,25 @@ public class ItemManager : MonoBehaviour
     //<param>アイテムオブジェクト</param>
     private void showItem(GameObject item)
     {
-      ItemPanel.SetActive(true);
-      ItemPanel.transform.Find("ItemImage").gameObject.GetComponent<Image>().sprite = item.gameObject.GetComponent<Image>().sprite;
-      CameraManager.Instance.ButtonLeft.SetActive(false);
-      CameraManager.Instance.ButtonRight.SetActive(false);
-      CameraManager.Instance.ButtonBack.SetActive(true);
+        ItemPanel.SetActive(true);
+        ItemPanel.transform.Find("ItemImage").gameObject.GetComponent<Image>().sprite = item.gameObject.GetComponent<Image>().sprite;
+        CameraManager.Instance.ButtonLeft.SetActive(false);
+        CameraManager.Instance.ButtonRight.SetActive(false);
+        CameraManager.Instance.ButtonBack.SetActive(true);
 
-      BtnKeyBox.SetActive(false);
-        //大ペーパーの場合に透明ボタン表示
-        if (ItemPanel.transform.Find("ItemImage").gameObject.GetComponent<Image>().sprite.name == "KeyBox")
+        //透明ボタンを非表示
+        BtnKeyBox.SetActive(false);
+        BtnStrawPackage.SetActive(false);
+
+
+        //箱入りの鍵のん場合に透明ボタン表示
+        if (ItemPanel.transform.Find("ItemImage").gameObject.GetComponent<Image>().sprite.name == "KeyBox" ||
+            ItemPanel.transform.Find("ItemImage").gameObject.GetComponent<Image>().sprite.name == "KeyBox_Back")
             BtnKeyBox.SetActive(true);
+
+        //袋入りストローの場合に透明ボタン表示
+        if (ItemPanel.transform.Find("ItemImage").gameObject.GetComponent<Image>().sprite.name == "StrawPackage" )
+            BtnStrawPackage.SetActive(true);
 
     }
 
@@ -239,11 +256,11 @@ public class ItemManager : MonoBehaviour
             //ヘッダーのアイテム画像をKey2に変える
             foreach (var obj in getItemsArray)
             {
-                if (obj.gameObject.GetComponent<Image>().sprite.name == "KeyBox")
+                if (obj.gameObject.GetComponent<Image>().sprite.name == "KeyBox" || obj.gameObject.GetComponent<Image>().sprite.name == "KeyBox_Back")
                 {
                     //アイテム画像をKey2に変える
                     obj.gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/01_Items/Key2");
-                    //Key2を選択中にする
+                    //Key2を選枠線を表示する
                     obj.gameObject.GetComponent<Outline>().enabled = true;
                     selectItem = "Key2";
                     break;
@@ -253,13 +270,45 @@ public class ItemManager : MonoBehaviour
             SaveLoadSystem.Instance.gameData.getItems = SaveLoadSystem.Instance.gameData.getItems.Replace("KeyBox", "Key2");
             SaveLoadSystem.Instance.Save();
         }
-        else
+        else if (ItemPanel.transform.Find("ItemImage").gameObject.GetComponent<Image>().sprite.name == "KeyBox")
         {
-            //箱を裏返す場合
+            //拡大画面が表だったら裏返す場合
             AudioManager.Instance.SoundSE("ItemGet");
             ItemPanel.transform.Find("ItemImage").gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/01_Items/KeyBox_Back");
-            BtnKeyBox.SetActive(false);
+            
         }
+    }
+
+
+    //<summary>
+    //袋入りストローからストローを取り出す
+    //</summary>
+    //<param></param>
+    private void GetStraw()
+    {
+        AudioManager.Instance.SoundSE("Clear");
+        //拡大画面をStrawに変える
+        ItemPanel.transform.Find("ItemImage").gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/01_Items/Straw");
+        BtnStrawPackage.SetActive(false);
+
+        //ヘッダーのアイテム画像をStrawに変える
+        foreach (var obj in getItemsArray)
+        {
+            if (obj.gameObject.GetComponent<Image>().sprite.name == "StrawPackage" )
+            {
+                //アイテム画像をKey2に変える
+                obj.gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/01_Items/Straw");
+                //Strawの枠線を表示する
+                obj.gameObject.GetComponent<Outline>().enabled = true;
+                selectItem = "Straw";
+                break;
+            }
+        }
+
+        //セーブ
+        SaveLoadSystem.Instance.gameData.getItems = SaveLoadSystem.Instance.gameData.getItems.Replace("StrawPackage", "Straw");
+        SaveLoadSystem.Instance.Save();
+
     }
 
 }

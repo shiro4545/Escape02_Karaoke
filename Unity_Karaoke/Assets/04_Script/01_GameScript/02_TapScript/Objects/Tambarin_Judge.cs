@@ -12,7 +12,7 @@ public class Tambarin_Judge : MonoBehaviour
     public string InputStatus = "001";
 
     //引き出し
-    public GameObject Slide;
+    public DeskSlide_Tap SlideClass;
 
     //答え合わせ
     public void AnswerJudge(int PositionIndex, int TambarinNo)
@@ -49,7 +49,7 @@ public class Tambarin_Judge : MonoBehaviour
     private void AfterClear1()
     {
         //引き出し開ける
-        Slide.transform.Translate(new Vector3(0, 1,0));
+        SlideClass.OpenSlide();
         BlockPanel.Instance.HideBlock();
     }
 }

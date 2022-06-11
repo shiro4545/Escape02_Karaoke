@@ -10,6 +10,7 @@ public class GameData
 
     //アイテム取得有無
     public bool isGetHanger = false;
+    public bool isGetStraw = false;
     public bool isGetTanbarine_Maru = false;
     public bool isGetTanbarine_Sankaku = false;
     public bool isGetTanbarine_Shikaku = false;
@@ -25,6 +26,9 @@ public class GameData
 
     //謎クリア有無
     public bool isSetHanger = false;
+    public bool isClearHanger = false;
+    public bool isSetStraw = false;
+    public bool isClearCop = false;
     public bool isClearTambarin = false;
     public bool isSendStarPower = false;
     public bool isSendStepStep = false;
@@ -42,6 +46,8 @@ public class GameData
 
 
     //オブジェクト状態
+    public int DeskUpperStatus = 0;
+    public int DeskUnderStatus = 0;
     public string TambarinStatus = "001";
     public bool isOpenShelf = false;
     public int DenmokuStatus = 1; //0:電源off,1:ロック状態,2:ロックなし 

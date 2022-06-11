@@ -21,6 +21,7 @@ public class UIManager : MonoBehaviour
     //ボタンオブジェクト
     public GameObject BtnTitle_Start;
     public GameObject BtnTitle_Continue;
+    public GameObject BtnTitle_OtherApp;
     public GameObject BtnHeader_Menu;
     public GameObject BtnMenu_Hint;
     public GameObject BtnMenu_Title;
@@ -47,8 +48,8 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //TitlePanel.SetActive(true);
-        //GamePanel.SetActive(false);
+        TitlePanel.SetActive(true);
+        GamePanel.SetActive(false);
         //GamePanel.SetActive(true);
 
         //各パネルを画面サイズごとで変動させる
@@ -208,11 +209,18 @@ public class UIManager : MonoBehaviour
         Invoke(nameof(hidePanel), 1f);
     }
 
+    //タイトル画面の「他の脱出ゲーム」ボタン
+    private void onTapOtherApp()
+    {
+        AudioManager.Instance.SoundSE("RapUIBtn");
+    }
+
     //
     private void hidePanel()
     {
         TitlePanel.SetActive(false);
         GamePanel.SetActive(true);
+        CameraManager.Instance.ChangeCameraPosition("RoomStart");
     }
 
     //ヘッダーの「MENU」ボタン
@@ -250,6 +258,7 @@ public class UIManager : MonoBehaviour
         TitlePanel.SetActive(true);
         GamePanel.SetActive(false);
         MenuPanel.SetActive(false);
+        CameraManager.Instance.ChangeCameraPosition("Title");
 
         // GoogleAds.unRequestSquareBanner();
         //シーンのリセット
