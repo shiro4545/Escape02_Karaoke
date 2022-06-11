@@ -312,8 +312,8 @@ public class Denmoku_Judge : MonoBehaviour
                 break;
             default:
                 AudioManager.Instance.SoundSE("NotClear");
-                Msg801.SetActive(true);
-                Invoke(nameof(HideMsg801), 1.5f);
+                Msg803.SetActive(true);
+                Invoke(nameof(HideMsg803), 1.5f);
                 break;
 
         }
@@ -322,9 +322,9 @@ public class Denmoku_Judge : MonoBehaviour
     }
 
     //メッセージ非表示
-    public void HideMsg801()
+    public void HideMsg803()
     {
-        Msg801.SetActive(false);
+        Msg803.SetActive(false);
     }
 
     //<summary>

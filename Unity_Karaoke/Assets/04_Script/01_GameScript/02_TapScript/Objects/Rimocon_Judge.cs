@@ -9,7 +9,7 @@ public class Rimocon_Judge : MonoBehaviour
     //ボタンの4桁
     public string InputNo = "0000";
     //答えの4桁
-    public string AnswerNo = "4312";
+    public string AnswerNo = "4212";
     
 
 
@@ -47,7 +47,7 @@ public class Rimocon_Judge : MonoBehaviour
             BlockPanel.Instance.ShowBlock();
 
             //1秒後にカメラ移動
-            Invoke(nameof(AfterClear1), 1);
+            Invoke(nameof(AfterClear1), 1.5f);
 
             //最後にセーブ
             SaveLoadSystem.Instance.Save();
@@ -60,7 +60,7 @@ public class Rimocon_Judge : MonoBehaviour
             //カメラ移動
             CameraManager.Instance.ChangeCameraPosition("RoomTV");
             //移動してさらに1秒後に画面変更
-            Invoke(nameof(AfterClear2), 1);
+            Invoke(nameof(AfterClear2), 1.5f);
         }
 
     //正解後のスライド開く
@@ -70,7 +70,7 @@ public class Rimocon_Judge : MonoBehaviour
 
 
         //さらに1秒後に画面変更
-        Invoke(nameof(AfterClear3), 1);
+        Invoke(nameof(AfterClear3), 1.5f);
     }
 
     //最後にもとの画面に戻る

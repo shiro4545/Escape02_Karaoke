@@ -23,8 +23,10 @@ public class Shelf_Tap : TapCollider
     {
         base.OnTap();
         //if(true)
+        //鍵を選択しているかの判定
         if(ItemManager.Instance.selectItem == "Key1")
         {
+            //扉を開ける
             BlockPanel.Instance.ShowBlock();
             AudioManager.Instance.SoundSE("Clear");
             //鍵を消費
