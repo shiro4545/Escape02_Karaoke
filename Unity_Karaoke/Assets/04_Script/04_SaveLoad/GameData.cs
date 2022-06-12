@@ -46,6 +46,7 @@ public class GameData
 
 
     //オブジェクト状態
+    public bool isChangePage = false;
     public int DeskUpperStatus = 0;
     public int DeskUnderStatus = 0;
     public string TambarinStatus = "001";
@@ -54,6 +55,34 @@ public class GameData
     public int DoorStatus = 0; //0:全閉,1:全開,2:ちょい開け
     public string PentagonStatus = "00000"; //0:ピースなし,1~5:それぞれのピースが置かれている
 
-    //ヒント
-    public bool[] hintArray = new bool[12];
+    //各ヒントの数と動画視聴有無(0:未視聴,1:視聴済み)
+    public string[] HintFlgArray = new string[] {
+        "0",     //ダミー
+        "0000",  //step1
+        "0000",  //step2
+        "0000",  //step3
+        "0000",  //step4
+        "0000",  //step5
+        "0000",  //step6
+        "0000",  //step7
+        "0000",  //step8
+        "0000",  //step10
+        "0000",  //step12
+        "0000",  //step13
+        "0000",  //step14
+        "0000",  //step15
+        "0000",  //step16
+        "0000",  //step17
+        "0000",  //step18
+        "0000",  //step19
+        "0000",  //step20
+        "0000",  //step21
+        "0000",  //step22
+        "0000",  //step23
+        "0000",  //step24
+        "0000",  //step25
+        "0000",  //step26
+        "0000",  //step27
+        "0000",  //step28
+    };
 }

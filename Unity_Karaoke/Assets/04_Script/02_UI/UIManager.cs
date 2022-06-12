@@ -13,6 +13,7 @@ public class UIManager : MonoBehaviour
     public GameObject HintPanel;
     public GameObject ClearPanel;
     public GameObject ItemPanel;
+    public GameObject OtherAppPanel;
 
     //GamePanel内
     public GameObject GameHeader;
@@ -27,19 +28,21 @@ public class UIManager : MonoBehaviour
     public GameObject BtnMenu_Title;
     public GameObject BtnMenu_Back;
 
-    public Text Hint1;
-    public Text Hint2;
+    //ヒントパネル内
+    public GameObject SclHint;
     public GameObject BtnHint_Back;
-    public GameObject Hint1_txt;
-    public GameObject Hint2_txt;
-    public GameObject Hint2_ads;
-    public GameObject BtnHint_Hint2;
-    public GameObject BtnClear_Title;
+
+    //クリアパネル内
+    public GameObject BtnClear_OtherApp;
+
+    //他のアプリパネル内
+    public GameObject TxtOtherAppTop;
+    public GameObject BtnOtherApp_Title;
+    public GameObject SclOtherApp;
+
 
     public GameObject ItemImage;
 
-    //広告オブジェクト
-    public GoogleAds GoogleAds;
     //ヒントオブジェクト
     public HintManager Hint;
     //ゲームスタートオブジェクト
@@ -56,10 +59,10 @@ public class UIManager : MonoBehaviour
         GamePanel.GetComponent<RectTransform>().sizeDelta = GetComponent<RectTransform>().sizeDelta;
         ClearPanel.GetComponent<RectTransform>().sizeDelta = GetComponent<RectTransform>().sizeDelta;
 
-        //Debug.Log("w:" + Screen.width);
-        //Debug.Log("h:" + Screen.height);
+        Debug.Log("w:" + Screen.width);
+        Debug.Log("h:" + Screen.height);
+        Debug.Log("Safe:" + Screen.safeArea);
         //Debug.Log("Device:" + Application.platform);
-        //Debug.Log("Safe:" + Screen.safeArea);
 
         if (Application.platform == RuntimePlatform.Android) //Androidの場合
         {
@@ -69,7 +72,9 @@ public class UIManager : MonoBehaviour
             //メニューパネル
             MenuPanel.GetComponent<RectTransform>().sizeDelta = new Vector2(0, Screen.height);
             //ヒントパネル
-            HintPanel.GetComponent<RectTransform>().sizeDelta = new Vector2(0, Screen.height);
+            HintPanel.GetComponent<RectTransform>().sizeDelta = new Vector2(0, -200);
+            //他のアプリパネル
+            OtherAppPanel.GetComponent<RectTransform>().sizeDelta = new Vector2(0, -200);
             //アイテムパネル
             ItemPanel.GetComponent<RectTransform>().sizeDelta = new Vector2(0, 940);
         }
@@ -84,12 +89,14 @@ public class UIManager : MonoBehaviour
                 MenuPanel.GetComponent<RectTransform>().sizeDelta = new Vector2(0, -200);
                 //ヒントパネル
                 HintPanel.GetComponent<RectTransform>().sizeDelta = new Vector2(0, -200);
+                //他のアプリパネル
+                OtherAppPanel.GetComponent<RectTransform>().sizeDelta = new Vector2(0, -100);
                 //アイテムパネル
                 ItemPanel.GetComponent<RectTransform>().sizeDelta = new Vector2(0, 940);
             }
-            else if (Screen.width == 1242 && Screen.height == 2208)//iPhone7plus,8plus
-            //else if (Screen.width == 1080 && Screen.height == 1920)//iPhone7plus,8plus
-                    {
+            //else if (Screen.width == 1242 && Screen.height == 2208)//iPhone7plus,8plus
+            else if (Screen.width == 1080 && Screen.height == 1920)//iPhone7plus,8plus
+            {
                 //ヘッダーフッター
                 GameHeader.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -182);
                 GameFooter.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 240);
@@ -97,6 +104,8 @@ public class UIManager : MonoBehaviour
                 MenuPanel.GetComponent<RectTransform>().sizeDelta = new Vector2(0, -200);
                 //ヒントパネル
                 HintPanel.GetComponent<RectTransform>().sizeDelta = new Vector2(0, -200);
+                //他のアプリパネル
+                OtherAppPanel.GetComponent<RectTransform>().sizeDelta = new Vector2(0, -200);
                 //アイテムパネル
                 ItemPanel.GetComponent<RectTransform>().sizeDelta = new Vector2(0, 900);
             }
@@ -109,9 +118,9 @@ public class UIManager : MonoBehaviour
             else //iPad
             {
                 //タイトルパネル
-                TitlePanel.gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/UI/Title_wide");
-                BtnTitle_Start.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -200);
-                BtnTitle_Continue.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -350);
+                BtnTitle_Start.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -100);
+                BtnTitle_Continue.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -250);
+                BtnTitle_OtherApp.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -400);
                 //ヘッダーフッター
                 GameHeader.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -150);
                 GameFooter.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 200);
@@ -121,22 +130,14 @@ public class UIManager : MonoBehaviour
                 BtnMenu_Title.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -220);
                 BtnMenu_Back.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -370);
                 //ヒントパネル
-                HintPanel.GetComponent<RectTransform>().sizeDelta = new Vector2(0, 920);
-                Hint1.fontSize = 44;
-                Hint1.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 280);
-                Hint1_txt.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 230);
-                Hint2.fontSize = 44;
-                Hint2.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 100);
-                Hint2_ads.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 50);
-                Hint2_txt.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 50);
-                BtnHint_Hint2.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -120);
-                BtnHint_Hint2.GetComponent<RectTransform>().sizeDelta = new Vector2(250, 100);
-                BtnHint_Back.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -370);
+                HintPanel.GetComponent<RectTransform>().sizeDelta = new Vector2(0,-140);
                 //アイテムパネル
                 ItemPanel.GetComponent<RectTransform>().sizeDelta = new Vector2(0, 680);
                 ItemImage.GetComponent<RectTransform>().sizeDelta = new Vector2(500, 500);
                 //クリアパネル
-                BtnClear_Title.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -350);
+                BtnClear_OtherApp.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -350);
+                //他のアプリパネル
+                OtherAppPanel.GetComponent<RectTransform>().sizeDelta = new Vector2(0, 0);
             }
         }
 
@@ -144,48 +145,53 @@ public class UIManager : MonoBehaviour
 
         //タイトル画面の「はじめから」
         BtnTitle_Start.GetComponent<Button>().onClick.AddListener(() =>
-      {
-          onTapStart();
-      });
+        {
+          OnTapStart();
+        });
         //タイトル画面の「続きから」
         BtnTitle_Continue.GetComponent<Button>().onClick.AddListener(() =>
         {
-            onTapContinue();
+            OnTapContinue();
+        });
+        //タイトル画面の「他の脱出ゲーム」
+        BtnTitle_OtherApp.GetComponent<Button>().onClick.AddListener(() =>
+        {
+            OnTapOtherApp();
         });
         //ヘッダー画面の「MENU」
         BtnHeader_Menu.GetComponent<Button>().onClick.AddListener(() =>
         {
-            onTapMenu();
+            OnTapMenu();
         });
         //メニュー画面の「ヒント」
         BtnMenu_Hint.GetComponent<Button>().onClick.AddListener(() =>
         {
-            onTapHint();
+            OnTapHint();
         });
         //メニュー画面の「タイトルへ」
         BtnMenu_Title.GetComponent<Button>().onClick.AddListener(() =>
         {
-            onTapTitle();
+            OnTapTitle();
         });
         //メニュー画面の「ゲームに戻る」
         BtnMenu_Back.GetComponent<Button>().onClick.AddListener(() =>
         {
-            onTapMenuBack();
-        });
-        //ヒント画面の「動画広告を視聴する」
-        BtnHint_Hint2.GetComponent<Button>().onClick.AddListener(() =>
-        {
-            GoogleAds.ShowReawrd();
+            OnTapMenuBack();
         });
         //ヒント画面の「ゲームに戻る」
         BtnHint_Back.GetComponent<Button>().onClick.AddListener(() =>
         {
-            onTapHintBack();
+            OnTapHintBack();
         });
         //クリア画面の「タイトルへ」
-        BtnClear_Title.GetComponent<Button>().onClick.AddListener(() =>
+        BtnClear_OtherApp.GetComponent<Button>().onClick.AddListener(() =>
         {
-            onTapClearTitle();
+            OnTapClearOtherApp();
+        });
+        //他の脱出ゲーム画面の「タイトルへ」
+        BtnOtherApp_Title.GetComponent<Button>().onClick.AddListener(() =>
+        {
+            OnTapOtherAppTitle();
         });
 
         bool isExistFile = SaveLoadSystem.Instance.checkFileExist();
@@ -194,29 +200,31 @@ public class UIManager : MonoBehaviour
     }
 
     //タイトル画面の「はじめから」ボタン
-    private void onTapStart()
+    private void OnTapStart()
     {
         AudioManager.Instance.SoundSE("GameStart");
         SaveLoadSystem.Instance.GameStart();
-        Invoke(nameof(hidePanel), 1f);
+        Invoke(nameof(HidePanel), 1f);
     }
 
     //タイトル画面の「続きから」ボタン
-    private void onTapContinue()
+    private void OnTapContinue()
     {
         AudioManager.Instance.SoundSE("GameStart");
         StartReset.GameContinue();
-        Invoke(nameof(hidePanel), 1f);
+        Invoke(nameof(HidePanel), 1f);
     }
 
     //タイトル画面の「他の脱出ゲーム」ボタン
-    private void onTapOtherApp()
+    private void OnTapOtherApp()
     {
-        AudioManager.Instance.SoundSE("RapUIBtn");
+        AudioManager.Instance.SoundSE("TapUIBtn");
+        TitlePanel.SetActive(false);
+        OtherAppPanel.SetActive(true);
     }
 
-    //
-    private void hidePanel()
+    //ゲーム開始時のパネル表示非表示
+    private void HidePanel()
     {
         TitlePanel.SetActive(false);
         GamePanel.SetActive(true);
@@ -224,7 +232,7 @@ public class UIManager : MonoBehaviour
     }
 
     //ヘッダーの「MENU」ボタン
-    private void onTapMenu()
+    private void OnTapMenu()
     {
         AudioManager.Instance.SoundSE("TapUIBtn");
         MenuPanel.SetActive(true);
@@ -232,27 +240,17 @@ public class UIManager : MonoBehaviour
         // GoogleAds.RequestSquareBanner();
     }
     //メニュー画面の「ヒント」ボタン
-    private void onTapHint()
+    private void OnTapHint()
     {
         AudioManager.Instance.SoundSE("TapUIBtn");
         MenuPanel.SetActive(false);
         HintPanel.SetActive(true);
-
-        bool isWatch = Hint.setHint();
-        if (isWatch)
-        {
-            Hint2_txt.SetActive(true);
-            Hint2_ads.SetActive(false);
-        }
-        else
-        {
-            Hint2_txt.SetActive(false);
-            Hint2_ads.SetActive(true);
-        }
+        //進捗に応じてヒントを表示する
+        Hint.SetHint();
 
     }
     //メニュー画面の「タイトルへ」ボタン
-    private void onTapTitle()
+    private void OnTapTitle()
     {
         AudioManager.Instance.SoundSE("TapUIBtn");
         TitlePanel.SetActive(true);
@@ -262,11 +260,11 @@ public class UIManager : MonoBehaviour
 
         // GoogleAds.unRequestSquareBanner();
         //シーンのリセット
-        Invoke(nameof(loadScene), 0.5f);
+        Invoke(nameof(LoadScene), 0.5f);
         //BGMの再生
         Invoke(nameof(soundBGM), 1.5f);
     }
-    private void loadScene()
+    private void LoadScene()
     {
         SceneManager.LoadScene(0);
     }
@@ -276,7 +274,7 @@ public class UIManager : MonoBehaviour
     }
 
     //メニュー画面の「ゲームに戻る」ボタン
-    private void onTapMenuBack()
+    private void OnTapMenuBack()
     {
         AudioManager.Instance.SoundSE("TapUIBtn");
         MenuPanel.SetActive(false);
@@ -284,25 +282,35 @@ public class UIManager : MonoBehaviour
         // GoogleAds.unRequestSquareBanner();
     }
     //ヒント画面の「ゲームに戻る」ボタン
-    private void onTapHintBack()
+    private void OnTapHintBack()
     {
         AudioManager.Instance.SoundSE("TapUIBtn");
         HintPanel.SetActive(false);
+        Hint.ResetHint();
         //バナー広告非表表示(長方形)
         // GoogleAds.unRequestSquareBanner();
     }
 
     //クリア画面の「タイトルに戻る」ボタン
-    private void onTapClearTitle()
+    private void OnTapClearOtherApp()
     {
         AudioManager.Instance.SoundSE("TapUIBtn");
-        TitlePanel.SetActive(true);
+        OtherAppPanel.SetActive(true);
         ClearPanel.SetActive(false);
         GamePanel.SetActive(false);
         //シーンのリセット
         SceneManager.LoadScene(0);
         //BGMの再生
         Invoke(nameof(soundBGM), 1.5f);
+    }
+
+    //他の脱出ゲーム画面の「タイトルへ」ボタン
+    private void OnTapOtherAppTitle()
+    {
+        AudioManager.Instance.SoundSE("TapUIBtn");
+        OtherAppPanel.SetActive(false);
+        TitlePanel.SetActive(true);
+
     }
 
 }

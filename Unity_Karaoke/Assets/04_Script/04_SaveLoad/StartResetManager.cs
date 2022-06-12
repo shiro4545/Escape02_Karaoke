@@ -24,6 +24,7 @@ public class StartResetManager : MonoBehaviour
 
     //ゲーム内オブジェクト**********************
     public PutHanger_Tap PutHangerClass;
+    public Book_Tap BookClass;
     public SlideItem_Tap StrawClass;
     public SlideItem_Tap Key1Class;
     public CopPutStraw_Tap PutCopClass;
@@ -110,7 +111,15 @@ public class StartResetManager : MonoBehaviour
             Key1Class.gameObject.SetActive(false);
 
 
-        //グラスにストローしたか
+        //検索本
+        BookClass.isChangePage = gameData.isChangePage;
+        if(BookClass.isChangePage)
+        {
+            BookClass.Book1.SetActive(false);
+            BookClass.Book2.SetActive(true);
+        }
+
+        //グラスにストローさしたか
         if (gameData.isSetStraw)
         {
             PutCopClass.Straw.SetActive(true);
@@ -408,9 +417,9 @@ public class StartResetManager : MonoBehaviour
     //<summary>
     //ゲーム進捗の算出
     //<summary>
-    public int checkProgress()
+    public int CheckProgress()
     {
-        int progress = 0;
+        int progress = 1;
 
         //if (!WashPanelController.Instance.firstIsClear)
         //    //ウォッシュパネル1回目のヒント

@@ -10,10 +10,7 @@ public class GoogleAds : MonoBehaviour
     private BannerView squareBannerView;
     private RewardedAd rewardedAd;
 
-    public GameObject Hint2_txt;
-    public GameObject Hint2_ads;
-
-    public HintManager Hint;
+    public HintManager HintClass;
 
     public void Start()
     {
@@ -146,11 +143,8 @@ public class GoogleAds : MonoBehaviour
     //動画視聴完了後の処理（途中で閉じられた場合は呼ばれない）
     public void HandleUserEarnedReward(object sender, Reward args)
     {
-        Hint2_ads.SetActive(false);
-        Hint2_txt.SetActive(true);
-        SaveLoadSystem.Instance.gameData.hintArray[Hint.progress] = true;
-        SaveLoadSystem.Instance.Save();
-
+        //ヒントを表示
+        HintClass.AfterWatch();
     }
 
     // 広告が閉じたときに呼び出されます

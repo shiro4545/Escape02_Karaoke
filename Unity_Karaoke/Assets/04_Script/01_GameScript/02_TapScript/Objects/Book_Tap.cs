@@ -5,7 +5,7 @@ using UnityEngine;
 public class Book_Tap : TapCollider
 {
     //タップしてページを変えたか
-    private bool isChangePage = false;
+    public bool isChangePage = false;
 
     //初期ページ
     public GameObject Book1;
@@ -25,13 +25,17 @@ public class Book_Tap : TapCollider
             Book1.SetActive(true);
             Book2.SetActive(false);
             isChangePage = false;
+            SaveLoadSystem.Instance.gameData.isChangePage = false;
         }
         else
         {
             Book1.SetActive(false);
             Book2.SetActive(true);
             isChangePage = true;
+            SaveLoadSystem.Instance.gameData.isChangePage = true;
         }
+
+        SaveLoadSystem.Instance.Save();
 
     }
 }
