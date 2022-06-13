@@ -312,6 +312,18 @@ public class CameraManager : MonoBehaviour
             }
         },
         {
+            "BoxSofa",//1人掛ソファ寄り
+            new CameraPositionInfo
+            {
+                Position=new Vector3(9.8f,8.3f,-5),
+                Rotate =new Vector3(50,302,-5),
+                MoveNames=new MoveNames
+                {
+                    Back="RoomSofa",
+                }
+            }
+        },
+        {
             "Hall",//廊下
             new CameraPositionInfo
             {
