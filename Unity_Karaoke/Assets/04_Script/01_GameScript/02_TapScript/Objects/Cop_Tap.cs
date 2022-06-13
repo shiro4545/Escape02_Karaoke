@@ -17,7 +17,7 @@ using UnityEngine;
 
             if (JudgeClass.isClear) return;
 
-            AudioManager.Instance.SoundSE("SetTotte");
+            AudioManager.Instance.SoundSE("IceInGlass");
 
             Objects[Index].SetActive(false);
 

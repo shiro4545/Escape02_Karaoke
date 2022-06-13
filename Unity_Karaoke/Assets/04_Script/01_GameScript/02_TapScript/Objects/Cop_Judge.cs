@@ -10,8 +10,13 @@ public class Cop_Judge : MonoBehaviour
 
     public string AnswerNo = "22";
 
-    public GameObject CloseChair;
-    public GameObject OpenChair;
+    public GameObject CloseSofa;
+    public GameObject OpenSofa;
+
+    //コライダー
+    public GameObject BoxSofaColiider; //初期false
+    //public GameObject TambarinColiider; //初期false
+    
 
 
     // Start is called before the first frame update
@@ -45,7 +50,7 @@ public class Cop_Judge : MonoBehaviour
     // Update is called once per frame
     private void AfterClear1()
     {
-        CameraManager.Instance.ChangeCameraPosition("BoxChair");
+        CameraManager.Instance.ChangeCameraPosition("BoxSofa");
 
         Invoke(nameof(AfterClear2), 1);
     }
@@ -53,11 +58,15 @@ public class Cop_Judge : MonoBehaviour
     private void AfterClear2()
     {
 
-        AudioManager.Instance.SoundSE("Slide");
+        AudioManager.Instance.SoundSE("SetTotte");
 
         //CloseChair非表示OpenChair表示
-        CloseChair.SetActive(false);
-        OpenChair.SetActive(true);
+        CloseSofa.SetActive(false);
+        OpenSofa.SetActive(true);
+
+        //BoxSofaコライダー表示
+        BoxSofaColiider.SetActive(true);
+        //TambarinColider.SetActive(true);
 
 
         Invoke(nameof(AfterClear3), 1);
