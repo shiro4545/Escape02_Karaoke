@@ -15,7 +15,7 @@ public class Hanger_Tap : TapCollider
 
         if (JudgeClass.isClear)return;
 
-        AudioManager.Instance.SoundSE("TapButton");
+        AudioManager.Instance.SoundSE("SetTotte");
 
         Objects[Index].SetActive(false);
 

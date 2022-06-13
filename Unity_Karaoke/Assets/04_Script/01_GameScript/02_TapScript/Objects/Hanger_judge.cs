@@ -63,7 +63,14 @@ public class Hanger_judge : MonoBehaviour
 
         Under.transform.Translate(new Vector3(0, 0, -0.1f));
 
+
+        Invoke(nameof(AfterClear3), 1);
+    }
+
+    private void AfterClear3()
+    {
+        CameraManager.Instance.ChangeCameraPosition("Hanger");
+
         BlockPanel.Instance.HideBlock();
     }
-}
 }
