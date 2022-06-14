@@ -7,7 +7,7 @@ public class TV_Manager : MonoBehaviour
     public static TV_Manager Instance { get; set; }
 
     public GameObject TVScreen;
-    //public Rimocon_Judge Rimocon;
+    public Rimocon_Judge Rimocon;
     public Machine_Judge Machine;
 
     //テレビ画面名の頭文字(デンモクからの曲予約時)
@@ -121,8 +121,8 @@ public class TV_Manager : MonoBehaviour
             ChangeTVScreen("h05");
         else if(Machine.isClear)
             ChangeTVScreen("a03");
-        //else if(Rimokon.isClear)
-        //    ChangeTVScreen("a02");
+        else if(Rimocon.isClear)
+            ChangeTVScreen("a02");
         else
             ChangeTVScreen("a01");
         isPlaySong = false;

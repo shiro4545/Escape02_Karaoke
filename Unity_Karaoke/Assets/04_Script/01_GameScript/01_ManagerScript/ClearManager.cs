@@ -7,108 +7,99 @@ using Google.Play.Review;
 
 public class ClearManager : MonoBehaviour
 {
-  public GameObject ClearPanel;
-  public GameObject ClearImage;
-  public GameObject ToTitle;
+    //脱出成功フラグ
+    public bool isClear;
 
-  public Camera MainCamera;
+    //UIパネル
+    public GameObject ClearPanel;
+    public GameObject GamePanel;
+    //「脱出成功」
+    public GameObject ClearImage;
+    //「他の脱出ゲーム」
+    public GameObject ToOtherApp;
 
-  //脱出演出
-  public void Escape()
+    //真っ白パネル
+    public GameObject White;
+
+    //カメラ
+    public Camera MainCamera;
+
+    //ミラーボール
+    public GameObject MirrorBall;
+
+    //Dotweenのアニメーション保持用
+    private Sequence CameraMove;
+
+
+    //脱出演出
+    public void Escape()
     {
+        isClear = true;
+
         //クリアパネル表示
         ClearPanel.SetActive(true);
         //カメラを徐々にズーム&移動
         float defaultFov = MainCamera.fieldOfView;
-        DOTween.To(() => MainCamera.fieldOfView, fov => MainCamera.fieldOfView = fov, 20, 10);
-        MainCamera.transform.DOMove(new Vector3(1.5f,0,0), 10).SetRelative(true);
+        DOTween.To(() => MainCamera.fieldOfView, fov => MainCamera.fieldOfView = fov, 30, 5.9f);
+        MainCamera.transform.DOMove(new Vector3(1.2f,0,0), 5.9f).SetRelative(true);
 
         //白パネルをフェードイン(2秒遅れで)
-        ClearPanel.GetComponent<Image>().DOFade(255f, 2000f).SetDelay(2f);
+        White.GetComponent<Image>().DOFade(255f, 2000f).SetDelay(2f);
 
         Invoke(nameof(AfterClear1),6);
     }
 
-  private void AfterClear1()
+    private void AfterClear1()
     {
+        GamePanel.SetActive(false);
+
+        //カメラ移動
+        MainCamera.fieldOfView = 60;
+        CameraManager.Instance.ChangeCameraPosition("RoomEnd");
+
+        //ミラーボールを回転させる
+        var sequence = DOTween.Sequence();
+        sequence.Append(
+            MirrorBall.transform.DORotate(new Vector3(0, 360, 0), 10f, RotateMode.WorldAxisAdd)
+            .SetEase(Ease.Linear)
+        ).SetLoops(-1);
+        sequence.Play();
+
+        //各パーツを表示
         ClearImage.SetActive(true);
-        ToTitle.SetActive(true);
-        //Unchi1.SetActive(true);
-        //Unchi2.SetActive(true);
-        //Unchi3.SetActive(true);
+        ToOtherApp.SetActive(true);
 
         AudioManager.Instance.SoundSE("Ending");
         //「脱出成功」をズームイン
-        ClearImage.transform.DOScale(new Vector3(7.2f,2.9f,2), 4f).SetEase(Ease.OutBounce).SetDelay(0.5f);
+        ClearImage.transform.DOScale(new Vector3(7.2f,2.9f,2), 4f)
+            .SetDelay(0.5f)
+            .SetEase(Ease.OutBounce);
+        //白パネルをフェードアウト(1秒遅れで)
+        White.GetComponent<Image>().DOFade(0, 6f)
+            .SetEase(Ease.InSine);
+        //フェードアウト後に非表示に
+        Invoke(nameof(HideWhite), 5.9f);
 
-        //「うんちくん」を回転しながらズームイン
-      //Unchi1.transform.DOScale(new Vector3(2f,2f,1), 1f).SetDelay(3f);
-       //Unchi1.transform.DORotate(new Vector3(0,0,353), 1f, RotateMode.WorldAxisAdd).SetDelay(3f);
 
-        //Unchi2.transform.DOScale(new Vector3(2f,2f,1), 1f).SetDelay(3.5f);
-        //Unchi2.transform.DORotate(new Vector3(0,0,353), 1f, RotateMode.WorldAxisAdd).SetDelay(3.5f);
 
-        //Unchi3.transform.DOScale(new Vector3(1.6f,2f,1), 1f).SetDelay(4f);
-        //Unchi3.transform.DORotate(new Vector3(0,0,353), 1f, RotateMode.WorldAxisAdd).SetDelay(4f);
-
-        //「うんちくん」を振動させる
-        // vibeUnchi1();
-        //Invoke(nameof(vibeUnchi1),2f);
-        //Invoke(nameof(vibeUnchi2),2.3f);
-        //Invoke(nameof(vibeUnchi3),2.6f);
-
-        // 「タイトルへ」をフェードイン
-        ToTitle.GetComponent<Image>().DOFade(255f, 2000f).SetDelay(8f);
-
+        // 「他のアプリへ」をフェードイン
+        ToOtherApp.GetComponent<Image>().DOFade(255f, 2000f).SetDelay(7f);
 
         //アプリレビュー表示
         Invoke(nameof(ShowReview), 9f);
     }
 
-
-  //private void vibeUnchi1()
-  //{
-  //  var sequence = DOTween.Sequence();
-
-  //  sequence.Append(
-  //    Unchi1.transform.DORotate(new Vector3(0,0,14), 0.12f, RotateMode.WorldAxisAdd).SetDelay(4f)
-  //  );
-  //  sequence.Append(
-  //    Unchi1.transform.DORotate(new Vector3(0,0,-14), 0.12f, RotateMode.WorldAxisAdd).SetDelay(2f)
-  //  ).SetLoops(-1);
-
-  //  sequence.Play();
-  //}
-
-  //private void vibeUnchi2()
-  //{
-  //  var sequence = DOTween.Sequence();
-
-  //  sequence.Append(
-  //    Unchi2.transform.DORotate(new Vector3(0,0,14), 0.12f, RotateMode.WorldAxisAdd).SetDelay(4f)
-  //  );
-  //  sequence.Append(
-  //    Unchi2.transform.DORotate(new Vector3(0,0,-14), 0.12f, RotateMode.WorldAxisAdd).SetDelay(2f)
-  //  ).SetLoops(-1);
-
-  //  sequence.Play();
-  //}
-
-  //private void vibeUnchi3()
-  //{
-  //  var sequence = DOTween.Sequence();
-
-  //  sequence.Append(
-  //    Unchi3.transform.DORotate(new Vector3(0,0,14), 0.12f, RotateMode.WorldAxisAdd).SetDelay(4f)
-  //  );
-  //  sequence.Append(
-  //    Unchi3.transform.DORotate(new Vector3(0,0,-14), 0.12f, RotateMode.WorldAxisAdd).SetDelay(2f)
-  //  ).SetLoops(-1);
-
-  //  sequence.Play();
-  //}
+    //白パネルを非表示に
+    private void HideWhite()
+    {
+        White.SetActive(false);
+    }
 
 
+
+    /// <summary>
+    /// 端末ごとで評価依頼を表示する
+    /// </summary>
     private void ShowReview()
     {
 #if UNITY_IOS
@@ -142,4 +133,31 @@ public class ClearManager : MonoBehaviour
             yield break;
         }
     }
+
+
+
+
+
+
+
+    //=====以下参考===========================================================
+
+    //「うんちくん」を傾けるを繰り返す
+    //private void vibeUnchi1()
+    //{
+    //  var sequence = DOTween.Sequence();
+
+    //  sequence.Append(
+    //    Unchi1.transform.DORotate(new Vector3(0,0,14), 0.12f, RotateMode.WorldAxisAdd).SetDelay(4f)
+    //  );
+    //  sequence.Append(
+    //    Unchi1.transform.DORotate(new Vector3(0,0,-14), 0.12f, RotateMode.WorldAxisAdd).SetDelay(2f)
+    //  ).SetLoops(-1);
+
+    //  sequence.Play();
+    //}
+
+    //「うんちくん」を回転しながらズームイン
+    //Unchi1.transform.DOScale(new Vector3(2f,2f,1), 1f).SetDelay(3f);
+    //Unchi1.transform.DORotate(new Vector3(0,0,353), 1f, RotateMode.WorldAxisAdd).SetDelay(3f);
 }

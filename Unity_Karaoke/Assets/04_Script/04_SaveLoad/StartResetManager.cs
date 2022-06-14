@@ -24,10 +24,15 @@ public class StartResetManager : MonoBehaviour
 
     //ゲーム内オブジェクト**********************
     public PutHanger_Tap PutHangerClass;
+    public Hanger_judge HangerClass;
+    public Hanger_Tap[] HangerTapArray;
     public Book_Tap BookClass;
+    public Cop_Tap BlueCopClass;
+    public Cop_Tap WhiteCopClass;
     public SlideItem_Tap StrawClass;
     public SlideItem_Tap Key1Class;
     public CopPutStraw_Tap PutCopClass;
+    public Cop_Judge CopClass;
     public DeskSlide_Tap UpperSlideClass;
     public DeskSlide_Tap UnderSlideClass;
     public Tambarin_Tap TambarinLeft;
@@ -84,11 +89,22 @@ public class StartResetManager : MonoBehaviour
         {
             PutHangerClass.gameObject.SetActive(false);
             PutHangerClass.Hanger.SetActive(true);
-            PutHangerClass.TapCollider.SetActive(true);
+        }
+
+        //ハンガー状態
+        HangerClass.InputNo = gameData.HangerStatus;
+        for (int i = 0; i < HangerTapArray.Length; i++)
+        {
+            if (HangerClass.InputNo.Substring(i, 1) == "1")
+            {
+                HangerTapArray[i].Objects[0].SetActive(false);
+                HangerTapArray[i].Objects[1].SetActive(true);
+                HangerTapArray[i].Index = 1;
+            }
         }
 
         //ハンガークリア有無
-
+        HangerClass.isClear = gameData.isClearHanger;
 
 
         //タンバリン三角
@@ -119,18 +135,41 @@ public class StartResetManager : MonoBehaviour
             BookClass.Book2.SetActive(true);
         }
 
-        //グラスにストローさしたか
+
+        //コップ状態
+        CopClass.InputNo = gameData.CopStatus;
+        int CopStatus ;
+
+        //青コップにストローさしたか
         if (gameData.isSetStraw)
         {
-            PutCopClass.Straw.SetActive(true);
             PutCopClass.gameObject.SetActive(false);
-            //PutCopClass.CopRotateCollider.SetActive(true);
+            PutCopClass.CopRotateCollider.SetActive(true);
 
+            //回転状態
+            CopStatus = int.Parse(CopClass.InputNo.Substring(0, 1));
+            BlueCopClass.Objects[CopStatus].SetActive(true);
+            BlueCopClass.Index = CopStatus;
+        }
+
+        //白コップ
+        CopStatus = int.Parse(CopClass.InputNo.Substring(1, 1));
+        if(CopStatus != 3)
+        {
+            WhiteCopClass.Index = CopStatus;
+            WhiteCopClass.Objects[3].SetActive(false);
+            WhiteCopClass.Objects[CopStatus].SetActive(true);
         }
 
 
         //コップ回しのクリア有無
-
+        CopClass.isClear = gameData.isClearCop;
+        if (CopClass.isClear)
+        {
+            CopClass.CloseSofa.SetActive(false);
+            CopClass.OpenSofa.SetActive(true);
+            CopClass.BoxSofaColiider.SetActive(true);
+        }
 
         //上引き出し状態
         UpperSlideClass.Status = gameData.DeskUpperStatus;

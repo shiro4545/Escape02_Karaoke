@@ -13,9 +13,9 @@ public class Cop_Judge : MonoBehaviour
     public GameObject CloseSofa;
     public GameObject OpenSofa;
 
-    //コライダー
-    public GameObject BoxSofaColiider; //初期false
-    //public GameObject TambarinColiider; //初期false
+    //?R???C?_?[
+    public GameObject BoxSofaColiider; //????false
+    //public GameObject TambarinColiider; //????false
     
 
 
@@ -40,10 +40,13 @@ public class Cop_Judge : MonoBehaviour
 
             BlockPanel.Instance.ShowBlock();
 
-            Invoke(nameof(AfterClear1), 1);
+            Invoke(nameof(AfterClear1), 1.5f);
 
-            SaveLoadSystem.Instance.Save();
+            SaveLoadSystem.Instance.gameData.isClearCop = true;
         }
+
+        SaveLoadSystem.Instance.gameData.CopStatus = InputNo;
+        SaveLoadSystem.Instance.Save();
 
     }
 
@@ -52,7 +55,7 @@ public class Cop_Judge : MonoBehaviour
     {
         CameraManager.Instance.ChangeCameraPosition("BoxSofa");
 
-        Invoke(nameof(AfterClear2), 1);
+        Invoke(nameof(AfterClear2), 1.5f);
     }
 
     private void AfterClear2()
@@ -60,16 +63,16 @@ public class Cop_Judge : MonoBehaviour
 
         AudioManager.Instance.SoundSE("SetTotte");
 
-        //CloseChair非表示OpenChair表示
+        //CloseChair???\??OpenChair?\??
         CloseSofa.SetActive(false);
         OpenSofa.SetActive(true);
 
-        //BoxSofaコライダー表示
+        //BoxSofa?R???C?_?[?\??
         BoxSofaColiider.SetActive(true);
         //TambarinColider.SetActive(true);
 
 
-        Invoke(nameof(AfterClear3), 1);
+        Invoke(nameof(AfterClear3), 1.5f);
     }
 
     private void AfterClear3()

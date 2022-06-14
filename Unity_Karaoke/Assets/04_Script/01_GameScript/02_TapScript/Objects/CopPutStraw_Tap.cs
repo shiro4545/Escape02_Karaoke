@@ -7,7 +7,7 @@ public class CopPutStraw_Tap : TapCollider
     //ストロー
     public GameObject Straw;
     //ストロー回す用のコライダー
-    //public GameObject CopRotateCollider;
+    public GameObject CopRotateCollider;
 
     //タップ時
     protected override void OnTap()
@@ -24,7 +24,7 @@ public class CopPutStraw_Tap : TapCollider
         //ストローさす用のコライダー非表示
         this.gameObject.SetActive(false);
         //ストロー回す用のコラスイダー表示
-        //CopRotateCollider.SetActive(true);
+        CopRotateCollider.SetActive(true);
 
         SaveLoadSystem.Instance.gameData.isSetStraw = true;
         ItemManager.Instance.useItem();

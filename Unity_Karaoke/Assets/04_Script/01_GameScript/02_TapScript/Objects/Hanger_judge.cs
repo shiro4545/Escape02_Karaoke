@@ -10,7 +10,7 @@ public class Hanger_judge : MonoBehaviour
 
     public string AnswerNo = "0110";
 
-    public GameObject Under;
+    public DeskSlide_Tap SlideClass;
 
 
     // Start is called before the first frame update
@@ -43,8 +43,13 @@ public class Hanger_judge : MonoBehaviour
 
             Invoke(nameof(AfterClear1), 1);
 
-            SaveLoadSystem.Instance.Save();
+            SaveLoadSystem.Instance.gameData.isClearHanger = true;
+
         }
+
+
+        SaveLoadSystem.Instance.gameData.HangerStatus = InputNo;
+        SaveLoadSystem.Instance.Save();
 
     }
 
@@ -61,7 +66,7 @@ public class Hanger_judge : MonoBehaviour
 
         AudioManager.Instance.SoundSE("Slide");
 
-        Under.transform.Translate(new Vector3(0, 0, -0.1f));
+        SlideClass.OpenSlide();
 
 
         Invoke(nameof(AfterClear3), 1);

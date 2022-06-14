@@ -46,7 +46,9 @@ public class GameData
 
 
     //オブジェクト状態
+    public string HangerStatus = "0000";
     public bool isChangePage = false;
+    public string CopStatus = "03";
     public int DeskUpperStatus = 0;
     public int DeskUnderStatus = 0;
     public string TambarinStatus = "001";

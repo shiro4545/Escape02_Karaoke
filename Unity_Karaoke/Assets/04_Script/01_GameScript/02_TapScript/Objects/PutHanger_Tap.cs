@@ -6,8 +6,6 @@ public class PutHanger_Tap : TapCollider
 {
     //設置後のハンガー
     public GameObject Hanger;
-    //回転用のタップコライダー
-    public GameObject TapCollider;
 
     //ボタンタップ時
     protected override void OnTap()
@@ -22,7 +20,6 @@ public class PutHanger_Tap : TapCollider
             Hanger.SetActive(true);
             //コライダー切替
             this.gameObject.SetActive(false);
-            //TapCollider.SetActive(true);
 
             SaveLoadSystem.Instance.gameData.isSetHanger = true;
             ItemManager.Instance.useItem();

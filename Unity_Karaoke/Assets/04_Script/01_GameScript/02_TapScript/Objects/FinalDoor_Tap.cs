@@ -20,7 +20,7 @@ public class FinalDoor_Tap : TapCollider
     {
         base.OnTap();
         //if(true)
-        //if(ItemManager.Instance.selectItem == "Key3" && FinalBtnClass.isClear)
+        if (ItemManager.Instance.selectItem == "Key3" && FinalBtnClass.isClear)
         {
             BlockPanel.Instance.ShowBlock();
             AudioManager.Instance.SoundSE("Clear");

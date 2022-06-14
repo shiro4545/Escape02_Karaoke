@@ -43,25 +43,27 @@ public class UIManager : MonoBehaviour
 
     public GameObject ItemImage;
 
-    //ヒントオブジェクト
+    //ヒントクラス
     public HintManager Hint;
-    //ゲームスタートオブジェクト
+    //ゲームスタートクラス
     public StartResetManager StartReset;
+    //クリアクラス
+    public ClearManager ClearClass;
 
     // Start is called before the first frame update
     void Start()
     {
-        //TitlePanel.SetActive(true);
-        //GamePanel.SetActive(false);
-        GamePanel.SetActive(true);
+        TitlePanel.SetActive(true);
+        GamePanel.SetActive(false);
+        //GamePanel.SetActive(true);
 
         //各パネルを画面サイズごとで変動させる
         GamePanel.GetComponent<RectTransform>().sizeDelta = GetComponent<RectTransform>().sizeDelta;
         ClearPanel.GetComponent<RectTransform>().sizeDelta = GetComponent<RectTransform>().sizeDelta;
 
-        Debug.Log("w:" + Screen.width);
-        Debug.Log("h:" + Screen.height);
-        Debug.Log("Safe:" + Screen.safeArea);
+        //Debug.Log("w:" + Screen.width);
+        //Debug.Log("h:" + Screen.height);
+        //Debug.Log("Safe:" + Screen.safeArea);
         //Debug.Log("Device:" + Application.platform);
 
         if (Application.platform == RuntimePlatform.Android) //Androidの場合
@@ -202,6 +204,7 @@ public class UIManager : MonoBehaviour
     //タイトル画面の「はじめから」ボタン
     private void OnTapStart()
     {
+        BlockPanel.Instance.ShowBlock();
         AudioManager.Instance.SoundSE("GameStart");
         SaveLoadSystem.Instance.GameStart();
         Invoke(nameof(HidePanel), 1f);
@@ -210,6 +213,7 @@ public class UIManager : MonoBehaviour
     //タイトル画面の「続きから」ボタン
     private void OnTapContinue()
     {
+        BlockPanel.Instance.ShowBlock();
         AudioManager.Instance.SoundSE("GameStart");
         StartReset.GameContinue();
         Invoke(nameof(HidePanel), 1f);
@@ -229,6 +233,7 @@ public class UIManager : MonoBehaviour
         TitlePanel.SetActive(false);
         GamePanel.SetActive(true);
         CameraManager.Instance.ChangeCameraPosition("RoomStart");
+        BlockPanel.Instance.HideBlock();
     }
 
     //ヘッダーの「MENU」ボタン
@@ -291,26 +296,34 @@ public class UIManager : MonoBehaviour
         // GoogleAds.unRequestSquareBanner();
     }
 
-    //クリア画面の「タイトルに戻る」ボタン
+    //クリア画面の「他の脱出ゲーム」ボタン
     private void OnTapClearOtherApp()
     {
         AudioManager.Instance.SoundSE("TapUIBtn");
         OtherAppPanel.SetActive(true);
         ClearPanel.SetActive(false);
         GamePanel.SetActive(false);
-        //シーンのリセット
-        SceneManager.LoadScene(0);
-        //BGMの再生
-        Invoke(nameof(soundBGM), 1.5f);
     }
 
     //他の脱出ゲーム画面の「タイトルへ」ボタン
     private void OnTapOtherAppTitle()
     {
         AudioManager.Instance.SoundSE("TapUIBtn");
-        OtherAppPanel.SetActive(false);
-        TitlePanel.SetActive(true);
 
+        if (ClearClass.isClear)
+        {
+            //脱出成功後
+            //シーンのリセット
+            SceneManager.LoadScene(0);
+            //BGMの再生
+            Invoke(nameof(soundBGM), 1f);
+        }
+        else
+        {
+            //タイトルから遷移時
+            OtherAppPanel.SetActive(false);
+            TitlePanel.SetActive(true);
+        }
     }
 
 }

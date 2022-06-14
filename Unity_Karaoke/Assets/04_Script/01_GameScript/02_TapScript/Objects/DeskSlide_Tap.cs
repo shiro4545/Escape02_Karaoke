@@ -17,7 +17,7 @@ public class DeskSlide_Tap : TapCollider
     public DeskSlide_Tap UpperSlide;
 
     //ハンガークラス
-    //public Hanger_Judge HangerClass;
+    public Hanger_judge HangerClass;
 
     //タンバリンクラス
     public Tambarin_Judge TambarinClass;
@@ -28,9 +28,6 @@ public class DeskSlide_Tap : TapCollider
     {
         base.OnTap();
 
-        //ハンガー回転が未正解なら何もしない
-        //if (!HangerClass.isClear)
-        //    return;
 
         //上引き出し用
         if (Slide.name == "Upper")
@@ -38,9 +35,9 @@ public class DeskSlide_Tap : TapCollider
                return;
 
         //下引き出し用
-        //if (Slide.name == "Under")
-        //if(!HangerClass.isClear)
-        //      return;
+        if (Slide.name == "Under")
+            if (!HangerClass.isClear)
+                return;
 
 
         if (Status == 0)

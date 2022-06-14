@@ -7,7 +7,7 @@ using UnityEngine;
  public class Cop_Tap : TapCollider
     {
         public string CopName;
-        public int Index = 0;
+        public int Index;
         public GameObject[] Objects;
         public Cop_Judge JudgeClass;
 

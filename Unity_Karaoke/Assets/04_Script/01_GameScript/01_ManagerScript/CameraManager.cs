@@ -76,7 +76,7 @@ public class CameraManager : MonoBehaviour
                     Left="RoomSofa",
                     Right="RoomTV",
                 },
-                hideObjectsName = new string[]{"Hanger","HallWall","Desk"}
+                hideObjectsName = new string[]{"Hanger","HallWall","Desk","TambarinArea"}
             }
         },
         {
@@ -109,14 +109,14 @@ public class CameraManager : MonoBehaviour
             "RoomDoor",//ドア方向
             new CameraPositionInfo
             {
-                Position=new Vector3(-8.25f,5.4f,-7),
-                Rotate =new Vector3(0,76.5f,0),
+                Position=new Vector3(-11.5f,5.4f,-7.8f),
+                Rotate =new Vector3(0,75f,0),
                 MoveNames=new MoveNames
                 {
                     Left="RoomTV",
                     Right="RoomSofa",
                 },
-                hideObjectsName = new string[]{"Shelf" }
+                hideObjectsName = new string[]{"Shelf","KaraokeMachine","Tambarin_Shikaku" }
             }
         },
         {
@@ -530,6 +530,17 @@ public class CameraManager : MonoBehaviour
                 },
             }
         },
+        {
+            "RoomEnd",//脱出クリア後
+            new CameraPositionInfo
+            {
+                Position=new Vector3(69.9f,9.2f,-20f),
+                Rotate =new Vector3(-9.6f,136,0),
+                MoveNames=new MoveNames
+                {
+                },
+            }
+        },
 
     };
 
@@ -537,8 +548,8 @@ public class CameraManager : MonoBehaviour
     void Start()
     {
         Instance = this;
-        //ChangeCameraPosition("Title");
-        ChangeCameraPosition("RoomStart");
+        ChangeCameraPosition("Title");
+        //ChangeCameraPosition("RoomStart");
         //ChangeCameraPosition("Hall");
 
         //左矢印ボタン押下時
