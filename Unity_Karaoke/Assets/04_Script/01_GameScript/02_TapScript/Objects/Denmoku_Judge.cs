@@ -206,6 +206,7 @@ public class Denmoku_Judge : MonoBehaviour
             isSlide = true;
             DenmokuStatus = 2;
 
+            SaveLoadSystem.Instance.gameData.isClearPowerOn = true;
             SaveLoadSystem.Instance.gameData.isClearDenmokuSlide = true;
             SaveLoadSystem.Instance.gameData.DenmokuStatus = 2;
             SaveLoadSystem.Instance.Save();
@@ -220,6 +221,7 @@ public class Denmoku_Judge : MonoBehaviour
 
             BlockPanel.Instance.HideBlock();
 
+            SaveLoadSystem.Instance.gameData.isClearDenmokuRock = true;
             SaveLoadSystem.Instance.gameData.DenmokuStatus = 2;
             SaveLoadSystem.Instance.Save();
         }

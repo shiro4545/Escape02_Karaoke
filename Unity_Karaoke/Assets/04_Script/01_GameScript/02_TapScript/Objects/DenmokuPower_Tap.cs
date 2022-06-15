@@ -7,6 +7,9 @@ public class DenmokuPower_Tap : TapCollider
     //電源スイッチ
     public GameObject PowerSwitch;
 
+    //電話裏ボタンクラス
+    public Phone_Judge PhoneClass;
+
     //タップ時
     protected override void OnTap()
     {
@@ -25,6 +28,8 @@ public class DenmokuPower_Tap : TapCollider
             //画面切替
             Denmoku_Judge.Instance.ChangeScreen(101);
 
+            if (PhoneClass.isClear)
+                SaveLoadSystem.Instance.gameData.isClearPowerOn = true;
         }
         else
         {

@@ -39,6 +39,8 @@ public class StartResetManager : MonoBehaviour
     public Tambarin_Tap TambarinCenter;
     public Tambarin_Tap TambarinRight;
     public Tambarin_Judge TambarinClass;
+    public Shelf_Tap ShelfClass;
+    public Rimocon_Judge RimoconClass;
     public Machine_Judge MachineClass;
     public Phone_Judge PhoneClass;
     public Phone_Tap PhoneBtnTop;
@@ -53,15 +55,6 @@ public class StartResetManager : MonoBehaviour
     public FinalButton_Tap FInalBtn2;
     public FinalButton_Tap FInalBtn3;
 
-    //カラオケ機が入った棚周り
-    public GameObject CloseDoor;
-    public GameObject CloseDoorParts1;
-    public GameObject CloseDoorParts2;
-    public GameObject CloseDoorParts3;
-    public GameObject OpenDoor;
-    public GameObject KeyColiider; //初期true
-    public GameObject MachineColiider; //初期false
-    public GameObject ManualColiider; //初期false
 
     //<summary>
     //タイトル画面の「はじめから」の時
@@ -227,18 +220,23 @@ public class StartResetManager : MonoBehaviour
         //カラオケ機棚の開閉状態
         if (gameData.isOpenShelf)
         {
-            CloseDoor.SetActive(false);
-            CloseDoorParts1.SetActive(false);
-            CloseDoorParts2.SetActive(false);
-            CloseDoorParts3.SetActive(false);
+            ShelfClass.CloseDoor.SetActive(false);
+            ShelfClass.CloseDoorParts1.SetActive(false);
+            ShelfClass.CloseDoorParts2.SetActive(false);
+            ShelfClass.CloseDoorParts3.SetActive(false);
             //開扉を表示
-            OpenDoor.SetActive(true);
+            ShelfClass.OpenDoor.SetActive(true);
             //鍵コライダー非表示
-            KeyColiider.SetActive(false);
+            ShelfClass.KeyColiider.SetActive(false);
             //棚の中のコライダー表示
-            MachineColiider.SetActive(true);
-            ManualColiider.SetActive(true);
+            ShelfClass.MachineColiider.SetActive(true);
+            ShelfClass.ManualColiider.SetActive(true);
+            ShelfClass.ShelfLeftColiider.SetActive(true);
         }
+
+        //エアコンのリモコン
+        RimoconClass.isClear = SaveLoadSystem.Instance.gameData.isClearRimocon;
+
 
         //デンモク状態
         Denmoku_Judge.Instance.DenmokuStatus = gameData.DenmokuStatus;
@@ -280,16 +278,12 @@ public class StartResetManager : MonoBehaviour
             MachineClass.LampBottom.GetComponent<Renderer>().material.color = Color.red;
         }
 
-        //こしょう少々の予約有無
-        if(gameData.isSendKosho)
-            Denmoku_Judge.Instance.isSendKosho = true;
 
 
         //カラオケ機
         if (gameData.isClearMachine)
         {
             MachineClass.isClear = true;
-            TV_Manager.Instance.ChangeTVScreen("a03");
 
             //ボタンを正解に
             MachineClass.ButtonTop.Objects[0].SetActive(false);
@@ -340,6 +334,8 @@ public class StartResetManager : MonoBehaviour
             Denmoku_Judge.Instance.DriverCollider.SetActive(true);
             //DriverDenmoku表示
             Denmoku_Judge.Instance.DriverDenmokuCollider.SetActive(true);
+            //電源スイッチのコライダー非表示
+            Denmoku_Judge.Instance.DenmokuBackCollider.SetActive(false);
         }
 
         //アイテム取得有無　ドライバー
@@ -354,9 +350,11 @@ public class StartResetManager : MonoBehaviour
         if (DoorClass.isFullOpen)
         {
             //1度でも扉を開けてたらコライダー修正
-            DoorClass.DoorColliderClass.gameObject.SetActive(false);
             DoorClass.DoorColliderClass.MovePositionName = "Hall";
             DoorClass.CloseDoorClass.EnableCameraPositionName = "RoomDoor";
+
+            if(DoorClass.DoorStatus == 0)
+                DoorClass.DoorColliderClass.gameObject.SetActive(false);
         }
 
         if (DoorClass.DoorStatus == 1)
@@ -371,6 +369,11 @@ public class StartResetManager : MonoBehaviour
             DoorClass.CloseDoor.SetActive(false);
             DoorClass.LittleOpenDoor.SetActive(true);
         }
+
+
+        //こしょう少々の予約有無
+        Denmoku_Judge.Instance.isSendKosho = gameData.isSendKosho;
+
 
         //五角形周りのアイテム
         if (gameData.isGetPiece1)
@@ -431,9 +434,9 @@ public class StartResetManager : MonoBehaviour
         else if (MachineClass.isClear)
             //ポテト値引き画面
             TV_Manager.Instance.ChangeTVScreen("a03");
-        //else if(Rimokon.isClear)
+        else if (RimoconClass.isClear)
             //四角4つ画面
-        //    ChangeTVScreen("a02");
+            TV_Manager.Instance.ChangeTVScreen("a02");
         else
             TV_Manager.Instance.ChangeTVScreen("a01");
 
@@ -458,44 +461,72 @@ public class StartResetManager : MonoBehaviour
     //<summary>
     public int CheckProgress()
     {
-        int progress = 1;
+        //進捗
+        int progress;
+        //インスタンスを代入(ソース短縮化のため)
+        gameData = SaveLoadSystem.Instance.gameData;
 
-        //if (!WashPanelController.Instance.firstIsClear)
-        //    //ウォッシュパネル1回目のヒント
-        //    progress = 0;
-        //else if (!Judge_nazo4.isClear)
-        //    //手洗い下の星の謎
-        //    progress = 1;
-        //else if (!Judge_paper.isClear)
-        //    //背面棚右のペーパー置き謎
-        //    progress = 2;
-        //else if (!BlueBox.isClear)
-        //    //背面棚左の「ペンチ」謎
-        //    progress = 3;
-        //else if (!Gabyo.isPullGabyo)
-        //    //画鋲をとる
-        //    progress = 4;
-        //else if (!WashPanelController.Instance.SecondIsClear)
-        //    //ウォシュパネル2回目の謎(天気記号)
-        //    progress = 5;
-        //else if (!DeButton.isClear)
-        //    //「でんち」の謎
-        //    progress = 6;
-        //else if (!Hole.isClear)
-        //    //懐中電灯で穴を照らす
-        //    progress = 7;
-        //else if (!Judge_nazo3.Instance.isClear)
-        //    //手洗い上の水を出すための謎
-        //    progress = 8;
-        //else if (!TunkCover.isGetClearPanel)
-        //    //タンクに水を入れてクリアパネル2を取得
-        //    progress = 9;
-        //else if (!DoorCP.isClear)
-        //    //クリアパネル3枚の置き方
-        //    progress = 10;
-        //else
-        //    //トイレタンクの水の流し方
-        //    progress = 11;
+        //進捗算出
+        if (!gameData.isSetHanger)
+            //step1 ハンガーセットしたか
+            progress = 1;
+        else if (!gameData.isClearHanger)
+            //step2 ハンガー4つの回転
+            progress = 2;
+        else if (!gameData.isSetStraw)
+            //step3 ストロー挿したか
+            progress = 3;
+        else if (!gameData.isClearCop)
+            //step4 コップ回転 
+            progress = 4;
+        else if (!gameData.isClearTambarin)
+            //step5 タンバリン並べ
+            progress = 5;
+        else if (!gameData.isClearRimocon)
+            //step7 エアコンのリモコン 
+            progress = 7;
+        else if (!gameData.isClearDenmokuRock)
+            //step8 デンモクロック解除 
+            progress = 8;
+        else if (!gameData.isSendStarPower)
+            //step9 星の力送信
+            progress = 9;
+        else if (!gameData.isSendStepStep)
+            //step10 1歩1歩送信
+            progress = 10;
+        else if (!gameData.isSendLovers)
+            //step11 九州Lovers送信
+            progress = 11;
+        else if (!gameData.isClearMachine)
+            //step12 カラオケ機のボタン
+            progress = 12;
+        else if (!gameData.isClearOrder)
+            //step13 1000円注文
+            progress = 13;
+        else if (!gameData.isClearPhone)
+            //step14 電話裏のボタン
+            progress = 14;
+        else if (!gameData.isClearPowerOn)
+            //step16 デンモクロック再起動
+            progress = 16;
+        else if (!gameData.isClearDenmokuSlide)
+            //step17 デンモクロック解除２回目
+            progress = 17;
+        else if (!gameData.isGetKey2)
+            //step18 ドライバーで鍵箱開ける
+            progress = 18;
+        else if (!gameData.isSendKosho)
+            //step20 こしょう送信 
+            progress = 20;
+        else if (!gameData.isClearPentagon)
+            //step21 五角形
+            progress = 21;
+        else if (!gameData.isClearFinalBtn)
+            //step22 最後の扉のボタン
+            progress = 22;
+        else
+            //あとは脱出するだけ
+            progress = 23;
 
         return progress;
     }

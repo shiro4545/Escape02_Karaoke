@@ -7,33 +7,17 @@ public class Rimocon_Judge : MonoBehaviour
     //正解したかどうか
     public bool isClear = false;
     //ボタンの4桁
-    public string InputNo = "0000";
+    private string InputNo = "AAAAAA";
     //答えの4桁
-    public string AnswerNo = "4212";
+    private string AnswerNo = "RLRRLL";
     
 
 
     //答え合わせ
-    public void JudgeAnswer(string buttonName, int Index)
+    public void JudgeAnswer(string buttonName)
     {
-
         //入力値の更新
-        if (buttonName == "ButtonMic")
-        {
-            InputNo = Index + InputNo.Substring(1);
-        }
-        else if (buttonName == "ButtonDenmoku")
-        {
-            InputNo = InputNo.Substring(0, 1) + Index + InputNo.Substring(2);
-        }
-        else if (buttonName == "ButtonMirrorBall")
-        {
-            InputNo = InputNo.Substring(0, 2) + Index + InputNo.Substring(3);
-        }
-        else
-        {
-            InputNo = InputNo.Substring(0, 3) + Index;
-        }
+        InputNo = InputNo.Substring(1, 5) + buttonName;
 
         //答えの判定
         if (InputNo == AnswerNo)
@@ -50,6 +34,7 @@ public class Rimocon_Judge : MonoBehaviour
             Invoke(nameof(AfterClear1), 1.5f);
 
             //最後にセーブ
+            SaveLoadSystem.Instance.gameData.isClearRimocon = true;
             SaveLoadSystem.Instance.Save();
         }
     }

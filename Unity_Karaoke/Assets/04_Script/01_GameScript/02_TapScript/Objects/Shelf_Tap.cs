@@ -17,6 +17,7 @@ public class Shelf_Tap : TapCollider
     public GameObject KeyColiider; //初期true
     public GameObject MachineColiider; //初期false
     public GameObject ManualColiider; //初期false
+    public GameObject ShelfLeftColiider; //初期false
 
     //ボタンタップ時
     protected override void OnTap()
@@ -56,6 +57,7 @@ public class Shelf_Tap : TapCollider
         //棚の中のコライダー表示
         MachineColiider.SetActive(true);
         ManualColiider.SetActive(true);
+        ShelfLeftColiider.SetActive(true);
 
         AudioManager.Instance.SoundSE("OpenShelf");
         BlockPanel.Instance.HideBlock();

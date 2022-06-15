@@ -267,6 +267,7 @@ public class ItemManager : MonoBehaviour
                 }
             }
 
+            SaveLoadSystem.Instance.gameData.isGetKey2 = true;
             SaveLoadSystem.Instance.gameData.getItems = SaveLoadSystem.Instance.gameData.getItems.Replace("KeyBox", "Key2");
             SaveLoadSystem.Instance.Save();
         }

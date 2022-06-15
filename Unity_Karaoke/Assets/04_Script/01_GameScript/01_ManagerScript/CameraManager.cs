@@ -252,6 +252,18 @@ public class CameraManager : MonoBehaviour
             }
         },
         {
+            "ShelfLeft",//カラオケ機が入った棚の左下
+            new CameraPositionInfo
+            {
+                Position=new Vector3(-3.65f,3f,-5.1f),
+                Rotate =new Vector3(15,238,0),
+                MoveNames=new MoveNames
+                {
+                    Back="Shelf",
+                }
+            }
+        },
+        {
             "Manual",//カラオケ機が入った棚内のデンモク説明書
             new CameraPositionInfo
             {
@@ -388,8 +400,8 @@ public class CameraManager : MonoBehaviour
             "Rimocon",//リモコン寄り
             new CameraPositionInfo
             {
-                 Position=new Vector3(-6.8f,7.0f,7.75f),
-                 Rotate =new Vector3(0,-90,0),
+                 Position=new Vector3(-7.5f,7.3f,7.76f),
+                 Rotate =new Vector3(13,-90,0),
                  MoveNames=new MoveNames
                  {
                     Back="Poster",
