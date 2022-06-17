@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
-using Google.Play.Review;
+//using Google.Play.Review;
 
 public class ClearManager : MonoBehaviour
 {
@@ -41,12 +41,12 @@ public class ClearManager : MonoBehaviour
         //カメラを徐々にズーム&移動
         float defaultFov = MainCamera.fieldOfView;
         DOTween.To(() => MainCamera.fieldOfView, fov => MainCamera.fieldOfView = fov, 30, 5.9f);
-        MainCamera.transform.DOMove(new Vector3(1.2f,0,0), 5.9f).SetRelative(true);
+        MainCamera.transform.DOMove(new Vector3(1.2f, 0, 0), 5.9f).SetRelative(true);
 
         //白パネルをフェードイン(2秒遅れで)
         White.GetComponent<Image>().DOFade(255f, 2000f).SetDelay(2f);
 
-        Invoke(nameof(AfterClear1),6);
+        Invoke(nameof(AfterClear1), 6);
     }
 
     private void AfterClear1()
@@ -71,7 +71,7 @@ public class ClearManager : MonoBehaviour
 
         AudioManager.Instance.SoundSE("Ending");
         //「脱出成功」をズームイン
-        ClearImage.transform.DOScale(new Vector3(7.2f,2.9f,2), 4f)
+        ClearImage.transform.DOScale(new Vector3(7.2f, 2.9f, 2), 4f)
             .SetDelay(0.5f)
             .SetEase(Ease.OutBounce);
         //白パネルをフェードアウト(1秒遅れで)
@@ -86,7 +86,7 @@ public class ClearManager : MonoBehaviour
         ToOtherApp.GetComponent<Image>().DOFade(255f, 2000f).SetDelay(7f);
 
         //アプリレビュー表示
-        Invoke(nameof(ShowReview), 9f);
+        Invoke(nameof(ShowReview), 8.5f);
     }
 
     //白パネルを非表示に
@@ -110,31 +110,31 @@ public class ClearManager : MonoBehaviour
     }
 
 
-    /// <summary>
-    /// Android端末でIn-App Review APIを呼ぶサンプル
-    /// </summary>
-    private IEnumerator ShowReviewCoroutine()
-    {
-        // https://developer.android.com/guide/playcore/in-app-review/unity
-        var reviewManager = new ReviewManager();
-        var requestFlowOperation = reviewManager.RequestReviewFlow();
-        yield return requestFlowOperation;
-        if (requestFlowOperation.Error != ReviewErrorCode.NoError)
-        {
-            // エラーの場合はここで止まる.
-            yield break;
-        }
-        var playReviewInfo = requestFlowOperation.GetResult();
-        var launchFlowOperation = reviewManager.LaunchReviewFlow(playReviewInfo);
-        yield return launchFlowOperation;
-        if (launchFlowOperation.Error != ReviewErrorCode.NoError)
-        {
-            // エラーの場合はここで止まる.
-            yield break;
-        }
-    }
+    ///// <summary>
+    ///// Android端末でIn-App Review APIを呼ぶサンプル
+    ///// </summary>
+    //private IEnumerator ShowReviewCoroutine()
+    //{
+    //    // https://developer.android.com/guide/playcore/in-app-review/unity
+    //    var reviewManager = new ReviewManager();
+    //    var requestFlowOperation = reviewManager.RequestReviewFlow();
+    //    yield return requestFlowOperation;
+    //    if (requestFlowOperation.Error != ReviewErrorCode.NoError)
+    //    {
+    //        // エラーの場合はここで止まる.
+    //        yield break;
+    //    }
+    //    var playReviewInfo = requestFlowOperation.GetResult();
+    //    var launchFlowOperation = reviewManager.LaunchReviewFlow(playReviewInfo);
+    //    yield return launchFlowOperation;
+    //    if (launchFlowOperation.Error != ReviewErrorCode.NoError)
+    //    {
+    //        // エラーの場合はここで止まる.
+    //        yield break;
+    //    }
+    //}
 
-
+}
 
 
 
@@ -160,4 +160,4 @@ public class ClearManager : MonoBehaviour
     //「うんちくん」を回転しながらズームイン
     //Unchi1.transform.DOScale(new Vector3(2f,2f,1), 1f).SetDelay(3f);
     //Unchi1.transform.DORotate(new Vector3(0,0,353), 1f, RotateMode.WorldAxisAdd).SetDelay(3f);
-}
+

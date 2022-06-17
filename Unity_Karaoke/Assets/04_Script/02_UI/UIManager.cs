@@ -36,9 +36,7 @@ public class UIManager : MonoBehaviour
     public GameObject BtnClear_OtherApp;
 
     //他のアプリパネル内
-    public GameObject TxtOtherAppTop;
     public GameObject BtnOtherApp_Title;
-    public GameObject SclOtherApp;
 
 
     public GameObject ItemImage;
@@ -96,8 +94,8 @@ public class UIManager : MonoBehaviour
                 //アイテムパネル
                 ItemPanel.GetComponent<RectTransform>().sizeDelta = new Vector2(0, 940);
             }
-            //else if (Screen.width == 1242 && Screen.height == 2208)//iPhone7plus,8plus
-            else if (Screen.width == 1080 && Screen.height == 1920)//iPhone7plus,8plus
+            else if (Screen.width == 1242 && Screen.height == 2208)//iPhone7plus,8plus  実機
+            //else if (Screen.width == 1080 && Screen.height == 1920)//iPhone7plus,8plus   Unity
             {
                 //ヘッダーフッター
                 GameHeader.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -182);
