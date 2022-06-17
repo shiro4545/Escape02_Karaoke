@@ -57252,7 +57252,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TVScreen: {fileID: 549275698}
-  Rimocon: {fileID: 0}
+  Rimocon: {fileID: 1038501537}
   Machine: {fileID: 492863113}
   isPlaySong: 0
   DoorClass: {fileID: 1311376090}

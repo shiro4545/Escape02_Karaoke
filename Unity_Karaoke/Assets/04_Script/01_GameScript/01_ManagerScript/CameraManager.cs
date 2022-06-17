@@ -73,8 +73,8 @@ public class CameraManager : MonoBehaviour
                 Rotate =new Vector3(2.3f,-117,0),
                 MoveNames=new MoveNames
                 {
-                    Left="RoomSofa",
-                    Right="RoomTV",
+                    Left="RoomTV",
+                    Right="RoomSofa",
                 },
                 hideObjectsName = new string[]{"Hanger","HallWall","Desk","TambarinArea"}
             }
@@ -87,8 +87,8 @@ public class CameraManager : MonoBehaviour
                 Rotate =new Vector3(0,-48,0),
                 MoveNames=new MoveNames
                 {
-                    Left="RoomDoor",
-                    Right="RoomStart",
+                    Left="RoomStart",
+                    Right="RoomDoor",
                 }
             }
         },
@@ -100,8 +100,8 @@ public class CameraManager : MonoBehaviour
                 Rotate =new Vector3(0,-208,0),
                 MoveNames=new MoveNames
                 {
-                    Left="RoomStart",
-                    Right="RoomDoor",
+                    Left="RoomDoor",
+                    Right="RoomStart",
                 },
             }
         },
@@ -113,8 +113,8 @@ public class CameraManager : MonoBehaviour
                 Rotate =new Vector3(0,75f,0),
                 MoveNames=new MoveNames
                 {
-                    Left="RoomTV",
-                    Right="RoomSofa",
+                    Left="RoomSofa",
+                    Right="RoomTV",
                 },
                 hideObjectsName = new string[]{"Shelf","KaraokeMachine","Tambarin_Shikaku" }
             }
