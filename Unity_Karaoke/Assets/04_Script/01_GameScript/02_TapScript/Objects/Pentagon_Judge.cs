@@ -52,6 +52,7 @@ public class Pentagon_Judge : MonoBehaviour
 
             //ステータス変更
             isClear = true;
+            SaveLoadSystem.Instance.gameData.isSendKosho = true;
             SaveLoadSystem.Instance.gameData.isClearPentagon = true;
 
 

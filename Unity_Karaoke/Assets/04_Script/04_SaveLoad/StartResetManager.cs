@@ -327,7 +327,9 @@ public class StartResetManager : MonoBehaviour
             //デンモクスライド
             Denmoku_Judge.Instance.gameObject.transform.Translate(new Vector3(1.2f, 0, 0));
             //DenmokuColliderスライド
-            Denmoku_Judge.Instance.DenmokuCollider.transform.Translate(new Vector3(0, 0, -1.2f));
+            Denmoku_Judge.Instance.DenmokuCollider1.transform.Translate(new Vector3(0, 0, -1.2f));
+            Denmoku_Judge.Instance.DenmokuCollider2.transform.Translate(new Vector3(0, 0, -1.2f));
+            Denmoku_Judge.Instance.DenmokuCollider3.transform.Translate(new Vector3(0, 0, -1.2f));
             //DenmokuBackColliderスライド
             Denmoku_Judge.Instance.DenmokuBackCollider.transform.Translate(new Vector3(0, 0, -1.2f));
             //DriverCollider表示

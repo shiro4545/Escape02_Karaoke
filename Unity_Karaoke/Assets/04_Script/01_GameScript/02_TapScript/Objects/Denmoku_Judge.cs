@@ -61,7 +61,9 @@ public class Denmoku_Judge : MonoBehaviour
     public GameObject PhoneBtnCollider;
 
     //ドライバー用スライド対応
-    public GameObject DenmokuCollider;
+    public GameObject DenmokuCollider1;
+    public GameObject DenmokuCollider2;
+    public GameObject DenmokuCollider3;
     public GameObject DenmokuBackCollider;
     public GameObject DriverCollider;
     public GameObject DriverDenmokuCollider;
@@ -221,6 +223,7 @@ public class Denmoku_Judge : MonoBehaviour
 
             BlockPanel.Instance.HideBlock();
 
+            SaveLoadSystem.Instance.gameData.isClearRimocon = true;
             SaveLoadSystem.Instance.gameData.isClearDenmokuRock = true;
             SaveLoadSystem.Instance.gameData.DenmokuStatus = 2;
             SaveLoadSystem.Instance.Save();
@@ -256,7 +259,9 @@ public class Denmoku_Judge : MonoBehaviour
         //デンモクスライド
         this.gameObject.transform.Translate(new Vector3(1.2f, 0, 0));
         //DenmokuColliderスライド
-        DenmokuCollider.transform.Translate(new Vector3(0, 0, -1.2f));
+        DenmokuCollider1.transform.Translate(new Vector3(0, 0, -1.2f));
+        DenmokuCollider2.transform.Translate(new Vector3(0, 0, -1.2f));
+        DenmokuCollider3.transform.Translate(new Vector3(0, 0, -1.2f));
         //DenmokuBackColliderを非表示(これ以降,電源はOFFにできないように)
         DenmokuBackCollider.SetActive(false);
 

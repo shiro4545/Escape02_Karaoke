@@ -6,6 +6,7 @@ public class Rimocon_Judge : MonoBehaviour
 {
     //正解したかどうか
     public bool isClear = false;
+
     //ボタンの4桁
     private string InputNo = "AAAAAA";
     //答えの4桁
@@ -19,8 +20,8 @@ public class Rimocon_Judge : MonoBehaviour
         //入力値の更新
         InputNo = InputNo.Substring(1, 5) + buttonName;
 
-        //答えの判定
-        if (InputNo == AnswerNo)
+        //答えの判定 (カラオケ機が入った棚が開いてる必要がある)
+        if (InputNo == AnswerNo && SaveLoadSystem.Instance.gameData.isOpenShelf)
         {
             //クリアの効果音
             AudioManager.Instance.SoundSE("Clear");

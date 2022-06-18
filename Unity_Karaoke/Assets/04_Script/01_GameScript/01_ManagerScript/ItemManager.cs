@@ -17,7 +17,6 @@ public class ItemManager : MonoBehaviour
 
     //特定アイテムでの透明ボタン
     public GameObject BtnKeyBox;
-    public GameObject BtnStrawPackage;
 
 
     // Start is called before the first frame update
@@ -36,11 +35,6 @@ public class ItemManager : MonoBehaviour
 
         //アイテム拡大画面でタップする場合
 
-        //袋入りストローからストローを取り出す
-        BtnStrawPackage.GetComponent<Button>().onClick.AddListener(() =>
-        {
-            GetStraw();
-        });
         //鍵入り箱をひっくり返す/ドライバーで開ける
         BtnKeyBox.GetComponent<Button>().onClick.AddListener(() =>
         {
@@ -170,17 +164,12 @@ public class ItemManager : MonoBehaviour
 
         //透明ボタンを非表示
         BtnKeyBox.SetActive(false);
-        BtnStrawPackage.SetActive(false);
 
 
         //箱入りの鍵のん場合に透明ボタン表示
         if (ItemPanel.transform.Find("ItemImage").gameObject.GetComponent<Image>().sprite.name == "KeyBox" ||
             ItemPanel.transform.Find("ItemImage").gameObject.GetComponent<Image>().sprite.name == "KeyBox_Back")
             BtnKeyBox.SetActive(true);
-
-        //袋入りストローの場合に透明ボタン表示
-        if (ItemPanel.transform.Find("ItemImage").gameObject.GetComponent<Image>().sprite.name == "StrawPackage" )
-            BtnStrawPackage.SetActive(true);
 
     }
 
@@ -281,35 +270,5 @@ public class ItemManager : MonoBehaviour
     }
 
 
-    //<summary>
-    //袋入りストローからストローを取り出す
-    //</summary>
-    //<param></param>
-    private void GetStraw()
-    {
-        AudioManager.Instance.SoundSE("Clear");
-        //拡大画面をStrawに変える
-        ItemPanel.transform.Find("ItemImage").gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/01_Items/Straw");
-        BtnStrawPackage.SetActive(false);
-
-        //ヘッダーのアイテム画像をStrawに変える
-        foreach (var obj in getItemsArray)
-        {
-            if (obj.gameObject.GetComponent<Image>().sprite.name == "StrawPackage" )
-            {
-                //アイテム画像をKey2に変える
-                obj.gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/01_Items/Straw");
-                //Strawの枠線を表示する
-                obj.gameObject.GetComponent<Outline>().enabled = true;
-                selectItem = "Straw";
-                break;
-            }
-        }
-
-        //セーブ
-        SaveLoadSystem.Instance.gameData.getItems = SaveLoadSystem.Instance.gameData.getItems.Replace("StrawPackage", "Straw");
-        SaveLoadSystem.Instance.Save();
-
-    }
 
 }

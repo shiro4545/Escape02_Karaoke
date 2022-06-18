@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
-//using Google.Play.Review;
+using Google.Play.Review;
 
-//iOS版
+//Android版
 
 public class ClearManager : MonoBehaviour
 {
@@ -115,26 +115,26 @@ public class ClearManager : MonoBehaviour
     ///// <summary>
     ///// Android端末でIn-App Review APIを呼ぶサンプル
     ///// </summary>
-    //private IEnumerator ShowReviewCoroutine()
-    //{
-    //    // https://developer.android.com/guide/playcore/in-app-review/unity
-    //    var reviewManager = new ReviewManager();
-    //    var requestFlowOperation = reviewManager.RequestReviewFlow();
-    //    yield return requestFlowOperation;
-    //    if (requestFlowOperation.Error != ReviewErrorCode.NoError)
-    //    {
-    //        // エラーの場合はここで止まる.
-    //        yield break;
-    //    }
-    //    var playReviewInfo = requestFlowOperation.GetResult();
-    //    var launchFlowOperation = reviewManager.LaunchReviewFlow(playReviewInfo);
-    //    yield return launchFlowOperation;
-    //    if (launchFlowOperation.Error != ReviewErrorCode.NoError)
-    //    {
-    //        // エラーの場合はここで止まる.
-    //        yield break;
-    //    }
-    //}
+    private IEnumerator ShowReviewCoroutine()
+    {
+       // https://developer.android.com/guide/playcore/in-app-review/unity
+       var reviewManager = new ReviewManager();
+       var requestFlowOperation = reviewManager.RequestReviewFlow();
+       yield return requestFlowOperation;
+       if (requestFlowOperation.Error != ReviewErrorCode.NoError)
+       {
+           // エラーの場合はここで止まる.
+           yield break;
+       }
+       var playReviewInfo = requestFlowOperation.GetResult();
+       var launchFlowOperation = reviewManager.LaunchReviewFlow(playReviewInfo);
+       yield return launchFlowOperation;
+       if (launchFlowOperation.Error != ReviewErrorCode.NoError)
+       {
+           // エラーの場合はここで止まる.
+           yield break;
+       }
+    }
 
 }
 
@@ -162,4 +162,3 @@ public class ClearManager : MonoBehaviour
     //「うんちくん」を回転しながらズームイン
     //Unchi1.transform.DOScale(new Vector3(2f,2f,1), 1f).SetDelay(3f);
     //Unchi1.transform.DORotate(new Vector3(0,0,353), 1f, RotateMode.WorldAxisAdd).SetDelay(3f);
-

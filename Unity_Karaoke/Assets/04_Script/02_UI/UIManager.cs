@@ -59,8 +59,12 @@ public class UIManager : MonoBehaviour
         GamePanel.GetComponent<RectTransform>().sizeDelta = GetComponent<RectTransform>().sizeDelta;
         ClearPanel.GetComponent<RectTransform>().sizeDelta = GetComponent<RectTransform>().sizeDelta;
 
-        //Debug.Log("w:" + Screen.width);
-        //Debug.Log("h:" + Screen.height);
+        float _width = Screen.width;
+        float _height = Screen.height;
+
+        //Debug.Log("w:" + _width);
+        //Debug.Log("h:" + _height);
+        //Debug.Log("h/W" + _height / _width);
         //Debug.Log("Safe:" + Screen.safeArea);
         //Debug.Log("Device:" + Application.platform);
 
@@ -80,8 +84,9 @@ public class UIManager : MonoBehaviour
         }
         else //iOSの場合
         {
-            if (Screen.width <= 750) //iPhone8,SE
+            if (_width <= 750) //iPhone8,SE
             {
+                //Debug.Log("iPhoneSE");
                 //ヘッダーフッター
                 GameHeader.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -185);
                 GameFooter.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 250);
@@ -94,9 +99,9 @@ public class UIManager : MonoBehaviour
                 //アイテムパネル
                 ItemPanel.GetComponent<RectTransform>().sizeDelta = new Vector2(0, 940);
             }
-            else if (Screen.width == 1242 && Screen.height == 2208)//iPhone7plus,8plus  実機
-            //else if (Screen.width == 1080 && Screen.height == 1920)//iPhone7plus,8plus   Unity
+            else if (_height/_width > 1.6f && _height / _width < 2)//iPhone7plus,8plus
             {
+                //Debug.Log("iPhone8+");
                 //ヘッダーフッター
                 GameHeader.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -182);
                 GameFooter.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 240);
@@ -107,16 +112,18 @@ public class UIManager : MonoBehaviour
                 //他のアプリパネル
                 OtherAppPanel.GetComponent<RectTransform>().sizeDelta = new Vector2(0, -200);
                 //アイテムパネル
-                ItemPanel.GetComponent<RectTransform>().sizeDelta = new Vector2(0, 900);
+                ItemPanel.GetComponent<RectTransform>().sizeDelta = new Vector2(0, 650);
             }
-            else if (Screen.width <= 1300)//iPhone10以上
+            else if (_width <= 1300)//iPhone10以上
             {
+                //Debug.Log("iPhone10");
                 //ヘッダーフッター
                 GameHeader.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -295);
                 GameFooter.GetComponent<RectTransform>().anchoredPosition = new Vector2(0,300);
             }
             else //iPad
             {
+                Debug.Log("iPad");
                 //タイトルパネル
                 BtnTitle_Start.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -100);
                 BtnTitle_Continue.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -250);

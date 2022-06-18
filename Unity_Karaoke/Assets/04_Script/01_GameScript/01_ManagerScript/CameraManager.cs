@@ -345,7 +345,7 @@ public class CameraManager : MonoBehaviour
                 {
                     Back="HallBack",
                 },
-                hideObjectsName = new string[]{"Hole","HallTable"}
+                hideObjectsName = new string[]{"Hole","HallTable","Phone"}
             }
         },
          {
