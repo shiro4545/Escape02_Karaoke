@@ -576,7 +576,7 @@ public class Denmoku_Judge : MonoBehaviour
         //注文を受け付けました
         Msg701.SetActive(true);
 
-        if (UserNo401 == "0101" && Machine.isClear)
+        if (UserNo401 == "0101" && Machine.isClear && !SaveLoadSystem.Instance.gameData.isClearOrder)
         {
             //正解演出
             AudioManager.Instance.SoundSE("Clear");
