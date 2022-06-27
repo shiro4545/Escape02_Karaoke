@@ -104,11 +104,11 @@ public class ClearManager : MonoBehaviour
     /// </summary>
     private void ShowReview()
     {
-#if UNITY_IOS
+        //#if UNITY_IOS
         UnityEngine.iOS.Device.RequestStoreReview();
-#elif UNITY_ANDROID
-        StartCoroutine(ShowReviewCoroutine());
-#endif
+//#elif UNITY_ANDROID
+        //StartCoroutine(ShowReviewCoroutine());
+//#endif
     }
 
 

@@ -15,8 +15,9 @@ public class Cop_Judge : MonoBehaviour
 
     //?R???C?_?[
     public GameObject BoxSofaColiider; //????false
+    public GameObject BoxSofaColiider2; //????false
     //public GameObject TambarinColiider; //????false
-    
+
 
 
     // Start is called before the first frame update
@@ -69,6 +70,7 @@ public class Cop_Judge : MonoBehaviour
 
         //BoxSofa?R???C?_?[?\??
         BoxSofaColiider.SetActive(true);
+        BoxSofaColiider2.SetActive(true);
         //TambarinColider.SetActive(true);
 
 

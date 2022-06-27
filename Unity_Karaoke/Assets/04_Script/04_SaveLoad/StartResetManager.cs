@@ -162,6 +162,7 @@ public class StartResetManager : MonoBehaviour
             CopClass.CloseSofa.SetActive(false);
             CopClass.OpenSofa.SetActive(true);
             CopClass.BoxSofaColiider.SetActive(true);
+            CopClass.BoxSofaColiider2.SetActive(true);
         }
 
         //上引き出し状態
