@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class OtherAppManager : MonoBehaviour
 {
+    //305号室
+    public GameObject BtnApart;
     //病室ボタン
     public GameObject BtnByoshitsu;
     //トイレボタン
@@ -28,6 +30,14 @@ public class OtherAppManager : MonoBehaviour
     //</summary>
     private Dictionary<string, URL> AppInfoes = new Dictionary<string, URL>
     {
+        {
+            "Apart", //305号室
+            new URL
+            {
+                iOS = "https://apps.apple.com/jp/app/305%E5%8F%B7%E5%AE%A4%E3%81%8B%E3%82%89%E3%81%AE%E8%84%B1%E5%87%BA/id1641307497",
+                Android = "https://play.google.com/store/apps/details?id=com.Harekore.Apartment"
+,            }
+        },
       {
           "Byoshitsu", //病室
           new URL
@@ -57,9 +67,12 @@ public class OtherAppManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //305号室
+        BtnApart.GetComponent<Button>().onClick.AddListener(() =>
+        {
+            OnTapApp("Apart");
+        });
         //病室
-
-        //トイレ
         BtnByoshitsu.GetComponent<Button>().onClick.AddListener(() =>
         {
             OnTapApp("Byoshitsu");
